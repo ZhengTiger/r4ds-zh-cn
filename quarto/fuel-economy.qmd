@@ -1,0 +1,24 @@
+---
+format: html
+params:
+  my_class: "suv"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)
+
+class <- mpg |> filter(class == params$my_class)
+```
+
+# Fuel economy for `r params$my_class`s
+
+```{r}
+#| message: false
+
+ggplot(class, aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  geom_smooth(se = FALSE)
+```

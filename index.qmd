@@ -1,0 +1,27 @@
+# Welcome {.unnumbered}
+
+这是正在进行的第 2 版 **"R for Data Science"** 的网站。
+本书将教您如何使用 R 进行数据科学分析：您将学习如何将数据导入 R，将其转化为最有用的结构，对其进行转换和可视化。
+
+在本书中，您将找到数据科学技能的实践。
+正如化学家学习如何清洁试管和储存实验室物品一样，您将学习如何清理数据和绘制图表---以及许多其他东西。
+这些是让数据科学发生的技能，在这里您将找到使用 R 完成这些事情的最佳实践。
+您将学习如何使用图形语法、文学编程和可重复的研究来节省时间。
+您还将学习如何管理认知资源，以便在整理、可视化和探索数据时促进发现。
+
+本网站是永久免费的，遵守 [CC BY-NC-ND 3.0](https://creativecommons.org/licenses/by-nc-nd/3.0/us/) 协议。如
+果您想要这本书的实体版，可以在 [Amazon](https://amzn.to/2aHLAQ1) 上订购第 1 版，或者等到 2023 年年中再订购第 2 版。如
+果您喜欢免费阅读这本书并愿意回馈，请向 [Kākāpō Recovery](https://www.doc.govt.nz/kakapo-donate) 捐款：[kākāpō](https://www.youtube.com/watch?v=9T1vfsHYiKY)（出现在 R4DS 的封面上）是一种极度濒危的新西兰本土鹦鹉；只剩下 248 个了。
+
+如果您说另一种语言，您可能会对第 1 版的免费翻译感兴趣：
+
+-   [Spanish](https://es.r4ds.hadley.nz)
+-   [Italian](https://it.r4ds.hadley.nz)
+-   [Turkish](https://tr.r4ds.hadley.nz)
+
+请注意，R4DS 使用 [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html)。
+通过为本书做出贡献，您同意遵守其条款。
+
+## Acknowledgements {.unnumbered}
+
+R4DS 由 <https://www.netlify.com> 托管，作为他们对开源软件和社区支持的一部分。

@@ -1,0 +1,44 @@
+# Whole game {#sec-whole-game-intro .unnumbered}
+
+```{r}
+#| results: "asis"
+#| echo: false
+source("_common.R")
+```
+
+在本书的这一部分，我们的目标是快速为您概述数据科学的主要工具：**importing**, **tidying**, **transforming**, **visualizing data**，如 @fig-ds-whole-game 所示。
+我们希望向您展示数据科学的"整个游戏"，只提供足够的主要要素，让您能够处理真实的、简单的数据集。
+本书的后续部分将更深入地涵盖每个主题，扩大您能够处理的数据科学挑战的范围。
+
+```{r}
+#| label: fig-ds-whole-game 
+#| echo: false
+#| out.width: NULL
+#| fig-cap: |
+#|   在本书的这一部分，您将学习如何导入（import）、整理（tidy）、转换（transform）、可视化（visualize）数据。
+#| fig-alt: |
+#|   A diagram displaying the data science cycle: Import -> Tidy ->
+#|   Understand  (which has the phases Transform -> Visualize -> Model in a
+#|   cycle) -> Communicate. Surrounding all of these is Program 
+#|   Import, Tidy, Transform, and Visualize is highlighted.
+
+knitr::include_graphics("diagrams/data-science/whole-game.png", dpi = 270)
+```
+
+四个章节着重介绍数据科学的工具：
+
+-   可视化（Visualization）是使用 R 编程的一个很好的起点，因为其收益非常明显：您可以创建优雅且信息丰富的图形，帮助您理解数据。
+    在 @sec-data-visualization 中，您将深入学习可视化，了解 ggplot2 plot 的基本结构，以及将数据转化为图形的强大技术。
+
+-   仅仅进行可视化通常是不够的，因此在 @sec-data-transform 中，您将学习关键的动词，这些动词可以帮助您选择重要的变量、过滤关键观察结果、创建新变量和计算总结。
+
+-   在 @sec-data-tidy 中，您将学习关于整洁数据（tidy data）的知识，这是一种一致的存储数据的方式，使转换、可视化和建模变得更加容易。
+    您将学习其基本原则，以及如何将数据整理成整洁的形式。
+
+-   在您进行数据转换和可视化之前，首先需要将数据导入 R 中。
+    在 @sec-data-import 中，您将学习如何将 `.csv` 文件导入 R 中的基础知识。
+
+-   除了这些章节之外，还有四个章节着重介绍您的 R 工作流程。
+    在 @sec-workflow-basics, @sec-workflow-style, @sec-workflow-scripts-projects 中，您将学习编写和组织 R 代码的良好工作流程实践。
+    这些将为您的长远成功奠定基础，因为它们将为您在处理实际项目时保持组织提供工具。
+    最后，@sec-workflow-getting-help 将教您如何获取帮助和持续学习。

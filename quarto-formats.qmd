@@ -1,0 +1,283 @@
+# Quarto formats {#sec-quarto-formats}
+
+```{r}
+#| results: "asis"
+#| echo: false
+
+source("_common.R")
+status("complete")
+```
+
+## Introduction
+
+到目前为止，您已经看到了使用 Quarto 生成 HTML 文档的示例。
+本章将简要概述您可以使用 Quarto 生成的其他多种输出类型。
+
+有两种设置文档输出的方式：
+
+1.  永久地，通过修改 YAML header：
+
+    ``` yaml
+    title: "Diamond sizes"
+    format: html
+    ```
+
+2.  临时地，通过手动调用 `quarto::quarto_render()`：
+
+    ```{r}
+    #| eval: false
+
+    quarto::quarto_render("diamond-sizes.qmd", output_format = "docx")
+    ```
+
+    这在您希望以编程方式生成多种类型的输出时非常有用，因为 `output_format` 参数还可以接受一个值列表。
+
+    ```{r}
+    #| eval: false
+
+    quarto::quarto_render("diamond-sizes.qmd", output_format = c("docx", "pdf"))
+    ```
+
+## Output options
+
+Quarto 提供了多种输出格式。
+您可以在 <https://quarto.org/docs/output-formats/all-formats.html> 找到完整的列表。
+许多格式共享一些输出选项（例如，`toc: true` 用于包含目录），但其他选项是特定于格式的（例如，`code-fold: true` 将代码块折叠为 HTML 输出中的 `<details>` 标签，以便用户可以按需显示它，这在 PDF 或 Word 文档中不适用）。
+
+要覆盖默认选项，您需要使用一个扩展的 `format` 字段。
+例如，如果您想要以浮动的目录渲染一个 `html` 文档，您可以使用以下方式：
+
+``` yaml
+format:
+  html:
+    toc: true
+    toc_float: true
+```
+
+您甚至可以通过提供一个格式列表来将内容渲染为多个输出格式：
+
+``` yaml
+format:
+  html:
+    toc: true
+    toc_float: true
+  pdf: default
+  docx: default
+```
+
+请注意特殊的语法（`pdf: default`），如果您不想覆盖任何默认选项。
+
+要将文档渲染为 YAML 中指定的所有格式，可以使用 `output_format = "all"`。
+
+```{r}
+#| eval: false
+
+quarto::quarto_render("diamond-sizes.qmd", output_format = "all")
+```
+
+## Documents
+
+前一章重点介绍了默认的 `html` 输出。
+在此基础上有几种基本变体，可以生成不同类型的文档。
+例如：
+
+-   `pdf` 生成使用 LaTeX（一种开源文档排版系统）的 PDF 文件，您需要安装它。
+    如果您尚未安装，RStudio 将提示您进行安装。
+
+-   `docx` for Microsoft Word (`.docx`) documents.
+
+-   `odt` for OpenDocument Text (`.odt`) documents.
+
+-   `rtf` for Rich Text Format (`.rtf`) documents.
+
+-   `gfm` for a GitHub Flavored Markdown (`.md`) document.
+
+-   `ipynb` for Jupyter Notebooks (`.ipynb`).
+
+请记住，当生成要与决策者（decision-makers）共享的文档时，您可以通过在文档的 YAML 中设置全局选项来关闭默认显示代码的功能：
+
+``` yaml
+execute:
+  echo: false
+```
+
+对于 `html` 文档，另一个选项是默认隐藏代码块，但可以通过点击显示出来：
+
+``` yaml
+format:
+  html:
+    code: true
+```
+
+## Presentations
+
+您还可以使用 Quarto 制作演示文稿（presentations）。
+与 Keynote 或 PowerPoint 等工具相比，您的视觉控制权较少，但自动将 R 代码的结果插入演示文稿可以节省大量时间。
+演示文稿通过将内容分成幻灯片来工作，每个幻灯片从第二级（`##`）标题开始。
+此外，第一级（`#`）标题表示一个新部分的开始，该部分标题幻灯片默认位于中间居中。
+
+Quarto 支持多种演示文稿格式，包括：
+
+1.  `revealjs` - HTML presentation with revealjs
+
+2.  `pptx` - PowerPoint presentation
+
+3.  `beamer` - PDF presentation with LaTeX Beamer.
+
+您可以在 [https://quarto.org/docs/presentations](https://quarto.org/docs/presentations/) 上阅读更多关于使用 Quarto 创建演示文稿的信息。
+
+## Interactivity
+
+就像任何 HTML 文档一样，使用 Quarto 创建的 HTML 文档也可以包含交互式组件。
+在这里，我们介绍了两种在您的 Quarto 文档中包含交互性的选项：htmlwidgets 和 Shiny。
+
+### htmlwidgets
+
+HTML是一种交互式的格式，您可以通过使用 **htmlwidgets** 来充分利用这种交互性，它是一组 R 函数，用于生成交互式的 HTML 可视化效果。
+例如，下面是一个 **leaflet** 地图。
+如果您在网页上查看此页面，您可以拖动地图、放大和缩小等操作。
+当然，在书籍中无法进行这些操作，因此 Quarto 会自动为您插入一个静态截图。
+
+```{r}
+#| fig-alt: Leaflet map of Maungawhau / Mount Eden.
+#| eval: false
+
+library(leaflet)
+leaflet() |>
+  setView(174.764, -36.877, zoom = 16) |> 
+  addTiles() |>
+  addMarkers(174.764, -36.877, popup = "Maungawhau") 
+```
+
+htmlwidgets 的好处在于您不需要了解 HTML 或 JavaScript 的任何知识就可以使用它们。
+所有的细节都被封装在包内部，所以您无需担心这些。
+
+有许多提供 htmlwidgets 的包，包括：
+
+-   [**dygraphs**](https://rstudio.github.io/dygraphs) for interactive time series visualizations.
+
+-   [**DT**](https://rstudio.github.io/DT/) for interactive tables.
+
+-   [**threejs**](https://bwlewis.github.io/rthreejs) for interactive 3d plots.
+
+-   [**DiagrammeR**](https://rich-iannone.github.io/DiagrammeR) for diagrams (like flow charts and simple node-link diagrams).
+
+要了解更多关于 htmlwidgets 的信息，并查看提供 htmlwidgets 的完整包列表，请访问 <https://www.htmlwidgets.org>。
+
+### Shiny
+
+htmlwidgets 提供了客户端（**client-side**）交互性 --- 所有的交互性都在浏览器中进行，与 R 无关。
+一方面，这非常好，因为您可以分发 HTML 文件而无需连接到 R。
+然而，这从根本上限制了您所能做的事情，只能限于已经在 HTML 和 JavaScript 中实现的功能。
+另一种选择是使用 **shiny**，这是一个允许您使用 R 代码而不是 JavaScript 来创建交互性的包。
+
+要从 Quarto 文档中调用 Shiny 代码，请在 YAML header 添加 `server: shiny`：
+
+``` yaml
+title: "Shiny Web App"
+format: html
+server: shiny
+```
+
+接下来，您可以使用 "input" 函数将交互式组件添加到文档中：
+
+```{r}
+#| eval: false
+
+library(shiny)
+
+textInput("name", "What is your name?")
+numericInput("age", "How old are you?", NA, min = 0, max = 150)
+```
+
+```{r}
+#| echo: false
+#| out-width: null
+#| fig-alt: |
+#|   Two input boxes on top of each other. Top one says, "What is your 
+#|   name?", the bottom, "How old are you?".
+
+knitr::include_graphics("quarto/quarto-shiny.png")
+```
+
+然后，您还需要一个具有 `context: server` 代码块选项的代码块，其中包含需要在 Shiny 服务器上运行的代码。
+
+然后，您可以使用 `input$name` 和 `input$age` 引用这些值，并且每当它们发生变化时，使用它们的代码将自动重新运行。
+
+在这里，我们无法向您展示一个实时的 shiny 应用程序，因为 shiny 的交互性发生在服务器端（**server-side**）。
+这意味着您可以编写交互式应用程序而无需了解 JavaScript，但您需要一个服务器来运行它们。
+这引入了一个逻辑问题：Shiny 应用程序需要一个 Shiny 服务器才能在线运行。
+当您在自己的计算机上运行 Shiny 应用程序时，Shiny 会自动为您设置一个 Shiny 服务器，但如果您想在线发布这种交互性，您需要一个面向公众的 Shiny 服务器。
+这就是 shiny 的根本取舍：您可以在 shiny 文档中做任何您在 R 中可以做的事情，但需要有人在运行 R。
+
+要了解更多关于 Shiny 的内容，我们推荐阅读 Hadley Wickham 的《Mastering Shiny》，[https://mastering-shiny.org](https://mastering-shiny.org/)。
+
+## Websites and books
+
+通过一些额外的基础设施，您可以使用 Quarto 生成一个完整的网站或书籍：
+
+-   将您的 `.qmd` 文件放置在一个目录中。
+    `index.qmd` 将成为首页。
+
+-   添加一个名为 `_quarto.yml` 的 YAML 文件，用于为站点提供导航。
+    在此文件中，将 `project` 类型设置为 `book` 或 `website`，例如：
+
+    ``` yaml
+    project:
+      type: book
+    ```
+
+例如，下面的 `_quarto.yml` 文件从三个源文件创建一个网站：`index.qmd`（首页），`viridis-colors.qmd`和`terrain-colors.qmd`。
+
+```{r}
+#| echo: false
+#| comment: ""
+
+cat(readr::read_file("quarto/example-site.yml"))
+```
+
+您需要用于书籍的 `_quarto.yml` 文件的结构非常相似。
+以下示例展示了如何创建一个包含四个章节的书籍，并将其渲染为三种不同的输出格式（`html`、`pdf`、`epub`）。
+同样，源文件是 `.qmd` 文件。
+
+```{r}
+#| echo: false
+#| comment: ""
+
+cat(readr::read_file("quarto/example-book.yml"))
+```
+
+我们建议您在创建网站和书籍时使用 RStudio 项目。
+基于 `_quarto.yml` 文件，RStudio 将识别您正在使用的项目类型，并在 IDE 中添加一个构建选项卡，您可以使用该选项卡来渲染和预览您的网站和书籍。
+网站和书籍都可以使用 `quarto::render()` 进行渲染。
+
+请访问 <https://quarto.org/docs/websites> 了解有关 Quarto websites 的更多信息，以及 <https://quarto.org/docs/books> 了解有关 books 的更多信息。
+
+## Other formats
+
+Quarto 还提供了更多的输出格式选项：
+
+-   您可以使用 Quarto Journal 模板撰写期刊文章：<https://quarto.org/docs/journals/templates.html>。
+
+-   您可以将 Quarto 文档输出为 Jupyter Notebooks，使用 `format: ipynb`: <https://quarto.org/docs/reference/formats/ipynb.html>。
+
+请访问 <https://quarto.org/docs/output-formats/all-formats.html> 以获取更多输出格式的列表。
+
+## Summary
+
+在本章中，我们向您介绍了使用 Quarto 进行结果展示的各种选项，包括静态和交互式文档、演示文稿、网站和书籍。
+
+要了解更多关于在这些不同格式中进行有效沟通的信息，我们推荐以下资源：
+
+-   要提升您的演讲技巧，可以尝试阅读 Neal Ford、Matthew McCollough 和 Nathaniel Schutta 合著的[*Presentation Patterns*](https://presentationpatterns.com/)。
+    该书提供了一系列有效的模式（包括低级和高级模式），可以应用于改进您的演讲。
+
+-   如果您需要进行学术演讲，您可能会喜欢 [*Leek group guide to giving talks*](https://github.com/jtleek/talkguide)。
+
+-   虽然我们没有参加过，但我们听说过 Matt McGarrity 关于公共演讲的在线课程的好评：<https://www.coursera.org/learn/public-speaking>。
+
+-   如果您正在创建许多仪表板（dashboards），请务必阅读 Stephen Few 的 [*Information Dashboard Design: The Effective Visual Communication of Data*](https://www.amazon.com/Information-Dashboard-Design-Effective-Communication/dp/0596100167)。
+    该书将帮助您创建真正有用而不仅仅漂亮的仪表板。
+
+-   有效地传达您的想法通常需要一些关于平面设计的知识。
+    Robin Williams的 [*The Non-Designer's Design Book*](https://www.amazon.com/Non-Designers-Design-Book-4th/dp/0133966151) 是一个很好的入门资料。

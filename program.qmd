@@ -1,0 +1,52 @@
+# Program {#sec-program-intro .unnumbered}
+
+```{r}
+#| results: "asis"
+#| echo: false
+source("_common.R")
+```
+
+In this part of the book, you'll improve your programming skills.
+Programming is a cross-cutting skill needed for all data science work: you must use a computer to do data science; you cannot do it in your head, or with pencil and paper.
+
+```{r}
+#| label: fig-ds-program
+#| echo: false
+#| out.width: ~
+#| fig-cap: |
+#|   Programming is the water in which all the other components swim.
+#| fig-alt: |
+#|   Our model of the data science process with program (import, tidy,
+#|   transform, visualize, model, and communicate, i.e. everything) 
+#|   highlighted in blue.
+
+knitr::include_graphics("diagrams/data-science/program.png", dpi = 270)
+```
+
+Programming produces code, and code is a tool of communication.
+Obviously code tells the computer what you want it to do.
+But it also communicates meaning to other humans.
+Thinking about code as a vehicle for communication is important because every project you do is fundamentally collaborative.
+Even if you're not working with other people, you'll definitely be working with future-you!
+Writing clear code is important so that others (like future-you) can understand why you tackled an analysis in the way you did.
+That means getting better at programming also involves getting better at communicating.
+Over time, you want your code to become not just easier to write, but easier for others to read.
+
+In the following three chapters, you'll learn skills to improve your programming skills:
+
+1.  Copy-and-paste is a powerful tool, but you should avoid doing it more than twice.
+    Repeating yourself in code is dangerous because it can easily lead to errors and inconsistencies.
+    Instead, in @sec-functions, you'll learn how to write **functions** which let you extract out repeated tidyverse code so that it can be easily reused.
+
+2.  Functions extract out repeated code, but you often need to repeat the same actions on different inputs.
+    You need tools for **iteration** that let you do similar things again and again.
+    These tools include for loops and functional programming, which you'll learn about in @sec-iteration.
+
+3.  As you read more code written by others, you'll see more code that doesn't use the tidyverse.
+    In @sec-base-r, you'll learn some of the most important base R functions that you'll see in the wild.
+
+The goal of these chapters is to teach you the minimum about programming that you need for data science.
+Once you have mastered the material here, we strongly recommend that you continue to invest in your programming skills.
+We've written two books that you might find helpful.
+[*Hands on Programming with R*](https://rstudio-education.github.io/hopr/), by Garrett Grolemund, is an introduction to R as a programming language and is a great place to start if R is your first programming language.
+[*Advanced R*](https://adv-r.hadley.nz/) by Hadley Wickham dives into the details of R the programming language; it's great place to start if you have existing programming experience and great next step once you've internalized the ideas in these chapters.

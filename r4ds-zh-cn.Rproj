@@ -10,4 +10,15 @@ NumSpacesForTab: 2
 Encoding: UTF-8
 
 RnwWeave: Sweave
-LaTeX: pdfLaTeX
+LaTeX: XeLaTeX
+
+StripTrailingWhitespace: Yes
+
+BuildType: None
+
+UseNativePipeOperator: Yes
+
+MarkdownWrap: Sentence
+MarkdownCanonical: Yes
+
+SpellingDictionary: en_US

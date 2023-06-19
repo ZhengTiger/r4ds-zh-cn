@@ -1,0 +1,34 @@
+# Communicate {#sec-communicate-intro .unnumbered}
+
+```{r}
+#| results: "asis"
+#| echo: false
+source("_common.R")
+```
+
+到目前为止，您已经学习了将数据导入 R，将其整理成便于分析的形式，然后通过转换和可视化来理解您的数据的工具。但
+是，除非您能向他人解释您的分析，否则您的分析再好都没有用：您需要传达（**communicate**）您的结果。
+
+```{r}
+#| label: fig-ds-communicate
+#| echo: false
+#| fig-cap: |
+#|   沟通是数据科学过程的最后一部分；如果您不能将您的结果传达给其他人，那么您分析再好都没有用。
+#| fig-alt: |
+#|   A diagram displaying the data science cycle with
+#|   communicate highlighed in blue.
+#| out.width: NULL
+
+knitr::include_graphics("diagrams/data-science/communicate.png", dpi = 270)
+```
+
+Communication 是以下两章的主题：
+
+-   在 @sec-quarto, 您将了解 Quarto，这是一种用于集成文字、代码和结果的工具。
+    您可以使用 Quarto 进行分析师与分析师（analyst-to-analyst）之间的交流以及分析师与决策者（analyst-to-decision-maker）之间的交流。
+    由于 Quarto 格式的强大功能，您甚至可以将同一份文档用于两种目的。
+
+-   在 @sec-quarto-formats, 您将学习您可以使用 Quarto 生成的许多其他类型的输出，包括 dashboards、websites、books。
+
+这些章节主要关注交流的技术机制，而不是与其他人交流思想的真正难题。然
+而，还有很多其他关于沟通的好的书籍，我们会在每一章的末尾为您指出。
