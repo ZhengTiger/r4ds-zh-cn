@@ -16,18 +16,18 @@ status("complete")
 > "Tidy datasets are all alike, but every messy dataset is messy in its own way."\
 > --- Hadley Wickham
 
-In this chapter, you will learn a consistent way to organize your data in R using a system called **tidy data**.
-Getting your data into this format requires some work up front, but that work pays off in the long term.
-Once you have tidy data and the tidy tools provided by packages in the tidyverse, you will spend much less time munging data from one representation to another, allowing you to spend more time on the data questions you care about.
+在这一章中，您将学习使用一种称为 **tidy data** 的系统，在 R 中以一种一致的方式组织您的数据。
+将数据转换成这种格式需要一些初始工作，但这种工作在长期来看是值得的。
+一旦您拥有 tidy data 和 tidyverse 包中提供的 tidy tools，您将花费更少的时间将数据从一种表示转换为另一种表示，从而能够更多地专注于您关心的数据问题。
 
-In this chapter, you'll first learn the definition of tidy data and see it applied to a simple toy dataset.
-Then we'll dive into the primary tool you'll use for tidying data: pivoting.
-Pivoting allows you to change the form of your data without changing any of the values.
+在这一章中，您首先将首先学习 tidy data 的定义，并将其应用于一个简单的示例数据集。
+然后，我们将深入探讨用于整理数据的主要工具：数据透视（pivoting）。
+pivoting 使您可以在不改变任何值的情况下改变数据的形式。
 
 ### Prerequisites
 
-In this chapter, we'll focus on tidyr, a package that provides a bunch of tools to help tidy up your messy datasets.
-tidyr is a member of the core tidyverse.
+在本章中，我们将专注于 tidyr，这是一个提供了一系列工具来帮助整理混乱数据集的包。
+tidyr 是 core tidyverse 的成员之一。
 
 ```{r}
 #| label: setup
@@ -36,13 +36,13 @@ tidyr is a member of the core tidyverse.
 library(tidyverse)
 ```
 
-From this chapter on, we'll suppress the loading message from `library(tidyverse)`.
+从本章开始，我们将抑制来自 `library(tidyverse)` 的加载消息。
 
 ## Tidy data {#sec-tidy-data}
 
-You can represent the same underlying data in multiple ways.
-The example below shows the same data organized in three different ways.
-Each dataset shows the same values of four variables: *country*, *year*, *population*, and number of documented *cases* of TB (tuberculosis), but each dataset organizes the values in a different way.
+可以用多种方式表示相同的基础数据。
+下面的示例展示了相同的数据以三种不同的方式组织。
+每个数据集都显示了四个变量的相同值：*country*、*year*、*population* 和结核病（TB）的记录 *cases*，但是每个数据集以不同的方式组织这些值。
 
 ```{r}
 table1
@@ -52,16 +52,16 @@ table2
 table3
 ```
 
-These are all representations of the same underlying data, but they are not equally easy to use.
-One of them, `table1`, will be much easier to work with inside the tidyverse because it's **tidy**.
+这些都是相同基础数据的表示方式，但它们在使用上并不同样方便。
+其中一个数据集，`table1`，因为它是整洁的（**tidy**），所以在 tidyverse 内部使用起来会更加方便。
 
-There are three interrelated rules that make a dataset tidy:
+有三个相互关联的规则定义了一个整洁的数据集：
 
-1.  Each variable is a column; each column is a variable.
-2.  Each observation is a row; each row is an observation.
-3.  Each value is a cell; each cell is a single value.
+1.  每个变量是一列，每列是一个变量。
+2.  每个样本是一行，每行是一个样本。
+3.  每个值是一个单元格，每个单元格是一个单一的值。
 
-@fig-tidy-structure shows the rules visually.
+@fig-tidy-structure 在可视化上展示了这些规则。.
 
 ```{r}
 #| label: fig-tidy-structure

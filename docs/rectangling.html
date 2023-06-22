@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.2.475">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund">
 <title>R for Data Science (2e) - 24&nbsp; Hierarchical data</title>
@@ -15,10 +15,9 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -45,13 +44,43 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -95,25 +124,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./import.html">Import</a></li><li class="breadcrumb-item"><a href="./rectangling.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Hierarchical data</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Hierarchical data</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">R for Data Science (2e)</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/hadley/r4ds/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+    <a href="https://github.com/zhenghu159/r4ds-zh-cn" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle sidebar-tool" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
   </div>
@@ -121,326 +145,286 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
     </div>
       </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
+      <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-        </div>
+      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Welcome</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preface-2e.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface to the second edition</span></a>
+  <a href="./preface-2e.html" class="sidebar-item-text sidebar-link">Preface to the second edition</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./whole-game.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Whole game</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <a href="./whole-game.html" class="sidebar-item-text sidebar-link">Whole game</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-visualize.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data visualization</span></span></a>
+  <a href="./data-visualize.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data visualization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./workflow-basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Workflow: basics</span></span></a>
+  <a href="./workflow-basics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Workflow: basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-transform.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data transformation</span></span></a>
+  <a href="./data-transform.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data transformation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./workflow-style.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Workflow: code style</span></span></a>
+  <a href="./workflow-style.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Workflow: code style</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-tidy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data tidying</span></span></a>
+  <a href="./data-tidy.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data tidying</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./workflow-scripts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow: scripts and projects</span></span></a>
+  <a href="./workflow-scripts.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow: scripts and projects</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-import.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data import</span></span></a>
+  <a href="./data-import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data import</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./workflow-help.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Workflow: getting help</span></span></a>
+  <a href="./workflow-help.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Workflow: getting help</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./visualize.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Visualize</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <a href="./visualize.html" class="sidebar-item-text sidebar-link">Visualize</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./layers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Layers</span></span></a>
+  <a href="./layers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Layers</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./EDA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Exploratory data analysis</span></span></a>
+  <a href="./EDA.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Exploratory data analysis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./communication.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Communication</span></span></a>
+  <a href="./communication.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Communication</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./transform.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Transform</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <a href="./transform.html" class="sidebar-item-text sidebar-link">Transform</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./logicals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Logical vectors</span></span></a>
+  <a href="./logicals.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Logical vectors</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./numbers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Numbers</span></span></a>
+  <a href="./numbers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Numbers</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
+  <a href="./strings.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Strings</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./regexps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Regular expressions</span></span></a>
+  <a href="./regexps.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Regular expressions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./factors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Factors</span></span></a>
+  <a href="./factors.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Factors</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./datetimes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Dates and times</span></span></a>
+  <a href="./datetimes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Dates and times</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./missing-values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Missing values</span></span></a>
+  <a href="./missing-values.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Missing values</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./joins.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Joins</span></span></a>
+  <a href="./joins.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Joins</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./import.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Import</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <a href="./import.html" class="sidebar-item-text sidebar-link">Import</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spreadsheets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Spreadsheets</span></span></a>
+  <a href="./spreadsheets.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Spreadsheets</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./databases.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Databases</span></span></a>
+  <a href="./databases.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Databases</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./arrow.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Arrow</span></span></a>
+  <a href="./arrow.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Arrow</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./rectangling.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Hierarchical data</span></span></a>
+  <a href="./rectangling.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Hierarchical data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./webscraping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Web scraping</span></span></a>
+  <a href="./webscraping.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Web scraping</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./program.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Program</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <a href="./program.html" class="sidebar-item-text sidebar-link">Program</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Functions</span></span></a>
+  <a href="./functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Functions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./iteration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Iteration</span></span></a>
+  <a href="./iteration.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Iteration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./base-R.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">A field guide to base R</span></span></a>
+  <a href="./base-R.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">A field guide to base R</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./communicate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Communicate</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <a href="./communicate.html" class="sidebar-item-text sidebar-link">Communicate</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./quarto.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Quarto</span></span></a>
+  <a href="./quarto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Quarto</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./quarto-formats.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Quarto formats</span></span></a>
+  <a href="./quarto-formats.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Quarto formats</span></a>
   </div>
 </li>
       </ul>
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
 <li>
-<a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">24.1</span> Introduction</a>
+<a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">24.1</span>  Introduction</a>
   <ul class="collapse">
-<li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">24.1.1</span> Prerequisites</a></li>
+<li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="toc-section-number">24.1.1</span>  Prerequisites</a></li>
   </ul>
 </li>
   <li>
-<a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists"><span class="header-section-number">24.2</span> Lists</a>
+<a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists"><span class="toc-section-number">24.2</span>  Lists</a>
   <ul class="collapse">
-<li><a href="#hierarchy" id="toc-hierarchy" class="nav-link" data-scroll-target="#hierarchy"><span class="header-section-number">24.2.1</span> Hierarchy</a></li>
-  <li><a href="#list-columns" id="toc-list-columns" class="nav-link" data-scroll-target="#list-columns"><span class="header-section-number">24.2.2</span> List-columns</a></li>
+<li><a href="#hierarchy" id="toc-hierarchy" class="nav-link" data-scroll-target="#hierarchy"><span class="toc-section-number">24.2.1</span>  Hierarchy</a></li>
+  <li><a href="#list-columns" id="toc-list-columns" class="nav-link" data-scroll-target="#list-columns"><span class="toc-section-number">24.2.2</span>  List-columns</a></li>
   </ul>
 </li>
   <li>
-<a href="#unnesting" id="toc-unnesting" class="nav-link" data-scroll-target="#unnesting"><span class="header-section-number">24.3</span> Unnesting</a>
+<a href="#unnesting" id="toc-unnesting" class="nav-link" data-scroll-target="#unnesting"><span class="toc-section-number">24.3</span>  Unnesting</a>
   <ul class="collapse">
-<li><a href="#unnest_wider" id="toc-unnest_wider" class="nav-link" data-scroll-target="#unnest_wider"><span class="header-section-number">24.3.1</span> <code>unnest_wider()</code></a></li>
-  <li><a href="#unnest_longer" id="toc-unnest_longer" class="nav-link" data-scroll-target="#unnest_longer"><span class="header-section-number">24.3.2</span> <code>unnest_longer()</code></a></li>
-  <li><a href="#inconsistent-types" id="toc-inconsistent-types" class="nav-link" data-scroll-target="#inconsistent-types"><span class="header-section-number">24.3.3</span> Inconsistent types</a></li>
-  <li><a href="#other-functions" id="toc-other-functions" class="nav-link" data-scroll-target="#other-functions"><span class="header-section-number">24.3.4</span> Other functions</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">24.3.5</span> Exercises</a></li>
+<li><a href="#unnest_wider" id="toc-unnest_wider" class="nav-link" data-scroll-target="#unnest_wider"><span class="toc-section-number">24.3.1</span>  <code>unnest_wider()</code></a></li>
+  <li><a href="#unnest_longer" id="toc-unnest_longer" class="nav-link" data-scroll-target="#unnest_longer"><span class="toc-section-number">24.3.2</span>  <code>unnest_longer()</code></a></li>
+  <li><a href="#inconsistent-types" id="toc-inconsistent-types" class="nav-link" data-scroll-target="#inconsistent-types"><span class="toc-section-number">24.3.3</span>  Inconsistent types</a></li>
+  <li><a href="#other-functions" id="toc-other-functions" class="nav-link" data-scroll-target="#other-functions"><span class="toc-section-number">24.3.4</span>  Other functions</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">24.3.5</span>  Exercises</a></li>
   </ul>
 </li>
   <li>
-<a href="#case-studies" id="toc-case-studies" class="nav-link" data-scroll-target="#case-studies"><span class="header-section-number">24.4</span> Case studies</a>
+<a href="#case-studies" id="toc-case-studies" class="nav-link" data-scroll-target="#case-studies"><span class="toc-section-number">24.4</span>  Case studies</a>
   <ul class="collapse">
-<li><a href="#very-wide-data" id="toc-very-wide-data" class="nav-link" data-scroll-target="#very-wide-data"><span class="header-section-number">24.4.1</span> Very wide data</a></li>
-  <li><a href="#relational-data" id="toc-relational-data" class="nav-link" data-scroll-target="#relational-data"><span class="header-section-number">24.4.2</span> Relational data</a></li>
-  <li><a href="#deeply-nested" id="toc-deeply-nested" class="nav-link" data-scroll-target="#deeply-nested"><span class="header-section-number">24.4.3</span> Deeply nested</a></li>
-  <li><a href="#exercises-1" id="toc-exercises-1" class="nav-link" data-scroll-target="#exercises-1"><span class="header-section-number">24.4.4</span> Exercises</a></li>
+<li><a href="#very-wide-data" id="toc-very-wide-data" class="nav-link" data-scroll-target="#very-wide-data"><span class="toc-section-number">24.4.1</span>  Very wide data</a></li>
+  <li><a href="#relational-data" id="toc-relational-data" class="nav-link" data-scroll-target="#relational-data"><span class="toc-section-number">24.4.2</span>  Relational data</a></li>
+  <li><a href="#deeply-nested" id="toc-deeply-nested" class="nav-link" data-scroll-target="#deeply-nested"><span class="toc-section-number">24.4.3</span>  Deeply nested</a></li>
+  <li><a href="#exercises-1" id="toc-exercises-1" class="nav-link" data-scroll-target="#exercises-1"><span class="toc-section-number">24.4.4</span>  Exercises</a></li>
   </ul>
 </li>
   <li>
-<a href="#json" id="toc-json" class="nav-link" data-scroll-target="#json"><span class="header-section-number">24.5</span> JSON</a>
+<a href="#json" id="toc-json" class="nav-link" data-scroll-target="#json"><span class="toc-section-number">24.5</span>  JSON</a>
   <ul class="collapse">
-<li><a href="#data-types" id="toc-data-types" class="nav-link" data-scroll-target="#data-types"><span class="header-section-number">24.5.1</span> Data types</a></li>
-  <li><a href="#jsonlite" id="toc-jsonlite" class="nav-link" data-scroll-target="#jsonlite"><span class="header-section-number">24.5.2</span> jsonlite</a></li>
-  <li><a href="#starting-the-rectangling-process" id="toc-starting-the-rectangling-process" class="nav-link" data-scroll-target="#starting-the-rectangling-process"><span class="header-section-number">24.5.3</span> Starting the rectangling process</a></li>
-  <li><a href="#exercises-2" id="toc-exercises-2" class="nav-link" data-scroll-target="#exercises-2"><span class="header-section-number">24.5.4</span> Exercises</a></li>
+<li><a href="#data-types" id="toc-data-types" class="nav-link" data-scroll-target="#data-types"><span class="toc-section-number">24.5.1</span>  Data types</a></li>
+  <li><a href="#jsonlite" id="toc-jsonlite" class="nav-link" data-scroll-target="#jsonlite"><span class="toc-section-number">24.5.2</span>  jsonlite</a></li>
+  <li><a href="#starting-the-rectangling-process" id="toc-starting-the-rectangling-process" class="nav-link" data-scroll-target="#starting-the-rectangling-process"><span class="toc-section-number">24.5.3</span>  Starting the rectangling process</a></li>
+  <li><a href="#exercises-2" id="toc-exercises-2" class="nav-link" data-scroll-target="#exercises-2"><span class="toc-section-number">24.5.4</span>  Exercises</a></li>
   </ul>
 </li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">24.6</span> Summary</a></li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/hadley/r4ds/edit/main/rectangling.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/hadley/r4ds/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="toc-section-number">24.6</span>  Summary</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/zhenghu159/r4ds-zh-cn/edit/main/rectangling.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/zhenghu159/r4ds-zh-cn/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-rectangling" class="quarto-section-identifier"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Hierarchical data</span></span></h1>
+<h1 class="title"><span id="sec-rectangling" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Hierarchical data</span></span></h1>
 </div>
 
 
@@ -454,7 +438,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 </header><div class="status">
-<div class="callout callout-style-simple callout-note">
+<div class="callout-note callout callout-style-simple">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -474,8 +458,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In this chapter, we’ll use many functions from tidyr, a core member of the tidyverse. We’ll also use repurrrsive to provide some interesting datasets for rectangling practice, and we’ll finish by using jsonlite to read JSON files into R lists.</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: package 'tidyverse' was built under R version 4.2.3</span></span>
+<span><span class="co">#&gt; Warning: package 'ggplot2' was built under R version 4.2.3</span></span>
+<span><span class="co">#&gt; Warning: package 'tibble' was built under R version 4.2.3</span></span>
+<span><span class="co">#&gt; Warning: package 'tidyr' was built under R version 4.2.3</span></span>
+<span><span class="co">#&gt; Warning: package 'readr' was built under R version 4.2.3</span></span>
+<span><span class="co">#&gt; Warning: package 'purrr' was built under R version 4.2.3</span></span>
+<span><span class="co">#&gt; Warning: package 'dplyr' was built under R version 4.2.3</span></span>
+<span><span class="co">#&gt; Warning: package 'stringr' was built under R version 4.2.2</span></span>
+<span><span class="co">#&gt; Warning: package 'forcats' was built under R version 4.2.3</span></span>
+<span><span class="co">#&gt; Warning: package 'lubridate' was built under R version 4.2.3</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/">repurrrsive</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://arxiv.org/abs/1403.2805">jsonlite</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; Warning: package 'repurrrsive' was built under R version 4.2.3</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://arxiv.org/abs/1403.2805">jsonlite</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: package 'jsonlite' was built under R version 4.2.3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="lists" class="level2" data-number="24.2"><h2 data-number="24.2" class="anchored" data-anchor-id="lists">
 <span class="header-section-number">24.2</span> Lists</h2>
@@ -561,28 +557,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt;   .. .. ..$ :List of 1</span></span>
 <span><span class="co">#&gt;   .. .. .. ..$ : num 5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>As lists get even larger and more complex, <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> eventually starts to fail, and you’ll need to switch to <code><a href="https://rdrr.io/r/utils/View.html">View()</a></code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. <a href="#fig-view-collapsed">Figure&nbsp;<span class="quarto-unresolved-ref">fig-view-collapsed</span></a> shows the result of calling <code>View(x5)</code>. The viewer starts by showing just the top level of the list, but you can interactively expand any of the components to see more, as in <a href="#fig-view-expand-1">Figure&nbsp;<span class="quarto-unresolved-ref">fig-view-expand-1</span></a>. RStudio will also show you the code you need to access that element, as in <a href="#fig-view-expand-2">Figure&nbsp;<span class="quarto-unresolved-ref">fig-view-expand-2</span></a>. We’ll come back to how this code works in <a href="#sec-subset-one"><span class="quarto-unresolved-ref">sec-subset-one</span></a>.</p>
+<p>As lists get even larger and more complex, <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> eventually starts to fail, and you’ll need to switch to <code><a href="https://rdrr.io/r/utils/View.html">View()</a></code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. <a href="#fig-view-collapsed">Figure&nbsp;<span>24.1</span></a> shows the result of calling <code>View(x5)</code>. The viewer starts by showing just the top level of the list, but you can interactively expand any of the components to see more, as in <a href="#fig-view-expand-1">Figure&nbsp;<span>24.2</span></a>. RStudio will also show you the code you need to access that element, as in <a href="#fig-view-expand-2">Figure&nbsp;<span>24.3</span></a>. We’ll come back to how this code works in <span class="quarto-unresolved-ref">?sec-subset-one</span>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-view-collapsed" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="screenshots/View-1.png" class="img-fluid figure-img" alt="A screenshot of RStudio showing the list-viewer. It shows the two children of x5: the first child is a double vector and the second child is a list. A rightward facing triable indicates that the second child itself has children but you can't see them. "></p>
-<figcaption class="figure-caption">Figure&nbsp;24.1: The RStudio view lets you interactively explore a complex list. The viewer opens showing only the top level of the list.</figcaption></figure>
+<figure class="figure"><p><img src="screenshots/View-1.png" class="img-fluid figure-img" alt="A screenshot of RStudio showing the list-viewer. It shows the two children of x5: the first child is a double vector and the second child is a list. A rightward facing triable indicates that the second child itself has children but you can't see them. " width="641"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;24.1: The RStudio view lets you interactively explore a complex list. The viewer opens showing only the top level of the list.</figcaption><p></p>
+</figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-view-expand-1" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="screenshots/View-2.png" class="img-fluid figure-img" alt="Another screenshot of the list-viewer having expand the second child of x5. It also has two children, a double vector and another list. "></p>
-<figcaption class="figure-caption">Figure&nbsp;24.2: Clicking on the rightward facing triangle expands that component of the list so that you can also see its children.</figcaption></figure>
+<figure class="figure"><p><img src="screenshots/View-2.png" class="img-fluid figure-img" alt="Another screenshot of the list-viewer having expand the second child of x5. It also has two children, a double vector and another list. " width="641"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;24.2: Clicking on the rightward facing triangle expands that component of the list so that you can also see its children.</figcaption><p></p>
+</figure>
 </div>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-view-expand-2" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="screenshots/View-3.png" class="img-fluid figure-img" alt="Another screenshot, having expanded the grandchild of x5 to see its two children, again a double vector and a list. "></p>
-<figcaption class="figure-caption">Figure&nbsp;24.3: You can repeat this operation as many times as needed to get to the data you’re interested in. Note the bottom-left corner: if you click an element of the list, RStudio will give you the subsetting code needed to access it, in this case <code>x5[[2]][[2]][[2]]</code>.</figcaption></figure>
+<figure class="figure"><p><img src="screenshots/View-3.png" class="img-fluid figure-img" alt="Another screenshot, having expanded the grandchild of x5 to see its two children, again a double vector and a list. " width="641"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;24.3: You can repeat this operation as many times as needed to get to the data you’re interested in. Note the bottom-left corner: if you click an element of the list, RStudio will give you the subsetting code needed to access it, in this case <code>x5[[2]][[2]][[2]]</code>.</figcaption><p></p>
+</figure>
 </div>
 </div>
 </div>
@@ -612,14 +611,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt;   &lt;int&gt; &lt;chr&gt; &lt;list&gt;    </span></span>
 <span><span class="co">#&gt; 1     1 a     &lt;list [2]&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Computing with list-columns is harder, but that’s because computing with lists is harder in general; we’ll come back to that in <a href="#sec-iteration"><span class="quarto-unresolved-ref">sec-iteration</span></a>. In this chapter, we’ll focus on unnesting list-columns out into regular variables so you can use your existing tools on them.</p>
+<p>Computing with list-columns is harder, but that’s because computing with lists is harder in general; we’ll come back to that in <a href="iteration.html"><span>Chapter&nbsp;27</span></a>. In this chapter, we’ll focus on unnesting list-columns out into regular variables so you can use your existing tools on them.</p>
 <p>The default print method just displays a rough summary of the contents. The list column could be arbitrarily complex, so there’s no good way to print it. If you want to see it, you’ll need to pull out just the one list-column and apply one of the techniques that you’ve learned above, like <code>df |&gt; pull(z) |&gt; str()</code> or <code>df |&gt; pull(z) |&gt; View()</code>.</p>
-<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-note callout callout-style-simple callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
+<div class="callout-caption-container flex-fill">
 Base R
 </div>
 </div>
@@ -750,7 +749,7 @@ Base R
 <span><span class="co">#&gt; 4 b     &lt;dbl [1]&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>As you can see, the output contains a list-column, but every element of the list-column contains a single element. Because <code><a href="https://tidyr.tidyverse.org/reference/unnest_longer.html">unnest_longer()</a></code> can’t find a common type of vector, it keeps the original types in a list-column. You might wonder if this breaks the commandment that every element of a column must be the same type. It doesn’t: every element is a list, even though the contents are of different types.</p>
-<p>Dealing with inconsistent types is challenging and the details depend on the precise nature of the problem and your goals, but you’ll most likely need tools from <a href="#sec-iteration"><span class="quarto-unresolved-ref">sec-iteration</span></a>.</p>
+<p>Dealing with inconsistent types is challenging and the details depend on the precise nature of the problem and your goals, but you’ll most likely need tools from <a href="iteration.html"><span>Chapter&nbsp;27</span></a>.</p>
 </section><section id="other-functions" class="level3" data-number="24.3.4"><h3 data-number="24.3.4" class="anchored" data-anchor-id="other-functions">
 <span class="header-section-number">24.3.4</span> Other functions</h3>
 <p>tidyr has a few other useful rectangling functions that we’re not going to cover in this book:</p>
@@ -1191,7 +1190,7 @@ Base R
 <div class="cell">
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># A path to a json file inside the package:</span></span>
 <span><span class="fu"><a href="https://jennybc.github.io/repurrrsive/reference/gh_users_json.html">gh_users_json</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "E:/1.study/R/R-4.2.3/library/repurrrsive/extdata/gh_users.json"</span></span>
+<span><span class="co">#&gt; [1] "D:/1.study/R/R-4.2.0/library/repurrrsive/extdata/gh_users.json"</span></span>
 <span></span>
 <span><span class="co"># Read it with read_json()</span></span>
 <span><span class="va">gh_users2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html">read_json</a></span><span class="op">(</span><span class="fu"><a href="https://jennybc.github.io/repurrrsive/reference/gh_users_json.html">gh_users_json</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -1339,23 +1338,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
+    target: function(trigger) {
+      return trigger.previousElementSibling;
     }
   });
   clipboard.on('success', function(e) {
@@ -1420,92 +1405,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -1558,9 +1457,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">R for Data Science (2e) was written by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund.</div>   
-    <div class="nav-footer-center">
-      &nbsp;
-    </div>
     <div class="nav-footer-right">This book was built with <a href="https://quarto.org/">Quarto</a>.</div>
   </div>
 </footer>

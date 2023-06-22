@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.2.475">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund">
 <title>R for Data Science (2e) - 10&nbsp; Layers</title>
@@ -15,10 +15,9 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -45,13 +44,43 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -95,25 +124,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./visualize.html">Visualize</a></li><li class="breadcrumb-item"><a href="./layers.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Layers</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Layers</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">R for Data Science (2e)</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/hadley/r4ds/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+    <a href="https://github.com/zhenghu159/r4ds-zh-cn" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle sidebar-tool" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
   </div>
@@ -121,328 +145,288 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
     </div>
       </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
+      <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-        </div>
+      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Welcome</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preface-2e.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface to the second edition</span></a>
+  <a href="./preface-2e.html" class="sidebar-item-text sidebar-link">Preface to the second edition</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./whole-game.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Whole game</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <a href="./whole-game.html" class="sidebar-item-text sidebar-link">Whole game</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-visualize.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data visualization</span></span></a>
+  <a href="./data-visualize.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data visualization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./workflow-basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Workflow: basics</span></span></a>
+  <a href="./workflow-basics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Workflow: basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-transform.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data transformation</span></span></a>
+  <a href="./data-transform.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data transformation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./workflow-style.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Workflow: code style</span></span></a>
+  <a href="./workflow-style.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Workflow: code style</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-tidy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data tidying</span></span></a>
+  <a href="./data-tidy.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data tidying</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./workflow-scripts.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow: scripts and projects</span></span></a>
+  <a href="./workflow-scripts.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow: scripts and projects</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-import.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data import</span></span></a>
+  <a href="./data-import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data import</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./workflow-help.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Workflow: getting help</span></span></a>
+  <a href="./workflow-help.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Workflow: getting help</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./visualize.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Visualize</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <a href="./visualize.html" class="sidebar-item-text sidebar-link">Visualize</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./layers.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Layers</span></span></a>
+  <a href="./layers.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Layers</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./EDA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Exploratory data analysis</span></span></a>
+  <a href="./EDA.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Exploratory data analysis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./communication.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Communication</span></span></a>
+  <a href="./communication.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Communication</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./transform.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Transform</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <a href="./transform.html" class="sidebar-item-text sidebar-link">Transform</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./logicals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Logical vectors</span></span></a>
+  <a href="./logicals.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Logical vectors</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./numbers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Numbers</span></span></a>
+  <a href="./numbers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Numbers</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
+  <a href="./strings.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Strings</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./regexps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Regular expressions</span></span></a>
+  <a href="./regexps.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Regular expressions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./factors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Factors</span></span></a>
+  <a href="./factors.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Factors</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./datetimes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Dates and times</span></span></a>
+  <a href="./datetimes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Dates and times</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./missing-values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Missing values</span></span></a>
+  <a href="./missing-values.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Missing values</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./joins.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Joins</span></span></a>
+  <a href="./joins.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Joins</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./import.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Import</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <a href="./import.html" class="sidebar-item-text sidebar-link">Import</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spreadsheets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Spreadsheets</span></span></a>
+  <a href="./spreadsheets.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Spreadsheets</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./databases.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Databases</span></span></a>
+  <a href="./databases.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Databases</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./arrow.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Arrow</span></span></a>
+  <a href="./arrow.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Arrow</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./rectangling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Hierarchical data</span></span></a>
+  <a href="./rectangling.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Hierarchical data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./webscraping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Web scraping</span></span></a>
+  <a href="./webscraping.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Web scraping</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./program.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Program</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <a href="./program.html" class="sidebar-item-text sidebar-link">Program</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Functions</span></span></a>
+  <a href="./functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Functions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./iteration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Iteration</span></span></a>
+  <a href="./iteration.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Iteration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./base-R.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">A field guide to base R</span></span></a>
+  <a href="./base-R.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">A field guide to base R</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./communicate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Communicate</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <a href="./communicate.html" class="sidebar-item-text sidebar-link">Communicate</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./quarto.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Quarto</span></span></a>
+  <a href="./quarto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Quarto</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./quarto-formats.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Quarto formats</span></span></a>
+  <a href="./quarto-formats.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Quarto formats</span></a>
   </div>
 </li>
       </ul>
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
 <li>
-<a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">10.1</span> Introduction</a>
+<a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">10.1</span>  Introduction</a>
   <ul class="collapse">
-<li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">10.1.1</span> Prerequisites</a></li>
+<li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="toc-section-number">10.1.1</span>  Prerequisites</a></li>
   </ul>
 </li>
   <li>
-<a href="#aesthetic-mappings" id="toc-aesthetic-mappings" class="nav-link" data-scroll-target="#aesthetic-mappings"><span class="header-section-number">10.2</span> Aesthetic mappings</a>
+<a href="#aesthetic-mappings" id="toc-aesthetic-mappings" class="nav-link" data-scroll-target="#aesthetic-mappings"><span class="toc-section-number">10.2</span>  Aesthetic mappings</a>
   <ul class="collapse">
-<li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">10.2.1</span> Exercises</a></li>
+<li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">10.2.1</span>  Exercises</a></li>
   </ul>
 </li>
   <li>
-<a href="#sec-geometric-objects" id="toc-sec-geometric-objects" class="nav-link" data-scroll-target="#sec-geometric-objects"><span class="header-section-number">10.3</span> Geometric objects</a>
+<a href="#sec-geometric-objects" id="toc-sec-geometric-objects" class="nav-link" data-scroll-target="#sec-geometric-objects"><span class="toc-section-number">10.3</span>  Geometric objects</a>
   <ul class="collapse">
-<li><a href="#exercises-1" id="toc-exercises-1" class="nav-link" data-scroll-target="#exercises-1"><span class="header-section-number">10.3.1</span> Exercises</a></li>
+<li><a href="#exercises-1" id="toc-exercises-1" class="nav-link" data-scroll-target="#exercises-1"><span class="toc-section-number">10.3.1</span>  Exercises</a></li>
   </ul>
 </li>
   <li>
-<a href="#facets" id="toc-facets" class="nav-link" data-scroll-target="#facets"><span class="header-section-number">10.4</span> Facets</a>
+<a href="#facets" id="toc-facets" class="nav-link" data-scroll-target="#facets"><span class="toc-section-number">10.4</span>  Facets</a>
   <ul class="collapse">
-<li><a href="#exercises-2" id="toc-exercises-2" class="nav-link" data-scroll-target="#exercises-2"><span class="header-section-number">10.4.1</span> Exercises</a></li>
+<li><a href="#exercises-2" id="toc-exercises-2" class="nav-link" data-scroll-target="#exercises-2"><span class="toc-section-number">10.4.1</span>  Exercises</a></li>
   </ul>
 </li>
   <li>
-<a href="#statistical-transformations" id="toc-statistical-transformations" class="nav-link" data-scroll-target="#statistical-transformations"><span class="header-section-number">10.5</span> Statistical transformations</a>
+<a href="#statistical-transformations" id="toc-statistical-transformations" class="nav-link" data-scroll-target="#statistical-transformations"><span class="toc-section-number">10.5</span>  Statistical transformations</a>
   <ul class="collapse">
-<li><a href="#exercises-3" id="toc-exercises-3" class="nav-link" data-scroll-target="#exercises-3"><span class="header-section-number">10.5.1</span> Exercises</a></li>
+<li><a href="#exercises-3" id="toc-exercises-3" class="nav-link" data-scroll-target="#exercises-3"><span class="toc-section-number">10.5.1</span>  Exercises</a></li>
   </ul>
 </li>
   <li>
-<a href="#position-adjustments" id="toc-position-adjustments" class="nav-link" data-scroll-target="#position-adjustments"><span class="header-section-number">10.6</span> Position adjustments</a>
+<a href="#position-adjustments" id="toc-position-adjustments" class="nav-link" data-scroll-target="#position-adjustments"><span class="toc-section-number">10.6</span>  Position adjustments</a>
   <ul class="collapse">
-<li><a href="#exercises-4" id="toc-exercises-4" class="nav-link" data-scroll-target="#exercises-4"><span class="header-section-number">10.6.1</span> Exercises</a></li>
+<li><a href="#exercises-4" id="toc-exercises-4" class="nav-link" data-scroll-target="#exercises-4"><span class="toc-section-number">10.6.1</span>  Exercises</a></li>
   </ul>
 </li>
   <li>
-<a href="#coordinate-systems" id="toc-coordinate-systems" class="nav-link" data-scroll-target="#coordinate-systems"><span class="header-section-number">10.7</span> Coordinate systems</a>
+<a href="#coordinate-systems" id="toc-coordinate-systems" class="nav-link" data-scroll-target="#coordinate-systems"><span class="toc-section-number">10.7</span>  Coordinate systems</a>
   <ul class="collapse">
-<li><a href="#exercises-5" id="toc-exercises-5" class="nav-link" data-scroll-target="#exercises-5"><span class="header-section-number">10.7.1</span> Exercises</a></li>
+<li><a href="#exercises-5" id="toc-exercises-5" class="nav-link" data-scroll-target="#exercises-5"><span class="toc-section-number">10.7.1</span>  Exercises</a></li>
   </ul>
 </li>
-  <li><a href="#the-layered-grammar-of-graphics" id="toc-the-layered-grammar-of-graphics" class="nav-link" data-scroll-target="#the-layered-grammar-of-graphics"><span class="header-section-number">10.8</span> The layered grammar of graphics</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">10.9</span> Summary</a></li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/hadley/r4ds/edit/main/layers.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/hadley/r4ds/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+  <li><a href="#the-layered-grammar-of-graphics" id="toc-the-layered-grammar-of-graphics" class="nav-link" data-scroll-target="#the-layered-grammar-of-graphics"><span class="toc-section-number">10.8</span>  The layered grammar of graphics</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="toc-section-number">10.9</span>  Summary</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/zhenghu159/r4ds-zh-cn/edit/main/layers.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/zhenghu159/r4ds-zh-cn/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-layers" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Layers</span></span></h1>
+<h1 class="title"><span id="sec-layers" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Layers</span></span></h1>
 </div>
 
 
@@ -456,7 +440,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 </header><div class="status">
-<div class="callout callout-style-simple callout-note">
+<div class="callout-note callout callout-style-simple">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -469,14 +453,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="introduction" class="level2" data-number="10.1"><h2 data-number="10.1" class="anchored" data-anchor-id="introduction">
 <span class="header-section-number">10.1</span> Introduction</h2>
-<p>In <a href="#sec-data-visualization"><span class="quarto-unresolved-ref">sec-data-visualization</span></a>, you learned much more than just how to make scatterplots, bar charts, and boxplots. You learned a foundation that you can use to make <em>any</em> type of plot with ggplot2.</p>
+<p>In <span class="quarto-unresolved-ref">?sec-data-visualization</span>, you learned much more than just how to make scatterplots, bar charts, and boxplots. You learned a foundation that you can use to make <em>any</em> type of plot with ggplot2.</p>
 <p>In this chapter, you’ll expand on that foundation as you learn about the layered grammar of graphics. We’ll start with a deeper dive into aesthetic mappings, geometric objects, and facets. Then, you will learn about statistical transformations ggplot2 makes under the hood when creating a plot. These transformations are used to calculate new values to plot, such as the heights of bars in a bar plot or medians in a box plot. You will also learn about position adjustments, which modify how geoms are displayed in your plots. Finally, we’ll briefly introduce coordinate systems.</p>
 <p>We will not cover every single function and option for each of these layers, but we will walk you through the most important and commonly used functionality provided by ggplot2 as well as introduce you to packages that extend ggplot2.</p>
 <section id="prerequisites" class="level3" data-number="10.1.1"><h3 data-number="10.1.1" class="anchored" data-anchor-id="prerequisites">
 <span class="header-section-number">10.1.1</span> Prerequisites</h3>
 <p>This chapter focuses on ggplot2. To access the datasets, help pages, and functions used in this chapter, load the tidyverse by running this code:</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: package 'tidyverse' was built under R version 4.2.3</span></span>
+<span><span class="co">#&gt; Warning: package 'ggplot2' was built under R version 4.2.3</span></span>
+<span><span class="co">#&gt; Warning: package 'tibble' was built under R version 4.2.3</span></span>
+<span><span class="co">#&gt; Warning: package 'tidyr' was built under R version 4.2.3</span></span>
+<span><span class="co">#&gt; Warning: package 'readr' was built under R version 4.2.3</span></span>
+<span><span class="co">#&gt; Warning: package 'purrr' was built under R version 4.2.3</span></span>
+<span><span class="co">#&gt; Warning: package 'dplyr' was built under R version 4.2.3</span></span>
+<span><span class="co">#&gt; Warning: package 'stringr' was built under R version 4.2.2</span></span>
+<span><span class="co">#&gt; Warning: package 'forcats' was built under R version 4.2.3</span></span>
+<span><span class="co">#&gt; Warning: package 'lubridate' was built under R version 4.2.3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="aesthetic-mappings" class="level2" data-number="10.2"><h2 data-number="10.2" class="anchored" data-anchor-id="aesthetic-mappings">
 <span class="header-section-number">10.2</span> Aesthetic mappings</h2>
@@ -576,13 +570,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
 <li>The size of a point in mm, e.g., <code>size = 1</code>
 </li>
-<li>The shape of a point as a number, e.g, <code>shape = 1</code>, as shown in <a href="#fig-shapes">Figure&nbsp;<span class="quarto-unresolved-ref">fig-shapes</span></a>.</li>
+<li>The shape of a point as a number, e.g, <code>shape = 1</code>, as shown in <a href="#fig-shapes">Figure&nbsp;<span>10.1</span></a>.</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-shapes" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="layers_files/figure-html/fig-shapes-1.png" class="img-fluid figure-img" alt="Mapping between shapes and the numbers that represent them: 0 - square, 1 - circle, 2 - triangle point up, 3 - plus, 4 - cross, 5 - diamond, 6 - triangle point down, 7 - square cross, 8 - star, 9 - diamond plus, 10 - circle plus, 11 - triangles up and down, 12 - square plus, 13 - circle cross, 14 - square and triangle down, 15 - filled square, 16 - filled circle, 17 - filled triangle point-up, 18 - filled diamond, 19 - solid circle, 20 - bullet (smaller circle), 21 - filled circle blue, 22 - filled square blue, 23 - filled diamond blue, 24 - filled triangle point-up blue, 25 - filled triangle point down blue." width="576"></p>
-<figcaption class="figure-caption">Figure&nbsp;10.1: R has 25 built-in shapes that are identified by numbers. There are some seeming duplicates: for example, 0, 15, and 22 are all squares. The difference comes from the interaction of the <code>color</code> and <code>fill</code> aesthetics. The hollow shapes (0–14) have a border determined by <code>color</code>; the solid shapes (15–20) are filled with <code>color</code>; the filled shapes (21–24) have a border of <code>color</code> and are filled with <code>fill</code>. Shapes are arranged to keep similar shapes next to each other.</figcaption></figure>
+<p></p><figcaption class="figure-caption">Figure&nbsp;10.1: R has 25 built-in shapes that are identified by numbers. There are some seeming duplicates: for example, 0, 15, and 22 are all squares. The difference comes from the interaction of the <code>color</code> and <code>fill</code> aesthetics. The hollow shapes (0–14) have a border determined by <code>color</code>; the solid shapes (15–20) are filled with <code>color</code>; the filled shapes (21–24) have a border of <code>color</code> and are filled with <code>fill</code>. Shapes are arranged to keep similar shapes next to each other.</figcaption><p></p>
+</figure>
 </div>
 </div>
 </div>
@@ -739,6 +734,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>ggplot2 provides more than 40 geoms but these don’t cover all possible plots one could make. If you need a different geom, we recommend looking into extension packages first to see if someone else has already implemented it (see <a href="https://exts.ggplot2.tidyverse.org/gallery/" class="uri">https://exts.ggplot2.tidyverse.org/gallery/</a> for a sampling). For example, the <strong>ggridges</strong> package (<a href="https://wilkelab.org/ggridges/" class="uri">https://wilkelab.org/ggridges</a>) is useful for making ridgeline plots, which can be useful for visualizing the density of a numerical variable for different levels of a categorical variable. In the following plot not only did we use a new geom (<code><a href="https://wilkelab.org/ggridges/reference/geom_density_ridges.html">geom_density_ridges()</a></code>), but we have also mapped the same variable to multiple aesthetics (<code>drv</code> to <code>y</code>, <code>fill</code>, and <code>color</code>) as well as set an aesthetic (<code>alpha = 0.5</code>) to make the density curves transparent.</p>
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/ggridges/">ggridges</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: package 'ggridges' was built under R version 4.2.1</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">drv</span>, fill <span class="op">=</span> <span class="va">drv</span>, color <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://wilkelab.org/ggridges/reference/geom_density_ridges.html">geom_density_ridges</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.5</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
@@ -792,7 +788,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
 </ol></section></section><section id="facets" class="level2" data-number="10.4"><h2 data-number="10.4" class="anchored" data-anchor-id="facets">
 <span class="header-section-number">10.4</span> Facets</h2>
-<p>In <a href="#sec-data-visualization"><span class="quarto-unresolved-ref">sec-data-visualization</span></a> you learned about faceting with <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap()</a></code>, which splits a plot into subplots that each display one subset of the data based on a categorical variable.</p>
+<p>In <span class="quarto-unresolved-ref">?sec-data-visualization</span> you learned about faceting with <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap()</a></code>, which splits a plot into subplots that each display one subset of the data based on a categorical variable.</p>
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -888,12 +884,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Smoothers fit a model to your data and then plot predictions from the model.</p></li>
 <li><p>Boxplots compute the five-number summary of the distribution and then display that summary as a specially formatted box.</p></li>
 </ul>
-<p>The algorithm used to calculate new values for a graph is called a <strong>stat</strong>, short for statistical transformation. <a href="#fig-vis-stat-bar">Figure&nbsp;<span class="quarto-unresolved-ref">fig-vis-stat-bar</span></a> shows how this process works with <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code>.</p>
+<p>The algorithm used to calculate new values for a graph is called a <strong>stat</strong>, short for statistical transformation. <a href="#fig-vis-stat-bar">Figure&nbsp;<span>10.2</span></a> shows how this process works with <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-vis-stat-bar" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/visualization-stat-bar.png" class="img-fluid figure-img" style="width:100.0%" alt="A figure demonstrating three steps of creating a bar chart. Step 1. geom_bar() begins with the diamonds data set. Step 2. geom_bar() transforms the data with the count stat, which returns a data set of cut values and counts. Step 3. geom_bar() uses the transformed data to build the plot. cut is mapped to the x-axis, count is mapped to the y-axis."></p>
-<figcaption class="figure-caption">Figure&nbsp;10.2: When creating a bar chart we first start with the raw data, then aggregate it to count the number of observations in each bar, and finally map those computed variables to plot aesthetics.</figcaption></figure>
+<p></p><figcaption class="figure-caption">Figure&nbsp;10.2: When creating a bar chart we first start with the raw data, then aggregate it to count the number of observations in each bar, and finally map those computed variables to plot aesthetics.</figcaption><p></p>
+</figure>
 </div>
 </div>
 </div>
@@ -1143,7 +1140,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
 </ol></section></section><section id="the-layered-grammar-of-graphics" class="level2" data-number="10.8"><h2 data-number="10.8" class="anchored" data-anchor-id="the-layered-grammar-of-graphics">
 <span class="header-section-number">10.8</span> The layered grammar of graphics</h2>
-<p>We can expand on the graphing template you learned in <a href="#sec-ggplot2-calls"><span class="quarto-unresolved-ref">sec-ggplot2-calls</span></a> by adding position adjustments, stats, coordinate systems, and faceting:</p>
+<p>We can expand on the graphing template you learned in <span class="quarto-unresolved-ref">?sec-ggplot2-calls</span> by adding position adjustments, stats, coordinate systems, and faceting:</p>
 <pre><code>ggplot(data = &lt;DATA&gt;) + 
   &lt;GEOM_FUNCTION&gt;(
      mapping = aes(&lt;MAPPINGS&gt;),
@@ -1154,12 +1151,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   &lt;FACET_FUNCTION&gt;</code></pre>
 <p>Our new template takes seven parameters, the bracketed words that appear in the template. In practice, you rarely need to supply all seven parameters to make a graph because ggplot2 will provide useful defaults for everything except the data, the mappings, and the geom function.</p>
 <p>The seven parameters in the template compose the grammar of graphics, a formal system for building plots. The grammar of graphics is based on the insight that you can uniquely describe <em>any</em> plot as a combination of a dataset, a geom, a set of mappings, a stat, a position adjustment, a coordinate system, a faceting scheme, and a theme.</p>
-<p>To see how this works, consider how you could build a basic plot from scratch: you could start with a dataset and then transform it into the information that you want to display (with a stat). Next, you could choose a geometric object to represent each observation in the transformed data. You could then use the aesthetic properties of the geoms to represent variables in the data. You would map the values of each variable to the levels of an aesthetic. These steps are illustrated in <a href="#fig-visualization-grammar">Figure&nbsp;<span class="quarto-unresolved-ref">fig-visualization-grammar</span></a>. You’d then select a coordinate system to place the geoms into, using the location of the objects (which is itself an aesthetic property) to display the values of the x and y variables.</p>
+<p>To see how this works, consider how you could build a basic plot from scratch: you could start with a dataset and then transform it into the information that you want to display (with a stat). Next, you could choose a geometric object to represent each observation in the transformed data. You could then use the aesthetic properties of the geoms to represent variables in the data. You would map the values of each variable to the levels of an aesthetic. These steps are illustrated in <a href="#fig-visualization-grammar">Figure&nbsp;<span>10.3</span></a>. You’d then select a coordinate system to place the geoms into, using the location of the objects (which is itself an aesthetic property) to display the values of the x and y variables.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-visualization-grammar" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="images/visualization-grammar.png" class="img-fluid figure-img" alt="A figure demonstrating the steps for going from raw data to table of frequencies where each row represents one level of cut and a count column shows how many diamonds are in that cut level. Then, these values are mapped to heights of bars. "></p>
-<figcaption class="figure-caption">Figure&nbsp;10.3: Steps for going from raw data to a table of frequencies to a bar plot where the heights of the bar represent the frequencies.</figcaption></figure>
+<figure class="figure"><p><img src="images/visualization-grammar.png" class="img-fluid figure-img" alt="A figure demonstrating the steps for going from raw data to table of frequencies where each row represents one level of cut and a count column shows how many diamonds are in that cut level. Then, these values are mapped to heights of bars. " width="1332"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;10.3: Steps for going from raw data to a table of frequencies to a bar plot where the heights of the bar represent the frequencies.</figcaption><p></p>
+</figure>
 </div>
 </div>
 </div>
@@ -1168,7 +1166,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If you’d like to learn more about the theoretical underpinnings of ggplot2, you might enjoy reading “<a href="https://vita.had.co.nz/papers/layered-grammar.pdf">The Layered Grammar of Graphics</a>”, the scientific paper that describes the theory of ggplot2 in detail.</p>
 </section><section id="summary" class="level2" data-number="10.9"><h2 data-number="10.9" class="anchored" data-anchor-id="summary">
 <span class="header-section-number">10.9</span> Summary</h2>
-<p>In this chapter you learned about the layered grammar of graphics starting with aesthetics and geometries to build a simple plot, facets for splitting the plot into subsets, statistics for understanding how geoms are calculated, position adjustments for controlling the fine details of position when geoms might otherwise overlap, and coordinate systems which allow you to fundamentally change what <code>x</code> and <code>y</code> mean. One layer we have not yet touched on is theme, which we will introduce in <a href="#sec-themes"><span class="quarto-unresolved-ref">sec-themes</span></a>.</p>
+<p>In this chapter you learned about the layered grammar of graphics starting with aesthetics and geometries to build a simple plot, facets for splitting the plot into subsets, statistics for understanding how geoms are calculated, position adjustments for controlling the fine details of position when geoms might otherwise overlap, and coordinate systems which allow you to fundamentally change what <code>x</code> and <code>y</code> mean. One layer we have not yet touched on is theme, which we will introduce in <span class="quarto-unresolved-ref">?sec-themes</span>.</p>
 <p>Two very useful resources for getting an overview of the complete ggplot2 functionality are the ggplot2 cheatsheet (which you can find at <a href="https://posit.co/resources/cheatsheets" class="uri">https://posit.co/resources/cheatsheets</a>) and the ggplot2 package website (<a href="https://ggplot2.tidyverse.org/">https://ggplot2.tidyverse.org</a>).</p>
 <p>An important lesson you should take from this chapter is that when you feel the need for a geom that is not provided by ggplot2, it’s always a good idea to look into whether someone else has already solved your problem by creating a ggplot2 extension package that offers that geom.</p>
 
@@ -1200,23 +1198,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
+    target: function(trigger) {
+      return trigger.previousElementSibling;
     }
   });
   clipboard.on('success', function(e) {
@@ -1281,92 +1265,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -1419,9 +1317,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">R for Data Science (2e) was written by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund.</div>   
-    <div class="nav-footer-center">
-      &nbsp;
-    </div>
     <div class="nav-footer-right">This book was built with <a href="https://quarto.org/">Quarto</a>.</div>
   </div>
 </footer>

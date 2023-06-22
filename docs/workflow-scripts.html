@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.2.475">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund">
 <title>R for Data Science (2e) - 7&nbsp; Workflow: scripts and projects</title>
@@ -15,10 +15,9 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -45,13 +44,43 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -95,25 +124,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./whole-game.html">Whole game</a></li><li class="breadcrumb-item"><a href="./workflow-scripts.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow: scripts and projects</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow: scripts and projects</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">R for Data Science (2e)</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/hadley/r4ds/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+    <a href="https://github.com/zhenghu159/r4ds-zh-cn" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle sidebar-tool" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
   </div>
@@ -121,303 +145,263 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
     </div>
       </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
+      <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-        </div>
+      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Welcome</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preface-2e.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface to the second edition</span></a>
+  <a href="./preface-2e.html" class="sidebar-item-text sidebar-link">Preface to the second edition</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./whole-game.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Whole game</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <a href="./whole-game.html" class="sidebar-item-text sidebar-link">Whole game</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-visualize.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data visualization</span></span></a>
+  <a href="./data-visualize.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data visualization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./workflow-basics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Workflow: basics</span></span></a>
+  <a href="./workflow-basics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Workflow: basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-transform.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data transformation</span></span></a>
+  <a href="./data-transform.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data transformation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./workflow-style.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Workflow: code style</span></span></a>
+  <a href="./workflow-style.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Workflow: code style</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-tidy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data tidying</span></span></a>
+  <a href="./data-tidy.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data tidying</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./workflow-scripts.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow: scripts and projects</span></span></a>
+  <a href="./workflow-scripts.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow: scripts and projects</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-import.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data import</span></span></a>
+  <a href="./data-import.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data import</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./workflow-help.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Workflow: getting help</span></span></a>
+  <a href="./workflow-help.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Workflow: getting help</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./visualize.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Visualize</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <a href="./visualize.html" class="sidebar-item-text sidebar-link">Visualize</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./layers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Layers</span></span></a>
+  <a href="./layers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Layers</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./EDA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Exploratory data analysis</span></span></a>
+  <a href="./EDA.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Exploratory data analysis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./communication.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Communication</span></span></a>
+  <a href="./communication.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Communication</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./transform.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Transform</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <a href="./transform.html" class="sidebar-item-text sidebar-link">Transform</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./logicals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Logical vectors</span></span></a>
+  <a href="./logicals.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Logical vectors</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./numbers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Numbers</span></span></a>
+  <a href="./numbers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Numbers</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
+  <a href="./strings.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Strings</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./regexps.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Regular expressions</span></span></a>
+  <a href="./regexps.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Regular expressions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./factors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Factors</span></span></a>
+  <a href="./factors.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Factors</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./datetimes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Dates and times</span></span></a>
+  <a href="./datetimes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Dates and times</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./missing-values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Missing values</span></span></a>
+  <a href="./missing-values.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Missing values</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./joins.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Joins</span></span></a>
+  <a href="./joins.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Joins</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./import.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Import</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <a href="./import.html" class="sidebar-item-text sidebar-link">Import</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spreadsheets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Spreadsheets</span></span></a>
+  <a href="./spreadsheets.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Spreadsheets</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./databases.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Databases</span></span></a>
+  <a href="./databases.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Databases</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./arrow.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Arrow</span></span></a>
+  <a href="./arrow.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Arrow</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./rectangling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Hierarchical data</span></span></a>
+  <a href="./rectangling.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Hierarchical data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./webscraping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Web scraping</span></span></a>
+  <a href="./webscraping.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Web scraping</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./program.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Program</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <a href="./program.html" class="sidebar-item-text sidebar-link">Program</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Functions</span></span></a>
+  <a href="./functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Functions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./iteration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Iteration</span></span></a>
+  <a href="./iteration.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Iteration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./base-R.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">A field guide to base R</span></span></a>
+  <a href="./base-R.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">A field guide to base R</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./communicate.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Communicate</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <a href="./communicate.html" class="sidebar-item-text sidebar-link">Communicate</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./quarto.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Quarto</span></span></a>
+  <a href="./quarto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Quarto</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./quarto-formats.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Quarto formats</span></span></a>
+  <a href="./quarto-formats.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Quarto formats</span></a>
   </div>
 </li>
       </ul>
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
 <li>
-<a href="#scripts" id="toc-scripts" class="nav-link active" data-scroll-target="#scripts"><span class="header-section-number">7.1</span> Scripts</a>
+<a href="#scripts" id="toc-scripts" class="nav-link active" data-scroll-target="#scripts"><span class="toc-section-number">7.1</span>  Scripts</a>
   <ul class="collapse">
-<li><a href="#running-code" id="toc-running-code" class="nav-link" data-scroll-target="#running-code"><span class="header-section-number">7.1.1</span> Running code</a></li>
-  <li><a href="#rstudio-diagnostics" id="toc-rstudio-diagnostics" class="nav-link" data-scroll-target="#rstudio-diagnostics"><span class="header-section-number">7.1.2</span> RStudio diagnostics</a></li>
-  <li><a href="#saving-and-naming" id="toc-saving-and-naming" class="nav-link" data-scroll-target="#saving-and-naming"><span class="header-section-number">7.1.3</span> Saving and naming</a></li>
+<li><a href="#running-code" id="toc-running-code" class="nav-link" data-scroll-target="#running-code"><span class="toc-section-number">7.1.1</span>  Running code</a></li>
+  <li><a href="#rstudio-diagnostics" id="toc-rstudio-diagnostics" class="nav-link" data-scroll-target="#rstudio-diagnostics"><span class="toc-section-number">7.1.2</span>  RStudio diagnostics</a></li>
+  <li><a href="#saving-and-naming" id="toc-saving-and-naming" class="nav-link" data-scroll-target="#saving-and-naming"><span class="toc-section-number">7.1.3</span>  Saving and naming</a></li>
   </ul>
 </li>
   <li>
-<a href="#projects" id="toc-projects" class="nav-link" data-scroll-target="#projects"><span class="header-section-number">7.2</span> Projects</a>
+<a href="#projects" id="toc-projects" class="nav-link" data-scroll-target="#projects"><span class="toc-section-number">7.2</span>  Projects</a>
   <ul class="collapse">
-<li><a href="#what-is-the-source-of-truth" id="toc-what-is-the-source-of-truth" class="nav-link" data-scroll-target="#what-is-the-source-of-truth"><span class="header-section-number">7.2.1</span> What is the source of truth?</a></li>
-  <li><a href="#where-does-your-analysis-live" id="toc-where-does-your-analysis-live" class="nav-link" data-scroll-target="#where-does-your-analysis-live"><span class="header-section-number">7.2.2</span> Where does your analysis live?</a></li>
-  <li><a href="#rstudio-projects" id="toc-rstudio-projects" class="nav-link" data-scroll-target="#rstudio-projects"><span class="header-section-number">7.2.3</span> RStudio projects</a></li>
-  <li><a href="#relative-and-absolute-paths" id="toc-relative-and-absolute-paths" class="nav-link" data-scroll-target="#relative-and-absolute-paths"><span class="header-section-number">7.2.4</span> Relative and absolute paths</a></li>
+<li><a href="#what-is-the-source-of-truth" id="toc-what-is-the-source-of-truth" class="nav-link" data-scroll-target="#what-is-the-source-of-truth"><span class="toc-section-number">7.2.1</span>  What is the source of truth?</a></li>
+  <li><a href="#where-does-your-analysis-live" id="toc-where-does-your-analysis-live" class="nav-link" data-scroll-target="#where-does-your-analysis-live"><span class="toc-section-number">7.2.2</span>  Where does your analysis live?</a></li>
+  <li><a href="#rstudio-projects" id="toc-rstudio-projects" class="nav-link" data-scroll-target="#rstudio-projects"><span class="toc-section-number">7.2.3</span>  RStudio projects</a></li>
+  <li><a href="#relative-and-absolute-paths" id="toc-relative-and-absolute-paths" class="nav-link" data-scroll-target="#relative-and-absolute-paths"><span class="toc-section-number">7.2.4</span>  Relative and absolute paths</a></li>
   </ul>
 </li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">7.3</span> Exercises</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">7.4</span> Summary</a></li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/hadley/r4ds/edit/main/workflow-scripts.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/hadley/r4ds/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="toc-section-number">7.3</span>  Exercises</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="toc-section-number">7.4</span>  Summary</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/zhenghu159/r4ds-zh-cn/edit/main/workflow-scripts.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/zhenghu159/r4ds-zh-cn/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-workflow-scripts-projects" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow: scripts and projects</span></span></h1>
+<h1 class="title"><span id="sec-workflow-scripts-projects" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow: scripts and projects</span></span></h1>
 </div>
 
 
@@ -431,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 </header><div class="status">
-<div class="callout callout-style-simple callout-note">
+<div class="callout-note callout callout-style-simple">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -445,12 +429,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This chapter will introduce you to two essential tools for organizing your code: scripts and projects.</p>
 <section id="scripts" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="scripts">
 <span class="header-section-number">7.1</span> Scripts</h2>
-<p>So far, you have used the console to run code. That’s a great place to start, but you’ll find it gets cramped pretty quickly as you create more complex ggplot2 graphics and longer dplyr pipelines. To give yourself more room to work, use the script editor. Open it up by clicking the File menu, selecting New File, then R script, or using the keyboard shortcut Cmd/Ctrl + Shift + N. Now you’ll see four panes, as in <a href="#fig-rstudio-script">Figure&nbsp;<span class="quarto-unresolved-ref">fig-rstudio-script</span></a>. The script editor is a great place to experiment with your code. When you want to change something, you don’t have to re-type the whole thing, you can just edit the script and re-run it. And once you have written code that works and does what you want, you can save it as a script file to easily return to later.</p>
+<p>So far, you have used the console to run code. That’s a great place to start, but you’ll find it gets cramped pretty quickly as you create more complex ggplot2 graphics and longer dplyr pipelines. To give yourself more room to work, use the script editor. Open it up by clicking the File menu, selecting New File, then R script, or using the keyboard shortcut Cmd/Ctrl + Shift + N. Now you’ll see four panes, as in <a href="#fig-rstudio-script">Figure&nbsp;<span>7.1</span></a>. The script editor is a great place to experiment with your code. When you want to change something, you don’t have to re-type the whole thing, you can just edit the script and re-run it. And once you have written code that works and does what you want, you can save it as a script file to easily return to later.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-rstudio-script" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="diagrams/rstudio/script.png" class="img-fluid figure-img" alt="RStudio IDE with Editor, Console, and Output highlighted."></p>
-<figcaption class="figure-caption">Figure&nbsp;7.1: Opening the script editor adds a new pane at the top-left of the IDE.</figcaption></figure>
+<figure class="figure"><p><img src="diagrams/rstudio/script.png" class="img-fluid figure-img" alt="RStudio IDE with Editor, Console, and Output highlighted." width="521"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;7.1: Opening the script editor adds a new pane at the top-left of the IDE.</figcaption><p></p>
+</figure>
 </div>
 </div>
 </div>
@@ -477,19 +462,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In the script editor, RStudio will highlight syntax errors with a red squiggly line and a cross in the sidebar:</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="screenshots/rstudio-diagnostic.png" class="img-fluid" alt="Script editor with the script x y <- 10. A red X indicates that there is syntax error. The syntax error is also highlighted with a red squiggly line."></p>
+<p><img src="screenshots/rstudio-diagnostic.png" class="img-fluid" alt="Script editor with the script x y <- 10. A red X indicates that there is syntax error. The syntax error is also highlighted with a red squiggly line." width="148"></p>
 </div>
 </div>
 <p>Hover over the cross to see what the problem is:</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="screenshots/rstudio-diagnostic-tip.png" class="img-fluid" alt="Script editor with the script x y <- 10. A red X indicates that there is syntax error. The syntax error is also highlighted with a red squiggly line. Hovering over the X shows a text box with the text unexpected token y and unexpected token <-."></p>
+<p><img src="screenshots/rstudio-diagnostic-tip.png" class="img-fluid" alt="Script editor with the script x y <- 10. A red X indicates that there is syntax error. The syntax error is also highlighted with a red squiggly line. Hovering over the X shows a text box with the text unexpected token y and unexpected token <-." width="232"></p>
 </div>
 </div>
 <p>RStudio will also let you know about potential problems:</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="screenshots/rstudio-diagnostic-warn.png" class="img-fluid" alt="Script editor with the script 3 == NA. A yellow exclamation mark indicates that there may be a potential problem. Hovering over the exclamation mark shows a text box with the text use is.na to check whether expression evaluates to NA."></p>
+<p><img src="screenshots/rstudio-diagnostic-warn.png" class="img-fluid" alt="Script editor with the script 3 == NA. A yellow exclamation mark indicates that there may be a potential problem. Hovering over the exclamation mark shows a text box with the text use is.na to check whether expression evaluates to NA." width="439"></p>
 </div>
 </div>
 </section><section id="saving-and-naming" class="level3" data-number="7.1.3"><h3 data-number="7.1.3" class="anchored" data-anchor-id="saving-and-naming">
@@ -534,12 +519,13 @@ report-draft-notes.txt</code></pre>
 <section id="what-is-the-source-of-truth" class="level3" data-number="7.2.1"><h3 data-number="7.2.1" class="anchored" data-anchor-id="what-is-the-source-of-truth">
 <span class="header-section-number">7.2.1</span> What is the source of truth?</h3>
 <p>As a beginner, it’s okay to rely on your current Environment to contain all the objects you have created throughout your analysis. However, to make it easier to work on larger projects or collaborate with others, your source of truth should be the R scripts. With your R scripts (and your data files), you can recreate the environment. With only your environment, it’s much harder to recreate your R scripts: you’ll either have to retype a lot of code from memory (inevitably making mistakes along the way) or you’ll have to carefully mine your R history.</p>
-<p>To help keep your R scripts as the source of truth for your analysis, we highly recommend that you instruct RStudio not to preserve your workspace between sessions. You can do this either by running <code><a href="https://usethis.r-lib.org/reference/use_blank_slate.html">usethis::use_blank_slate()</a></code><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> or by mimicking the options shown in <a href="#fig-blank-slate">Figure&nbsp;<span class="quarto-unresolved-ref">fig-blank-slate</span></a>. This will cause you some short-term pain, because now when you restart RStudio, it will no longer remember the code that you ran last time nor will the objects you created or the datasets you read be available to use. But this short-term pain saves you long-term agony because it forces you to capture all important procedures in your code. There’s nothing worse than discovering three months after the fact that you’ve only stored the results of an important calculation in your environment, not the calculation itself in your code.</p>
+<p>To help keep your R scripts as the source of truth for your analysis, we highly recommend that you instruct RStudio not to preserve your workspace between sessions. You can do this either by running <code><a href="https://usethis.r-lib.org/reference/use_blank_slate.html">usethis::use_blank_slate()</a></code><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> or by mimicking the options shown in <a href="#fig-blank-slate">Figure&nbsp;<span>7.2</span></a>. This will cause you some short-term pain, because now when you restart RStudio, it will no longer remember the code that you ran last time nor will the objects you created or the datasets you read be available to use. But this short-term pain saves you long-term agony because it forces you to capture all important procedures in your code. There’s nothing worse than discovering three months after the fact that you’ve only stored the results of an important calculation in your environment, not the calculation itself in your code.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-blank-slate" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="diagrams/rstudio/clean-slate.png" class="img-fluid figure-img" alt="RStudio Global Options window where the option Restore .RData into workspace at startup is not checked. Also, the option Save workspace to .RData on exit is set to Never. "></p>
-<figcaption class="figure-caption">Figure&nbsp;7.2: Copy these options in your RStudio options to always start your RStudio session with a clean slate.</figcaption></figure>
+<figure class="figure"><p><img src="diagrams/rstudio/clean-slate.png" class="img-fluid figure-img" alt="RStudio Global Options window where the option Restore .RData into workspace at startup is not checked. Also, the option Save workspace to .RData on exit is set to Never. " width="523"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;7.2: Copy these options in your RStudio options to always start your RStudio session with a clean slate.</figcaption><p></p>
+</figure>
 </div>
 </div>
 </div>
@@ -550,12 +536,12 @@ report-draft-notes.txt</code></pre>
 </ol>
 <p>We collectively use this pattern hundreds of times a week.</p>
 <p>Alternatively, if you don’t use keyboard shortcuts, you can go to Session &gt; Restart R and then highlight and re-run your current script.</p>
-<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-note callout callout-style-simple callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
+<div class="callout-caption-container flex-fill">
 RStudio server
 </div>
 </div>
@@ -568,7 +554,7 @@ RStudio server
 <p>R has a powerful notion of the <strong>working directory</strong>. This is where R looks for files that you ask it to load, and where it will put any files that you ask it to save. RStudio shows your current working directory at the top of the console:</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="screenshots/rstudio-wd.png" class="img-fluid" alt="The Console tab shows the current working directory as ~/Documents/r4ds. "></p>
+<p><img src="screenshots/rstudio-wd.png" class="img-fluid" alt="The Console tab shows the current working directory as ~/Documents/r4ds. " width="321"></p>
 </div>
 </div>
 <p>And you can print this out in R code by running <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code>:</p>
@@ -585,12 +571,13 @@ RStudio server
 <p>There’s a better way; a way that also puts you on the path to managing your R work like an expert. That way is the <strong>RStudio</strong> <strong>project</strong>.</p>
 </section><section id="rstudio-projects" class="level3" data-number="7.2.3"><h3 data-number="7.2.3" class="anchored" data-anchor-id="rstudio-projects">
 <span class="header-section-number">7.2.3</span> RStudio projects</h3>
-<p>Keeping all the files associated with a given project (input data, R scripts, analytical results, and figures) together in one directory is such a wise and common practice that RStudio has built-in support for this via <strong>projects</strong>. Let’s make a project for you to use while you’re working through the rest of this book. Click File &gt; New Project, then follow the steps shown in <a href="#fig-new-project">Figure&nbsp;<span class="quarto-unresolved-ref">fig-new-project</span></a>.</p>
+<p>Keeping all the files associated with a given project (input data, R scripts, analytical results, and figures) together in one directory is such a wise and common practice that RStudio has built-in support for this via <strong>projects</strong>. Let’s make a project for you to use while you’re working through the rest of this book. Click File &gt; New Project, then follow the steps shown in <a href="#fig-new-project">Figure&nbsp;<span>7.3</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-new-project" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="diagrams/new-project.png" class="img-fluid figure-img" alt="Three screenshots of the New Project menu. In the first screenshot, the Create Project window is shown and New Directory is selected. In the second screenshot, the Project Type window is shown and Empty Project is selected. In the third screenshot, the Create New Project  window is shown and the directory name is given as r4ds and the project is being created as subdirectory of the Desktop. "></p>
-<figcaption class="figure-caption">Figure&nbsp;7.3: To create new project: (top) first click New Directory, then (middle) click New Project, then (bottom) fill in the directory (project) name, choose a good subdirectory for its home and click Create Project.</figcaption></figure>
+<figure class="figure"><p><img src="diagrams/new-project.png" class="img-fluid figure-img" alt="Three screenshots of the New Project menu. In the first screenshot, the Create Project window is shown and New Directory is selected. In the second screenshot, the Project Type window is shown and Empty Project is selected. In the third screenshot, the Create New Project  window is shown and the directory name is given as r4ds and the project is being created as subdirectory of the Desktop. " width="1172"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;7.3: To create new project: (top) first click New Directory, then (middle) click New Project, then (bottom) fill in the directory (project) name, choose a good subdirectory for its home and click Create Project.</figcaption><p></p>
+</figure>
 </div>
 </div>
 </div>
@@ -666,23 +653,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
+    target: function(trigger) {
+      return trigger.previousElementSibling;
     }
   });
   clipboard.on('success', function(e) {
@@ -747,92 +720,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -885,9 +772,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">R for Data Science (2e) was written by Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund.</div>   
-    <div class="nav-footer-center">
-      &nbsp;
-    </div>
     <div class="nav-footer-right">This book was built with <a href="https://quarto.org/">Quarto</a>.</div>
   </div>
 </footer>
