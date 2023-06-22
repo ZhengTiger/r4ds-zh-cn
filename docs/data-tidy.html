@@ -588,7 +588,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>tidyr 提供了两个用于数据透视（pivoting）的函数：<code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> 和 <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code>。 我们首先从 <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> 开始，因为它是最常见的情况。 让我们深入一些示例。</p>
 <section id="sec-billboard" class="level3" data-number="6.3.1"><h3 data-number="6.3.1" class="anchored" data-anchor-id="sec-billboard">
 <span class="header-section-number">6.3.1</span> Data in column names</h3>
-<p>The <code>billboard</code> dataset records the billboard rank of songs in the year 2000:</p>
+<p><code>billboard</code> 数据集记录了 2000 年歌曲的 billboard 排名：</p>
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">billboard</span></span>
 <span><span class="co">#&gt; # A tibble: 317 × 79</span></span>
@@ -603,8 +603,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="co">#&gt; # ℹ 311 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 71 more variables: wk6 &lt;dbl&gt;, wk7 &lt;dbl&gt;, wk8 &lt;dbl&gt;, wk9 &lt;dbl&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In this dataset, each observation is a song. The first three columns (<code>artist</code>, <code>track</code> and <code>date.entered</code>) are variables that describe the song. Then we have 76 columns (<code>wk1</code>-<code>wk76</code>) that describe the rank of the song in each week<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Here, the column names are one variable (the <code>week</code>) and the cell values are another (the <code>rank</code>).</p>
-<p>To tidy this data, we’ll use <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code>:</p>
+<p>在这个数据集中，每个观测（observation）都是一首歌曲。 前三列（<code>artist</code>, <code>track</code> and <code>date.entered</code>）是描述歌曲的变量（variables）。 然后我们有 76 列（<code>wk1</code>-<code>wk76</code>），描述了歌曲在每周的排名<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。 这里，列名是一个变量（week<code>），单元格的值是另一个变量（</code>rank`）。</p>
+<p>为了整理这个数据，我们将使用 <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> 函数：</p>
 <div class="cell" data-r.options="{&quot;pillar.print_min&quot;:10}">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">billboard</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
@@ -1028,7 +1028,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
-<li id="fn1"><p>The song will be included as long as it was in the top 100 at some point in 2000, and is tracked for up to 72 weeks after it appears.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>只要歌曲在 2000 年的某个时刻进入了前 100 名，并且在出现后的 72 周内进行了追踪，就会包括该歌曲。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>We’ll come back to this idea in <a href="missing-values.html"><span>Chapter&nbsp;19</span></a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
