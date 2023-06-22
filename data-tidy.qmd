@@ -61,7 +61,7 @@ table3
 2.  每个样本是一行，每行是一个样本。
 3.  每个值是一个单元格，每个单元格是一个单一的值。
 
-@fig-tidy-structure 在可视化上展示了这些规则。.
+@fig-tidy-structure 可视化地展示了这些规则。
 
 ```{r}
 #| label: fig-tidy-structure
@@ -78,18 +78,18 @@ table3
 knitr::include_graphics("images/tidy-1.png", dpi = 270)
 ```
 
-Why ensure that your data is tidy?
-There are two main advantages:
+为什么要确保你的数据是整洁的（tidy）？
+有两个主要的优势：
 
-1.  There's a general advantage to picking one consistent way of storing data.
-    If you have a consistent data structure, it's easier to learn the tools that work with it because they have an underlying uniformity.
+1.  选择一种一致的数据存储方式有一个普遍的优势。
+    如果您拥有一种一致的数据结构，学习与之配套的工具会更容易，因为它们具有基本的统一性。
 
-2.  There's a specific advantage to placing variables in columns because it allows R's vectorized nature to shine.
-    As you learned in @sec-mutate and @sec-summarize, most built-in R functions work with vectors of values.
-    That makes transforming tidy data feel particularly natural.
+2.  将变量（variables）放置在列（columns）中具有特定的优势，因为这可以展现出 R 的向量化（vectorized）特性。
+    正如您在 @sec-mutate 和 @sec-summarize 中学到的，大多数内置的 R 函数都可以处理值的向量（vectors）。
+    这使得转换整洁数据（tidy data）感觉特别自然。
 
-dplyr, ggplot2, and all the other packages in the tidyverse are designed to work with tidy data.
-Here are a few small examples showing how you might work with `table1`.
+dplyr、ggplot2 和 tidyverse 中的其他所有包都被设计用于处理整洁数据（tidy data）。
+以下是一些小例子，展示了如何处理 `table1`。
 
 ```{r}
 #| fig-width: 5
@@ -124,54 +124,54 @@ ggplot(table1, aes(x = year, y = cases)) +
 
 ### Exercises
 
-1.  For each of the sample tables, describe what each observation and each column represents.
+1.  对于每个示例表格，描述每个观测（observation）和每列代表的内容。
 
-2.  Sketch out the process you'd use to calculate the `rate` for `table2` and `table3`.
-    You will need to perform four operations:
+2.  描绘出计算 `table2` 和 `table3`中的 `rate` 所使用的过程。
+    您需要执行四个操作：
 
-    a.  Extract the number of TB cases per country per year.
-    b.  Extract the matching population per country per year.
-    c.  Divide cases by population, and multiply by 10000.
-    d.  Store back in the appropriate place.
+    a.  提取每个国家每年的结核病病例数（cases）。
+    b.  提取每个国家每年的相应人口（population）。
+    c.  将病例数除以人口，并乘以 10000。
+    d.  存储在适当的位置。
 
-    You haven't yet learned all the functions you'd need to actually perform these operations, but you should still be able to think through the transformations you'd need.
+    您还没有学习到实际执行这些操作所需的所有函数，但您应该能够思考所需的转换过程。
 
 ## Lengthening data {#sec-pivoting}
 
-The principles of tidy data might seem so obvious that you wonder if you'll ever encounter a dataset that isn't tidy.
-Unfortunately, however, most real data is untidy.
-There are two main reasons:
+整洁数据（tidy data）的原则可能看起来如此显而易见，以至于您会想知道是否会遇到不整洁的数据集。
+然而，不幸的是，大多数真实数据都是不整洁的。
+这主要有两个原因：
 
-1.  Data is often organized to facilitate some goal other than analysis.
-    For example, it's common for data to be structured to make data entry, not analysis, easy.
+1.  数据通常被组织成为实现除了分析之外的某个目标。
+    例如，常见的情况是为了简化数据输入而结构化数据，而不是为了方便分析。
 
-2.  Most people aren't familiar with the principles of tidy data, and it's hard to derive them yourself unless you spend a lot of time working with data.
+2.  大多数人不熟悉整洁数据（tidy data）的原则，除非您花费大量时间处理数据，否则很难自己推导出这些原则。
 
-This means that most real analyses will require at least a little tidying.
-You'll begin by figuring out what the underlying variables and observations are.
-Sometimes this is easy; other times you'll need to consult with the people who originally generated the data.
-Next, you'll **pivot** your data into a tidy form, with variables in the columns and observations in the rows.
+这意味着大多数实际分析都需要进行一些整理工作。
+首先，您需要确定基础变量（variables）和观测（observations）是什么。
+有时这很容易；其他时候，您可能需要与最初生成数据的人进行咨询。
+接下来，您将 **pivot** 您的数据为整洁的形式，其中变量（variables）位于列（columns）中，观测（observations）位于行（rows）中。
 
-tidyr provides two functions for pivoting data: `pivot_longer()` and `pivot_wider()`.
-We'll first start with `pivot_longer()` because it's the most common case.
-Let's dive into some examples.
+tidyr 提供了两个用于数据透视（pivoting）的函数：`pivot_longer()` 和 `pivot_wider()`。
+我们首先从 `pivot_longer()` 开始，因为它是最常见的情况。
+让我们深入一些示例。
 
 ### Data in column names {#sec-billboard}
 
-The `billboard` dataset records the billboard rank of songs in the year 2000:
+`billboard` 数据集记录了 2000 年歌曲的 billboard 排名：
 
 ```{r}
 billboard
 ```
 
-In this dataset, each observation is a song.
-The first three columns (`artist`, `track` and `date.entered`) are variables that describe the song.
-Then we have 76 columns (`wk1`-`wk76`) that describe the rank of the song in each week[^data-tidy-1].
-Here, the column names are one variable (the `week`) and the cell values are another (the `rank`).
+在这个数据集中，每个观测（observation）都是一首歌曲。
+前三列（`artist`, `track` and `date.entered`）是描述歌曲的变量（variables）。
+然后我们有 76 列（`wk1`-`wk76`），描述了歌曲在每周的排名[^data-tidy-1]。
+这里，列名是一个变量（week`），单元格的值是另一个变量（`rank\`）。
 
-[^data-tidy-1]: The song will be included as long as it was in the top 100 at some point in 2000, and is tracked for up to 72 weeks after it appears.
+[^data-tidy-1]: 只要歌曲在 2000 年的某个时刻进入了前 100 名，并且在出现后的 72 周内进行了追踪，就会包括该歌曲。
 
-To tidy this data, we'll use `pivot_longer()`:
+为了整理这个数据，我们将使用 `pivot_longer()` 函数：
 
 ```{r, R.options=list(pillar.print_min = 10)}
 billboard |> 
