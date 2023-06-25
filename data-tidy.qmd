@@ -167,7 +167,7 @@ billboard
 在这个数据集中，每个观测（observation）都是一首歌曲。
 前三列（`artist`, `track` and `date.entered`）是描述歌曲的变量（variables）。
 然后我们有 76 列（`wk1`-`wk76`），描述了歌曲在每周的排名[^data-tidy-1]。
-这里，列名是一个变量（week`），单元格的值是另一个变量（`rank\`）。
+这里，列名是一个变量（`week`），单元格的值是另一个变量（`rank`）。
 
 [^data-tidy-1]: 只要歌曲在 2000 年的某个时刻进入了前 100 名，并且在出现后的 72 周内进行了追踪，就会包括该歌曲。
 
@@ -182,19 +182,19 @@ billboard |>
   )
 ```
 
-After the data, there are three key arguments:
+数据之后，还有三个关键论点：
 
--   `cols` specifies which columns need to be pivoted, i.e. which columns aren't variables. This argument uses the same syntax as `select()` so here we could use `!c(artist, track, date.entered)` or `starts_with("wk")`.
--   `names_to` names the variable stored in the column names, we named that variable `week`.
--   `values_to` names the variable stored in the cell values, we named that variable `rank`.
+-   `cols` 指定哪些列需要被 pivoted，即哪些列不是变量。此参数使用与 `select()` 相同的语法，因此这里我们可以使用 `!c(artist, track, date.entered)` 或 `starts_with("wk")`。
+-   `names_to` 命名存储在 column names 中的变量，我们将该变量命名为 `week`。
+-   `values_to` 命名存储在 cell values 中的变量，我们将该变量命名为 `rank`。
 
-Note that in the code `"week"` and `"rank"` are quoted because those are new variables we're creating, they don't yet exist in the data when we run the `pivot_longer()` call.
+请注意，在代码中引用了 `"week"` 和 `"rank"` ，因为这些是我们正在创建的新变量，当我们运行 `pivot_longer()` 调用时，它们还不存在于数据中。
 
-Now let's turn our attention to the resulting, longer data frame.
-What happens if a song is in the top 100 for less than 76 weeks?
-Take 2 Pac's "Baby Don't Cry", for example.
-The above output suggests that it was only in the top 100 for 7 weeks, and all the remaining weeks are filled in with missing values.
-These `NA`s don't really represent unknown observations; they were forced to exist by the structure of the dataset[^data-tidy-2], so we can ask `pivot_longer()` to get rid of them by setting `values_drop_na = TRUE`:
+现在让我们将注意力转向结果，longer data frame。
+如果一首歌进入前 100 名的时间少于 76 周，会发生什么情况？
+以 2 Pac 的 "Baby Don't Cry" 为例。
+上面的输出表明它只在前 100 名中停留了 7 周，其余所有周都用缺失值填充。
+这些 `NA`s 并不真正代表未知的观察结果；它们是由 dataset[^data-tidy-2] 的结构强制存在的，因此我们可以要求 `pivot_longer()` 通过设置 `values_drop_na = TRUE` 来删除它们：
 
 [^data-tidy-2]: We'll come back to this idea in @sec-missing-values.
 
@@ -208,7 +208,7 @@ billboard |>
   )
 ```
 
-The number of rows is now much lower, indicating that many rows with `NA`s were dropped.
+行数现在少得多，表明许多具有 `NA`s 的行已被删除。
 
 You might also wonder what happens if a song is in the top 100 for more than 76 weeks?
 We can't tell from this data, but you might guess that additional columns `wk77`, `wk78`, ... would be added to the dataset.
