@@ -426,22 +426,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<p>This chapter will introduce you to two essential tools for organizing your code: scripts and projects.</p>
+<p>本章将向您介绍组织代码的两个基本工具：脚本（scripts）和项目（projects）。</p>
 <section id="scripts" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="scripts">
 <span class="header-section-number">7.1</span> Scripts</h2>
-<p>So far, you have used the console to run code. That’s a great place to start, but you’ll find it gets cramped pretty quickly as you create more complex ggplot2 graphics and longer dplyr pipelines. To give yourself more room to work, use the script editor. Open it up by clicking the File menu, selecting New File, then R script, or using the keyboard shortcut Cmd/Ctrl + Shift + N. Now you’ll see four panes, as in <a href="#fig-rstudio-script">Figure&nbsp;<span>7.1</span></a>. The script editor is a great place to experiment with your code. When you want to change something, you don’t have to re-type the whole thing, you can just edit the script and re-run it. And once you have written code that works and does what you want, you can save it as a script file to easily return to later.</p>
+<p>到目前为止，您已经使用控制台（console）来运行代码。 这是一个很好的起点，但是当您创建更复杂的 ggplot2 图形和更长的 dplyr 管道时，您会发现它很快就会变得拥挤。 为了给自己更多的工作空间，请使用脚本编辑器。 单击 File 菜单，选择 New File，然后选择 R script，或使用键盘快捷键 Cmd/Ctrl + Shift + N 将其打开。 现在您将看到四个窗格，如 <a href="#fig-rstudio-script">Figure&nbsp;<span>7.1</span></a> 所示。 脚本编辑器是试验代码的好地方。 当您想要更改某些内容时，不必重新输入整个内容，只需编辑脚本并重新运行即可。 一旦您编写了可以运行并执行您想要的操作的代码，您就可以将其保存为脚本文件，以便稍后轻松返回。</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-rstudio-script" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/rstudio/script.png" class="img-fluid figure-img" alt="RStudio IDE with Editor, Console, and Output highlighted." width="521"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.1: Opening the script editor adds a new pane at the top-left of the IDE.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;7.1: 打开脚本编辑器会在 IDE 的左上角添加一个新窗格。</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 <section id="running-code" class="level3" data-number="7.1.1"><h3 data-number="7.1.1" class="anchored" data-anchor-id="running-code">
 <span class="header-section-number">7.1.1</span> Running code</h3>
-<p>The script editor is an excellent place for building complex ggplot2 plots or long sequences of dplyr manipulations. The key to using the script editor effectively is to memorize one of the most important keyboard shortcuts: Cmd/Ctrl + Enter. This executes the current R expression in the console. For example, take the code below.</p>
+<p>脚本编辑器是构建复杂 ggplot2 绘图或长序列 dplyr 操作的绝佳场所。 有效使用脚本编辑器的关键是记住最重要的键盘快捷键之一：Cmd/Ctrl + Enter。 这将在控制台中执行当前的 R 表达式。 例如，采用下面的代码。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
@@ -453,25 +453,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, month, day) <span class="sc">|&gt;</span> </span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(dep_delay))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>If your cursor is at █, pressing Cmd/Ctrl + Enter will run the complete command that generates <code>not_cancelled</code>. It will also move the cursor to the following statement (beginning with <code>not_cancelled |&gt;</code>). That makes it easy to step through your complete script by repeatedly pressing Cmd/Ctrl + Enter.</p>
-<p>Instead of running your code expression-by-expression, you can also execute the complete script in one step with Cmd/Ctrl + Shift + S. Doing this regularly is a great way to ensure that you’ve captured all the important parts of your code in the script.</p>
-<p>We recommend you always start your script with the packages you need. That way, if you share your code with others, they can easily see which packages they need to install. Note, however, that you should never include <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> in a script you share. It’s inconsiderate to hand off a script that will change something on their computer if they’re not being careful!</p>
-<p>When working through future chapters, we highly recommend starting in the script editor and practicing your keyboard shortcuts. Over time, sending code to the console in this way will become so natural that you won’t even think about it.</p>
+<p>如果光标位于 █ 处，按 Cmd/Ctrl + Enter 将运行生成 <code>not_cancelled</code> 的完整命令。 它还会将光标移动到以下语句（以 <code>not_cancelled |&gt;</code> 开头）。 这样可以通过重复按 Cmd/Ctrl + Enter 轻松地逐步执行完整的脚本。</p>
+<p>您还可以使用 Cmd/Ctrl + Shift + S 一步执行完整的脚本，而不是逐个表达式地运行代码。 定期执行此操作是确保您捕获脚本中代码的所有重要部分的好方法。</p>
+<p>我们建议您始终使用所需的包来启动脚本。 这样，如果您与其他人共享代码，他们可以轻松查看需要安装哪些软件包。 但请注意，您绝对不应该在共享的脚本中包含 <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code>。 如果他们不小心的话，交出一个会改变他们计算机上某些内容的脚本是不体贴的！</p>
+<p>在学习后续章节时，我们强烈建议从脚本编辑器开始并练习键盘快捷键。 随着时间的推移，以这种方式向控制台发送代码将变得如此自然，您甚至不会想到它。</p>
 </section><section id="rstudio-diagnostics" class="level3" data-number="7.1.2"><h3 data-number="7.1.2" class="anchored" data-anchor-id="rstudio-diagnostics">
 <span class="header-section-number">7.1.2</span> RStudio diagnostics</h3>
-<p>In the script editor, RStudio will highlight syntax errors with a red squiggly line and a cross in the sidebar:</p>
+<p>在脚本编辑器中，RStudio 将使用红色波浪线和侧边栏中的十字来突出显示语法错误：</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="screenshots/rstudio-diagnostic.png" class="img-fluid" alt="Script editor with the script x y <- 10. A red X indicates that there is syntax error. The syntax error is also highlighted with a red squiggly line." width="148"></p>
 </div>
 </div>
-<p>Hover over the cross to see what the problem is:</p>
+<p>将鼠标悬停在十字上即可查看问题所在：</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="screenshots/rstudio-diagnostic-tip.png" class="img-fluid" alt="Script editor with the script x y <- 10. A red X indicates that there is syntax error. The syntax error is also highlighted with a red squiggly line. Hovering over the X shows a text box with the text unexpected token y and unexpected token <-." width="232"></p>
 </div>
 </div>
-<p>RStudio will also let you know about potential problems:</p>
+<p>RStudio 还会让您了解潜在的问题：</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="screenshots/rstudio-diagnostic-warn.png" class="img-fluid" alt="Script editor with the script 3 == NA. A yellow exclamation mark indicates that there may be a potential problem. Hovering over the exclamation mark shows a text box with the text use is.na to check whether expression evaluates to NA." width="439"></p>
@@ -479,14 +479,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section><section id="saving-and-naming" class="level3" data-number="7.1.3"><h3 data-number="7.1.3" class="anchored" data-anchor-id="saving-and-naming">
 <span class="header-section-number">7.1.3</span> Saving and naming</h3>
-<p>RStudio automatically saves the contents of the script editor when you quit, and automatically reloads it when you re-open. Nevertheless, it’s a good idea to avoid Untitled1, Untitled2, Untitled3, and so on and instead save your scripts and to give them informative names.</p>
-<p>It might be tempting to name your files <code>code.R</code> or <code>myscript.R</code>, but you should think a bit harder before choosing a name for your file. Three important principles for file naming are as follows:</p>
+<p>当您退出时，RStudio 会自动保存脚本编辑器的内容，并在您重新打开时自动重新加载。 尽管如此，最好避免使用 Untitled1、Untitled2、Untitled3 等，而是保存脚本并为它们提供信息丰富的名称。</p>
+<p>将文件命名为 <code>code.R</code> 或 <code>myscript.R</code> 可能很诱人，但在为文件选择名称之前应该仔细考虑一下。 文件命名的三个重要原则如下：</p>
 <ol type="1">
-<li>File names should be <strong>machine</strong> readable: avoid spaces, symbols, and special characters. Don’t rely on case sensitivity to distinguish files.</li>
-<li>File names should be <strong>human</strong> readable: use file names to describe what’s in the file.</li>
-<li>File names should play well with default ordering: start file names with numbers so that alphabetical sorting puts them in the order they get used.</li>
+<li>文件名应该是机器可读的（<strong>machine</strong> readable）：避免空格、符号和特殊字符。不要依靠大小写来区分文件。</li>
+<li>文件名应该是人类可读的（<strong>human</strong> readable）：使用文件名来描述文件中的内容。</li>
+<li>文件名应该与默认顺序配合良好：以数字开头的文件名，以便按字母顺序排序将它们按照使用的顺序排列。</li>
 </ol>
-<p>For example, suppose you have the following files in a project folder.</p>
+<p>例如，假设项目文件夹中有以下文件。</p>
 <pre><code>alternative model.R
 code for exploratory analysis.r
 finalreport.qmd
@@ -496,8 +496,8 @@ Figure_02.png
 model_first_try.R
 run-first.r
 temp.txt</code></pre>
-<p>There are a variety of problems here: it’s hard to find which file to run first, file names contain spaces, there are two files with the same name but different capitalization (<code>finalreport</code> vs.&nbsp;<code>FinalReport</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>), and some names don’t describe their contents (<code>run-first</code> and <code>temp</code>).</p>
-<p>Here’s a better way of naming and organizing the same set of files:</p>
+<p>这里存在各种各样的问题：很难找到先运行哪个文件、文件名包含空格、有两个同名但大小写不同的文件（<code>finalreport</code> vs.&nbsp;<code>FinalReport</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>）、有些名称没有描述其内容（<code>run-first</code> and <code>temp</code>）。</p>
+<p>这是命名和组织同一组文件的更好方法：</p>
 <pre><code>01-load-data.R
 02-exploratory-analysis.R
 03-model-approach-1.R
@@ -507,35 +507,35 @@ fig-02.png
 report-2022-03-20.qmd
 report-2022-04-02.qmd
 report-draft-notes.txt</code></pre>
-<p>Numbering the key scripts make it obvious in which order to run them and a consistent naming scheme makes it easier to see what varies. Additionally, the figures are labelled similarly, the reports are distinguished by dates included in the file names, and <code>temp</code> is renamed to <code>report-draft-notes</code> to better describe its contents. If you have a lot of files in a directory, taking organization one step further and placing different types of files (scripts, figures, etc.) in different directories is recommended.</p>
+<p>对关键脚本进行编号可以清楚地显示运行它们的顺序，并且一致的命名方案可以更容易地看到差异。 此外，数字的标签类似，报告通过文件名中包含的日期进行区分，并且 <code>temp</code> 被重命名为 <code>report-draft-notes</code> 以更好地描述其内容。 如果一个目录中有很多文件，建议进一步组织，将不同类型的文件（scripts, figures, etc.）放在不同的目录中。</p>
 </section></section><section id="projects" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="projects">
 <span class="header-section-number">7.2</span> Projects</h2>
-<p>One day, you will need to quit R, go do something else, and return to your analysis later. One day, you will be working on multiple analyses simultaneously and you want to keep them separate. One day, you will need to bring data from the outside world into R and send numerical results and figures from R back out into the world.</p>
-<p>To handle these real life situations, you need to make two decisions:</p>
+<p>有一天，您需要退出 R，去做其他事情，然后再返回分析。 有一天，您将同时进行多项分析，并且希望将它们分开。 有一天，您需要将外部世界的数据引入 R，并将 R 中的数值结果和数字发送回外部世界。</p>
+<p>为了处理这些现实生活中的情况，您需要做出两个决定：</p>
 <ol type="1">
-<li><p>What is the source of truth? What will you save as your lasting record of what happened?</p></li>
-<li><p>Where does your analysis live?</p></li>
+<li><p>真实来源是什么？ 您将保存什么作为所发生事件的永久记录？</p></li>
+<li><p>您的分析在哪里？</p></li>
 </ol>
 <section id="what-is-the-source-of-truth" class="level3" data-number="7.2.1"><h3 data-number="7.2.1" class="anchored" data-anchor-id="what-is-the-source-of-truth">
 <span class="header-section-number">7.2.1</span> What is the source of truth?</h3>
-<p>As a beginner, it’s okay to rely on your current Environment to contain all the objects you have created throughout your analysis. However, to make it easier to work on larger projects or collaborate with others, your source of truth should be the R scripts. With your R scripts (and your data files), you can recreate the environment. With only your environment, it’s much harder to recreate your R scripts: you’ll either have to retype a lot of code from memory (inevitably making mistakes along the way) or you’ll have to carefully mine your R history.</p>
-<p>To help keep your R scripts as the source of truth for your analysis, we highly recommend that you instruct RStudio not to preserve your workspace between sessions. You can do this either by running <code><a href="https://usethis.r-lib.org/reference/use_blank_slate.html">usethis::use_blank_slate()</a></code><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> or by mimicking the options shown in <a href="#fig-blank-slate">Figure&nbsp;<span>7.2</span></a>. This will cause you some short-term pain, because now when you restart RStudio, it will no longer remember the code that you ran last time nor will the objects you created or the datasets you read be available to use. But this short-term pain saves you long-term agony because it forces you to capture all important procedures in your code. There’s nothing worse than discovering three months after the fact that you’ve only stored the results of an important calculation in your environment, not the calculation itself in your code.</p>
+<p>作为初学者，可以依赖当前的环境来包含您在分析过程中创建的所有对象。 但是，为了更轻松地处理大型项目或与其他人协作，您的真实来源应该是 R scripts。 使用 R scripts（和数据文件），您可以重新创建环境。 仅在您的环境中，重新创建 R scripts 要困难得多：您要么必须从内存中重新输入大量代码（一路上不可避免地会犯错误），要么必须仔细挖掘您的 R history。</p>
+<p>为了帮助将 R scripts 保留为分析的真实来源，我们强烈建议您指示 RStudio 不要在会话之间保留工作区。 您可以通过运行 <code><a href="https://usethis.r-lib.org/reference/use_blank_slate.html">usethis::use_blank_slate()</a></code><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> 或 <a href="#fig-blank-slate">Figure&nbsp;<span>7.2</span></a> 中所示的选项来完成此操作。 这会给您带来一些短期的痛苦，因为现在当您重新启动 RStudio 时，它将不再记住您上次运行的代码，也不会再使用您创建的对象或读取的数据集。 但这种短期的痛苦可以避免长期的痛苦，因为它迫使您捕获代码中的所有重要过程。 没有什么比三个月后发现您只将重要计算的结果存储在环境中，而不是计算本身存储在代码中更糟糕的了。</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-blank-slate" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/rstudio/clean-slate.png" class="img-fluid figure-img" alt="RStudio Global Options window where the option Restore .RData into workspace at startup is not checked. Also, the option Save workspace to .RData on exit is set to Never. " width="523"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.2: Copy these options in your RStudio options to always start your RStudio session with a clean slate.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;7.2: 将这些选项复制到你的 RStudio 选项中，以便始终从头开始启动 RStudio 会话。</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>There is a great pair of keyboard shortcuts that will work together to make sure you’ve captured the important parts of your code in the editor:</p>
+<p>有一对很棒的键盘快捷键可以协同工作，以确保您在编辑器中捕获了代码的重要部分：</p>
 <ol type="1">
-<li>Press Cmd/Ctrl + Shift + 0/F10 to restart R.</li>
-<li>Press Cmd/Ctrl + Shift + S to re-run the current script.</li>
+<li>按 Cmd/Ctrl + Shift + 0/F10 重新启动 R。</li>
+<li>按 Cmd/Ctrl + Shift + S 重新运行当前脚本。</li>
 </ol>
-<p>We collectively use this pattern hundreds of times a week.</p>
-<p>Alternatively, if you don’t use keyboard shortcuts, you can go to Session &gt; Restart R and then highlight and re-run your current script.</p>
+<p>我们每周都会使用这种模式数百次。</p>
+<p>或者，如果您不使用键盘快捷键，则可以转到 Session &gt; Restart R，然后突出显示并重新运行当前脚本。</p>
 <div class="callout-note callout callout-style-simple callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -546,48 +546,48 @@ RStudio server
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If you’re using RStudio server, your R session is never restarted by default. When you close your RStudio server tab, it might feel like you’re closing R, but the server actually keeps it running in the background. The next time you return, you’ll be in exactly the same place you left. This makes it even more important to regularly restart R so that you’re starting with a clean slate.</p>
+<p>如果您使用 RStudio server，默认情况下您的 R 会话永远不会重新启动。 当您关闭 RStudio server 选项卡时，可能感觉您正在关闭 R，但服务器实际上让它在后台运行。 下次您返回时，您将位于与离开时完全相同的位置。 这使得定期重新启动 R 变得更加重要，这样您才能从头开始。</p>
 </div>
 </div>
 </section><section id="where-does-your-analysis-live" class="level3" data-number="7.2.2"><h3 data-number="7.2.2" class="anchored" data-anchor-id="where-does-your-analysis-live">
 <span class="header-section-number">7.2.2</span> Where does your analysis live?</h3>
-<p>R has a powerful notion of the <strong>working directory</strong>. This is where R looks for files that you ask it to load, and where it will put any files that you ask it to save. RStudio shows your current working directory at the top of the console:</p>
+<p>R 有一个强大的工作目录（<strong>working directory</strong>）概念。 这是 R 查找您要求其加载的文件的位置，也是放置您要求其保存的任何文件的位置。 RStudio 在控制台顶部显示您当前的工作目录：</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="screenshots/rstudio-wd.png" class="img-fluid" alt="The Console tab shows the current working directory as ~/Documents/r4ds. " width="321"></p>
 </div>
 </div>
-<p>And you can print this out in R code by running <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code>:</p>
+<p>您可以通过运行 <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> 在 R 代码中打印出来：</p>
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "/Users/hadley/Documents/r4ds"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In this R session, the current working directory (think of it as “home”) is in hadley’s Documents folder, in a subfolder called r4ds. This code will return a different result when you run it, because your computer has a different directory structure than Hadley’s!</p>
-<p>As a beginning R user, it’s OK to let your working directory be your home directory, documents directory, or any other weird directory on your computer. But you’re seven chapters into this book, and you’re no longer a beginner. Very soon now you should evolve to organizing your projects into directories and, when working on a project, set R’s working directory to the associated directory.</p>
-<p>You can set the working directory from within R but <strong>we</strong> <strong>do not recommend it</strong>:</p>
+<p>在此 R 会话中，当前工作目录（将其视为”home”）位于 hadley 的 Documents 文件夹中名为 r4ds 的子文件夹中。 当您运行此代码时，它会返回不同的结果，因为您的计算机的目录结构与 Hadley 的不同！</p>
+<p>作为 R 初学者，可以将工作目录设置为主目录、文档目录或计算机上任何其他奇怪的目录。 但你已经读了这本书的七章，并且你不再是初学者了。 很快您就应该将项目组织到目录中，并且在处理项目时将 R 的工作目录设置为关联的目录。</p>
+<p>您可以在 R 中设置工作目录，但我们不推荐这样做：</p>
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">"/path/to/my/CoolProject"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>There’s a better way; a way that also puts you on the path to managing your R work like an expert. That way is the <strong>RStudio</strong> <strong>project</strong>.</p>
+<p>有一个更好的方法；这种方式还可以让您像专家一样管理您的 R 工作。 就是 <strong>RStudio</strong> <strong>project</strong>。</p>
 </section><section id="rstudio-projects" class="level3" data-number="7.2.3"><h3 data-number="7.2.3" class="anchored" data-anchor-id="rstudio-projects">
 <span class="header-section-number">7.2.3</span> RStudio projects</h3>
-<p>Keeping all the files associated with a given project (input data, R scripts, analytical results, and figures) together in one directory is such a wise and common practice that RStudio has built-in support for this via <strong>projects</strong>. Let’s make a project for you to use while you’re working through the rest of this book. Click File &gt; New Project, then follow the steps shown in <a href="#fig-new-project">Figure&nbsp;<span>7.3</span></a>.</p>
+<p>将与给定项目关联的所有文件（input data, R scripts, analytical results, and figures）保存在一个目录中是一种明智且常见的做法，RStudio 通过项目（<strong>projects</strong>）对此提供了内置支持。 让我们创建一个 project 供您在学习本书其余部分时使用。 单击 File &gt; New Project，然后按照 <a href="#fig-new-project">Figure&nbsp;<span>7.3</span></a> 中所示的步骤操作。</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-new-project" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/new-project.png" class="img-fluid figure-img" alt="Three screenshots of the New Project menu. In the first screenshot, the Create Project window is shown and New Directory is selected. In the second screenshot, the Project Type window is shown and Empty Project is selected. In the third screenshot, the Create New Project  window is shown and the directory name is given as r4ds and the project is being created as subdirectory of the Desktop. " width="1172"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;7.3: To create new project: (top) first click New Directory, then (middle) click New Project, then (bottom) fill in the directory (project) name, choose a good subdirectory for its home and click Create Project.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;7.3: 要创建 new project：（top）首先单击 New Directory，然后（middle）单击 Create Project，然后（bottom）填写目录（project）名称，选择一个好的子目录作为其主目录，然后单击 Create Project。</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Call your project <code>r4ds</code> and think carefully about which subdirectory you put the project in. If you don’t store it somewhere sensible, it will be hard to find it in the future!</p>
-<p>Once this process is complete, you’ll get a new RStudio project just for this book. Check that the “home” of your project is the current working directory:</p>
+<p>将您的项目命名为 <code>r4ds</code>，并仔细考虑将项目放在哪个子目录中。 如果您不将其存储在合理的地方，将来将很难找到它！</p>
+<p>此过程完成后，您将获得一个专门用于本书的新 RStudio 项目。 检查项目的 “home” 是否是当前工作目录：</p>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] /Users/hadley/Documents/r4ds</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now enter the following commands in the script editor, and save the file, calling it “diamonds.R”. Then, create a new folder called “data”. You can do this by clicking on the “New Folder” button in the Files pane in RStudio. Finally, run the complete script which will save a PNG and CSV file into your project directory. Don’t worry about the details, you’ll learn them later in the book.</p>
+<p>现在在脚本编辑器中输入以下命令，然后保存文件，将其命名为 “diamonds.R”。 然后，创建一个名为 “data” 的新文件夹。 您可以通过单击 RStudio Files 窗格中的 “New Folder” 按钮来完成此操作。 最后，运行完整的脚本，将 PNG 和 CSV 文件保存到您的项目目录中。 不用担心细节，你会在本书后面学到它们。</p>
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span></span>
@@ -597,29 +597,29 @@ RStudio server
 <span></span>
 <span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="st">"data/diamonds.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Quit RStudio. Inspect the folder associated with your project — notice the <code>.Rproj</code> file. Double-click that file to re-open the project. Notice you get back to where you left off: it’s the same working directory and command history, and all the files you were working on are still open. Because you followed our instructions above, you will, however, have a completely fresh environment, guaranteeing that you’re starting with a clean slate.</p>
-<p>In your favorite OS-specific way, search your computer for <code>diamonds.png</code> and you will find the PNG (no surprise) but <em>also the script that created it</em> (<code>diamonds.R</code>). This is a huge win! One day, you will want to remake a figure or just understand where it came from. If you rigorously save figures to files <strong>with R code</strong> and never with the mouse or the clipboard, you will be able to reproduce old work with ease!</p>
+<p>退出 RStudio。 检查与您的项目关联的文件夹 — 注意 <code>.Rproj</code> 文件。 双击该文件以重新打开该项目。 请注意，您回到了上次离开的位置：它是相同的工作目录和命令历史记录，并且您正在处理的所有文件仍然打开。 然而，由于您遵循了我们上面的说明，因此您将拥有一个全新的环境，保证您从头开始。</p>
+<p>以您最喜欢的特定于操作系统的方式，在计算机中搜索 <code>diamonds.png</code>，您会找到 PNG（毫不奇怪），而且还会找到创建它的脚本（<code>diamonds.R</code>）。 这是一个巨大的胜利！ 有一天，您会想要重新制作一个人物，或者只是想了解它的来源。 如果您使用 R 代码严格地将图形保存到文件中，而不是使用鼠标或剪贴板，那么您将能够轻松地重现旧作品！</p>
 </section><section id="relative-and-absolute-paths" class="level3" data-number="7.2.4"><h3 data-number="7.2.4" class="anchored" data-anchor-id="relative-and-absolute-paths">
 <span class="header-section-number">7.2.4</span> Relative and absolute paths</h3>
-<p>Once you’re inside a project, you should only ever use relative paths not absolute paths. What’s the difference? A relative path is relative to the working directory, i.e.&nbsp;the project’s home. When Hadley wrote <code>data/diamonds.csv</code> above it was a shortcut for <code>/Users/hadley/Documents/r4ds/data/diamonds.csv</code>. But importantly, if Mine ran this code on her computer, it would point to <code>/Users/Mine/Documents/r4ds/data/diamonds.csv</code>. This is why relative paths are important: they’ll work regardless of where the R project folder ends up.</p>
-<p>Absolute paths point to the same place regardless of your working directory. They look a little different depending on your operating system. On Windows they start with a drive letter (e.g., <code>C:</code>) or two backslashes (e.g., <code>\\servername</code>) and on Mac/Linux they start with a slash “/” (e.g., <code>/users/hadley</code>). You should <strong>never</strong> use absolute paths in your scripts, because they hinder sharing: no one else will have exactly the same directory configuration as you.</p>
-<p>There’s another important difference between operating systems: how you separate the components of the path. Mac and Linux uses slashes (e.g., <code>data/diamonds.csv</code>) and Windows uses backslashes (e.g., <code>data\diamonds.csv</code>). R can work with either type (no matter what platform you’re currently using), but unfortunately, backslashes mean something special to R, and to get a single backslash in the path, you need to type two backslashes! That makes life frustrating, so we recommend always using the Linux/Mac style with forward slashes.</p>
+<p>一旦进入项目，您应该只使用相对路径而不是绝对路径。 有什么不同？ 相对路径是相对于工作目录的，即项目的主目录。 当 Hadley 在上面写入 <code>data/diamonds.csv</code> 时，它是 <code>/Users/hadley/Documents/r4ds/data/diamonds.csv</code> 的快捷方式。 但重要的是，如果 Mine 在她的计算机上运行此代码，它将指向 <code>/Users/Mine/Documents/r4ds/data/diamonds.csv</code>。 这就是为什么相对路径很重要：无论 R 项目文件夹位于何处，它们都会起作用。</p>
+<p>无论您的工作目录如何，绝对路径都指向同一位置。 根据您的操作系统，它们看起来略有不同。 在 Windows 上，它们以驱动器号（例如 <code>C:</code>）或两个反斜杠（例如 <code>\\servername</code>）开头，在 Mac/Linux 上，它们以斜杠”/“开头（例如 <code>/users/hadley</code>）。 您永远不应该在脚本中使用绝对路径，因为它们会妨碍共享：其他人不会拥有与您完全相同的目录配置。</p>
+<p>操作系统之间还有另一个重要的区别：如何分离路径的组成部分。 Mac 和 Linux 使用斜杠（例如 <code>data/diamonds.csv</code>），Windows 使用反斜杠（例如 <code>data\diamonds.csv</code>）。 R 可以使用任何一种类型（无论您当前使用什么平台），但不幸的是，反斜杠对 R 来说意味着一些特殊的东西，并且要在路径中获得单个反斜杠，您需要键入两个反斜杠！ 这让生活变得令人沮丧，因此我们建议始终使用带有正斜杠的 Linux/Mac 风格。</p>
 </section></section><section id="exercises" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="exercises">
 <span class="header-section-number">7.3</span> Exercises</h2>
 <ol type="1">
-<li><p>Go to the RStudio Tips Twitter account, <a href="https://twitter.com/rstudiotips" class="uri">https://twitter.com/rstudiotips</a> and find one tip that looks interesting. Practice using it!</p></li>
-<li><p>What other common mistakes will RStudio diagnostics report? Read <a href="https://support.posit.co/hc/en-us/articles/205753617-Code-Diagnostics" class="uri">https://support.posit.co/hc/en-us/articles/205753617-Code-Diagnostics</a> to find out.</p></li>
+<li><p>转到 RStudio Tips Twitter account，<a href="https://twitter.com/rstudiotips" class="uri">https://twitter.com/rstudiotips</a> 并找到一个看起来有趣的提示。 练习使用它！</p></li>
+<li><p>RStudio 诊断还会报告哪些其他常见错误？ 阅读 <a href="https://support.posit.co/hc/en-us/articles/205753617-Code-Diagnostics" class="uri">https://support.posit.co/hc/en-us/articles/205753617-Code-Diagnostics</a> 找出。</p></li>
 </ol></section><section id="summary" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="summary">
 <span class="header-section-number">7.4</span> Summary</h2>
-<p>In this chapter, you’ve learned how to organize your R code in scripts (files) and projects (directories). Much like code style, this may feel like busywork at first. But as you accumulate more code across multiple projects, you’ll learn to appreciate how a little up front organisation can save you a bunch of time down the road.</p>
-<p>In summary, scripts and projects give you a solid workflow that will serve you well in the future:</p>
+<p>在本章中，您学习了如何在 scripts (files) 和 projects (directories) 中组织 R 代码。 就像代码风格一样，一开始这可能感觉像是在忙活。 但是，当您在多个项目中积累更多代码时，您将学会欣赏一点预先的组织如何可以为您节省大量时间。</p>
+<p>总之，scripts 和 projects 为您提供了可靠的工作流程，将在未来为您提供良好的服务：</p>
 <ul>
-<li>Create one RStudio project for each data analysis project.</li>
-<li>Save your scripts (with informative names) in the project, edit them, run them in bits or as a whole. Restart R frequently to make sure you’ve captured everything in your scripts.</li>
-<li>Only ever use relative paths, not absolute paths.</li>
+<li>为每个数据分析项目创建一个 RStudio project。</li>
+<li>将脚本（具有信息丰富的名称）保存在项目中，对其进行编辑，部分或整体运行它们。经常重新启动 R 以确保您已捕获脚本中的所有内容。</li>
+<li>只使用相对路径，而不是绝对路径。</li>
 </ul>
-<p>Then everything you need is in one place and cleanly separated from all the other projects that you are working on.</p>
-<p>So far, we’ve worked with datasets bundled inside of R packages. This makes it easier to get some practice on pre-prepared data, but obviously your data won’t be available in this way. So in the next chapter, you’re going to learn how load data from disk into your R session using the readr package.</p>
+<p>然后，您需要的所有内容都集中在一处，并与您正在处理的所有其他项目完全分开。</p>
+<p>到目前为止，我们已经使用了 R 包中捆绑的数据集。 这样可以更轻松地对预先准备的数据进行一些练习，但显然您的数据无法以这种方式获得。 因此，在下一章中，您将学习如何使用 readr 包将数据从磁盘加载到 R 会话中。</p>
 
 
 </section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
