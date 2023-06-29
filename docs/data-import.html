@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="zh" xml:lang="zh"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.2.475">
@@ -109,15 +109,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   "type": "textbox",
   "limit": 20,
   "language": {
-    "search-no-results-text": "没有结果",
-    "search-matching-documents-text": "匹配的文档",
-    "search-copy-link-title": "复制搜索链接",
-    "search-hide-matches-text": "隐藏其它匹配结果",
-    "search-more-match-text": "更多匹配结果",
-    "search-more-matches-text": "更多匹配结果",
-    "search-clear-button-title": "清除",
-    "search-detached-cancel-button-title": "取消",
-    "search-submit-button-title": "提交"
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
   }
 }</script><script defer="" data-domain="r4ds.hadley.nz" src="https://plausible.io/js/plausible.js"></script>
 </head>
@@ -136,7 +136,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div class="sidebar-title mb-0 py-0">
       <a href="./">R for Data Science (2e)</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/hadley/r4ds/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/zhenghu159/r4ds-zh-cn" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-reader-toggle sidebar-tool" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -375,7 +375,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </ul>
 </div>
 </nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">目录</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
 <li>
@@ -405,7 +405,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#sec-writing-to-a-file" id="toc-sec-writing-to-a-file" class="nav-link" data-scroll-target="#sec-writing-to-a-file"><span class="toc-section-number">8.5</span>  Writing to a file</a></li>
   <li><a href="#data-entry" id="toc-data-entry" class="nav-link" data-scroll-target="#data-entry"><span class="toc-section-number">8.6</span>  Data entry</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="toc-section-number">8.7</span>  Summary</a></li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/hadley/r4ds/edit/main/data-import.qmd" class="toc-action">编辑该页面</a></p><p><a href="https://github.com/hadley/r4ds/issues/new" class="toc-action">报告问题</a></p></div></div></nav>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/zhenghu159/r4ds-zh-cn/edit/main/data-import.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/zhenghu159/r4ds-zh-cn/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
@@ -436,11 +436,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <section id="introduction" class="level2" data-number="8.1"><h2 data-number="8.1" class="anchored" data-anchor-id="introduction">
 <span class="header-section-number">8.1</span> Introduction</h2>
-<p>Working with data provided by R packages is a great way to learn data science tools, but you want to apply what you’ve learned to your own data at some point. In this chapter, you’ll learn the basics of reading data files into R.</p>
-<p>Specifically, this chapter will focus on reading plain-text rectangular files. We’ll start with practical advice for handling features like column names, types, and missing data. You will then learn about reading data from multiple files at once and writing data from R to a file. Finally, you’ll learn how to handcraft data frames in R.</p>
+<p>使用 R 包提供的数据是学习数据科学工具的好方法，但您希望在某个时候将所学到的知识应用到自己的数据中。 在本章中，您将学习将数据文件读入 R 的基础知识。</p>
+<p>具体来说，本章将重点关注读取纯文本矩形文件。 我们将从处理列名称、类型和缺失数据等功能的实用建议开始。 然后，您将了解如何同时从多个文件读取数据以及将数据从 R 写入文件。 最后，您将学习如何在 R 中手工制作 data frames。</p>
 <section id="prerequisites" class="level3" data-number="8.1.1"><h3 data-number="8.1.1" class="anchored" data-anchor-id="prerequisites">
 <span class="header-section-number">8.1.1</span> Prerequisites</h3>
-<p>In this chapter, you’ll learn how to load flat files in R with the <strong>readr</strong> package, which is part of the core tidyverse.</p>
+<p>在本章中，您将学习如何使用 <strong>readr</strong> 包在 R 中加载平面文件，该包是 tidyverse 核心的一部分。</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: package 'tidyverse' was built under R version 4.2.3</span></span>
@@ -452,11 +452,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; Warning: package 'dplyr' was built under R version 4.2.3</span></span>
 <span><span class="co">#&gt; Warning: package 'stringr' was built under R version 4.2.2</span></span>
 <span><span class="co">#&gt; Warning: package 'forcats' was built under R version 4.2.3</span></span>
-<span><span class="co">#&gt; Warning: package 'lubridate' was built under R version 4.2.3</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; Warning: package 'lubridate' was built under R version 4.2.3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="reading-data-from-a-file" class="level2" data-number="8.2"><h2 data-number="8.2" class="anchored" data-anchor-id="reading-data-from-a-file">
 <span class="header-section-number">8.2</span> Reading data from a file</h2>
-<p>To begin, we’ll focus on the most common rectangular data file type: CSV, which is short for comma-separated values. Here is what a simple CSV file looks like. The first row, commonly called the header row, gives the column names, and the following six rows provide the data. The columns are separated, aka delimited, by commas.</p>
+<p>首先，我们将重点关注最常见的矩形数据文件类型：CSV，它是逗号分隔值（comma-separated values）的缩写。 简单的 CSV 文件如下所示。 第一行，通常称为标题行，给出列名称，接下来的六行提供数据。 各列由逗号分隔。</p>
 <div class="cell">
 <pre><code>Student ID,Full Name,favourite.food,mealPlan,AGE
 1,Sunil Huffmann,Strawberry yoghurt,Lunch only,4
@@ -466,12 +466,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 5,Chidiegwu Dunkel,Pizza,Breakfast and lunch,five
 6,Güvenç Attila,Ice cream,Lunch only,6</code></pre>
 </div>
-<p><a href="#tbl-students-table">表格&nbsp;<span>8.1</span></a> shows a representation of the same data as a table.</p>
+<p><a href="#tbl-students-table">Table&nbsp;<span>8.1</span></a> 显示了与表格相同的数据的表示形式。</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-students-table" class="anchored">
 <table class="table table-sm table-striped">
-<caption>表格&nbsp;8.1: Data from the students.csv file as a table.</caption>
+<caption>Table&nbsp;8.1: Data from the students.csv file as a table.</caption>
 <colgroup>
 <col style="width: 15%">
 <col style="width: 23%">
@@ -534,7 +534,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<p>We can read this file into R using <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>. The first argument is the most important: the path to the file. You can think about the path as the address of the file: the file is called <code>students.csv</code> and that it lives in the <code>data</code> folder.</p>
+<p>我们可以使用 <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> 将该文件读入 R。 第一个参数是最重要的：文件的路径。 您可以将路径视为文件的地址：该文件名为 <code>students.csv</code>，位于 <code>data</code> 文件夹中。</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/students.csv"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 6 Columns: 5</span></span>
@@ -544,16 +544,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; dbl (1): Student ID</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span></span>
-<span><span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The code above will work if you have the <code>students.csv</code> file in a <code>data</code> folder in your project. You can download the <code>students.csv</code> file from <a href="https://pos.it/r4ds-students-csv" class="uri">https://pos.it/r4ds-students-csv</a> or you can read it directly from that URL with:</p>
+<p>如果项目的 <code>data</code> 文件夹中有 <code>students.csv</code> 文件，则上面的代码将起作用。 您可以从 <a href="https://pos.it/r4ds-students-csv" class="uri">https://pos.it/r4ds-students-csv</a> 下载 <code>students.csv</code> 文件，也可以使用以下命令直接从该 URL 读取它：</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://pos.it/r4ds-students-csv"</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://pos.it/r4ds-students-csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>When you run <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>, it prints out a message telling you the number of rows and columns of data, the delimiter that was used, and the column specifications (names of columns organized by the type of data the column contains). It also prints out some information about retrieving the full column specification and how to quiet this message. This message is an integral part of readr, and we’ll return to it in <a href="#sec-col-types"><span>章节&nbsp;8.3</span></a>.</p>
+<p>当您运行 <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> 时，它会打印一条消息，告诉您数据的行数和列数、使用的分隔符（delimiter）以及列规范（按列包含的数据类型组织的列名称）。 它还打印出一些有关检索完整列规范以及如何消除此消息的信息。 该消息是 readr 不可或缺的一部分，我们将在 <a href="#sec-col-types"><span>Section&nbsp;8.3</span></a> 中返回它。</p>
 <section id="practical-advice" class="level3" data-number="8.2.1"><h3 data-number="8.2.1" class="anchored" data-anchor-id="practical-advice">
 <span class="header-section-number">8.2.1</span> Practical advice</h3>
-<p>Once you read data in, the first step usually involves transforming it in some way to make it easier to work with in the rest of your analysis. Let’s take another look at the <code>students</code> data with that in mind.</p>
+<p>读入数据后，第一步通常涉及以某种方式对其进行转换，以便更容易在其余分析中使用。 考虑到这一点，让我们再看一下 <code>students</code> 数据。</p>
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
@@ -564,9 +564,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 3            3 Jayendra Lyne    N/A                Breakfast and lunch 7    </span></span>
 <span><span class="co">#&gt; 4            4 Leon Rossini     Anchovies          Lunch only          &lt;NA&gt; </span></span>
 <span><span class="co">#&gt; 5            5 Chidiegwu Dunkel Pizza              Breakfast and lunch five </span></span>
-<span><span class="co">#&gt; 6            6 Güvenç Attila    Ice cream          Lunch only          6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 6            6 Güvenç Attila    Ice cream          Lunch only          6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In the <code>favourite.food</code> column, there are a bunch of food items, and then the character string <code>N/A</code>, which should have been a real <code>NA</code> that R will recognize as “not available”. This is something we can address using the <code>na</code> argument. By default, <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> only recognizes empty strings (<code>""</code>) in this dataset as <code>NA</code>s, we want it to also recognize the character string <code>"N/A"</code>.</p>
+<p>在 <code>favourite.food</code> 列中，有一堆食物项目，然后是字符串 <code>N/A</code>，这应该是真正的 <code>NA</code>，R 会识别为 “not available”。 我们可以使用 <code>na</code> 参数来解决这个问题。 默认情况下，<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> 仅将该数据集中的空字符串（<code>""</code>）识别为 <code>NA</code>s，我们希望它也识别字符串 <code>"N/A"</code>。</p>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/students.csv"</span>, na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"N/A"</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -579,9 +579,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 3            3 Jayendra Lyne    &lt;NA&gt;               Breakfast and lunch 7    </span></span>
 <span><span class="co">#&gt; 4            4 Leon Rossini     Anchovies          Lunch only          &lt;NA&gt; </span></span>
 <span><span class="co">#&gt; 5            5 Chidiegwu Dunkel Pizza              Breakfast and lunch five </span></span>
-<span><span class="co">#&gt; 6            6 Güvenç Attila    Ice cream          Lunch only          6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 6            6 Güvenç Attila    Ice cream          Lunch only          6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>You might also notice that the <code>Student ID</code> and <code>Full Name</code> columns are surrounded by backticks. That’s because they contain spaces, breaking R’s usual rules for variable names; they’re <strong>non-syntactic</strong> names. To refer to these variables, you need to surround them with backticks, <code>`</code>:</p>
+<p>您可能还会注意到 <code>Student ID</code> 和 <code>Full Name</code> 列周围有反引号。 这是因为它们包含空格，违反了 R 变量名称的通常规则； 它们是非语法（<strong>non-syntactic</strong>）名称。 要引用这些变量，您需要用反引号将它们括起来，<code>`</code>：</p>
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span></span>
@@ -596,9 +596,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 3          3 Jayendra Lyne    &lt;NA&gt;               Breakfast and lunch 7    </span></span>
 <span><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only          &lt;NA&gt; </span></span>
 <span><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch five </span></span>
-<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only          6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only          6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>An alternative approach is to use <code><a href="https://sfirke.github.io/janitor/reference/clean_names.html">janitor::clean_names()</a></code> to use some heuristics to turn them all into snake case at once<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>另一种方法是使用 <code><a href="https://sfirke.github.io/janitor/reference/clean_names.html">janitor::clean_names()</a></code> 来使用一些启发式方法将它们一次性全部变成 snake case<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。</p>
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span> <span class="op">|&gt;</span> <span class="fu">janitor</span><span class="fu">::</span><span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
@@ -609,9 +609,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 3          3 Jayendra Lyne    &lt;NA&gt;               Breakfast and lunch 7    </span></span>
 <span><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only          &lt;NA&gt; </span></span>
 <span><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch five </span></span>
-<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only          6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only          6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Another common task after reading in data is to consider variable types. For example, <code>meal_plan</code> is a categorical variable with a known set of possible values, which in R should be represented as a factor:</p>
+<p>读入数据后的另一个常见任务是考虑变量类型。 例如，<code>meal_plan</code> 是一个具有一组已知可能值的分类变量，在 R 中应表示为一个因子（factor）：</p>
 <div class="cell">
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">janitor</span><span class="fu">::</span><span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -624,10 +624,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 3          3 Jayendra Lyne    &lt;NA&gt;               Breakfast and lunch 7    </span></span>
 <span><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only          &lt;NA&gt; </span></span>
 <span><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch five </span></span>
-<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only          6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only          6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Note that the values in the <code>meal_plan</code> variable have stayed the same, but the type of variable denoted underneath the variable name has changed from character (<code>&lt;chr&gt;</code>) to factor (<code>&lt;fct&gt;</code>). You’ll learn more about factors in <a href="factors.html"><span>章节&nbsp;17</span></a>.</p>
-<p>Before you analyze these data, you’ll probably want to fix the <code>age</code> and <code>id</code> columns. Currently, <code>age</code> is a character variable because one of the observations is typed out as <code>five</code> instead of a numeric <code>5</code>. We discuss the details of fixing this issue in <a href="spreadsheets.html"><span>章节&nbsp;21</span></a>.</p>
+<p>请注意，<code>meal_plan</code> 变量中的值保持不变，但变量名称下方表示的变量类型已从 character (<code>&lt;chr&gt;</code>) 更改为 factor (<fct>)。 您将在 <a href="factors.html"><span>Chapter&nbsp;17</span></a> 中了解有关 factors 的更多信息。</fct></p>
+<p>在分析这些数据之前，您可能需要修复 <code>age</code> 和 <code>id</code> 列。 目前，<code>age</code> 是一个 character 变量，因为其中一个观测结果被输入为 <code>five</code>，而不是数字 <code>5</code>。 我们将在 <a href="spreadsheets.html"><span>Chapter&nbsp;21</span></a> 中讨论解决此问题的详细信息。</p>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span> <span class="op">&lt;-</span> <span class="va">students</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">janitor</span><span class="fu">::</span><span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -645,12 +645,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 3          3 Jayendra Lyne    &lt;NA&gt;               Breakfast and lunch     7</span></span>
 <span><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only             NA</span></span>
 <span><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch     5</span></span>
-<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only              6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only              6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>A new function here is <code><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else()</a></code>, which has three arguments. The first argument <code>test</code> should be a logical vector. The result will contain the value of the second argument, <code>yes</code>, when <code>test</code> is <code>TRUE</code>, and the value of the third argument, <code>no</code>, when it is <code>FALSE</code>. Here we’re saying if <code>age</code> is the character string <code>"five"</code>, make it <code>"5"</code>, and if not leave it as <code>age</code>. You will learn more about <code><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else()</a></code> and logical vectors in <a href="logicals.html"><span>章节&nbsp;13</span></a>.</p>
+<p>这里的一个新函数是 <code><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else()</a></code>，它有三个参数。 第一个参数 <code>test</code> 应该是一个逻辑向量。 当 <code>test</code> 为 <code>TRUE</code> 时，结果将包含第二个参数 <code>yes</code> 的值；当 <code>test</code> 为 <code>FALSE</code> 时，结果将包含第三个参数 <code>no</code> 的值。 这里我们说如果 <code>age</code> 是字符串 <code>"five"</code>，则将其设为 <code>"5"</code>，如果不是则将其保留为 <code>age</code>。 您将在 <a href="logicals.html"><span>Chapter&nbsp;13</span></a> 中了解有关 <code><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else()</a></code> 和逻辑向量的更多信息。</p>
 </section><section id="other-arguments" class="level3" data-number="8.2.2"><h3 data-number="8.2.2" class="anchored" data-anchor-id="other-arguments">
 <span class="header-section-number">8.2.2</span> Other arguments</h3>
-<p>There are a couple of other important arguments that we need to mention, and they’ll be easier to demonstrate if we first show you a handy trick: <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> can read text strings that you’ve created and formatted like a CSV file:</p>
+<p>我们还需要提及其他几个重要的参数，如果我们首先向您展示一个方便的技巧，它们将更容易演示：<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> 可以读取您创建的文本字符串并像 CSV 文件一样格式化：</p>
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
 <span>  <span class="st">"a,b,c</span></span>
@@ -661,9 +661,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt;       a     b     c</span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1     1     2     3</span></span>
-<span><span class="co">#&gt; 2     4     5     6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 2     4     5     6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Usually, <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> uses the first line of the data for the column names, which is a very common convention. But it’s not uncommon for a few lines of metadata to be included at the top of the file. You can use <code>skip = n</code> to skip the first <code>n</code> lines or use <code>comment = "#"</code> to drop all lines that start with (e.g.) <code>#</code>:</p>
+<p>通常，<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> 使用数据的第一行作为列名，这是一个非常常见的约定。 但文件顶部包含几行 metadata 的情况并不少见。 您可以使用 <code>skip = n</code> 跳过前 <code>n</code> 行，或使用 <code>comment = "#"</code> 删除所有以（例如）<code>#</code> 开头的行：</p>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
 <span>  <span class="st">"The first line of metadata</span></span>
@@ -686,9 +686,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; # A tibble: 1 × 3</span></span>
 <span><span class="co">#&gt;       x     y     z</span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1     1     2     3</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1     1     2     3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In other cases, the data might not have column names. You can use <code>col_names = FALSE</code> to tell <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> not to treat the first row as headings and instead label them sequentially from <code>X1</code> to <code>Xn</code>:</p>
+<p>在其他情况下，数据可能没有列名称。 您可以使用 <code>col_names = FALSE</code> 告诉 <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> 不要将第一行视为标题，而是从 <code>X1</code> 到 <code>Xn</code> 按顺序标记它们：</p>
 <div class="cell">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
 <span>  <span class="st">"1,2,3</span></span>
@@ -699,9 +699,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt;      X1    X2    X3</span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1     1     2     3</span></span>
-<span><span class="co">#&gt; 2     4     5     6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 2     4     5     6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Alternatively, you can pass <code>col_names</code> a character vector which will be used as the column names:</p>
+<p>或者，您可以向 <code>col_names</code> 传递一个字符向量，该向量将用作列名称：</p>
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
 <span>  <span class="st">"1,2,3</span></span>
@@ -712,69 +712,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt;       x     y     z</span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1     1     2     3</span></span>
-<span><span class="co">#&gt; 2     4     5     6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 2     4     5     6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>These arguments are all you need to know to read the majority of CSV files that you’ll encounter in practice. (For the rest, you’ll need to carefully inspect your <code>.csv</code> file and read the documentation for <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>’s many other arguments.)</p>
+<p>阅读实践中遇到的大多数 CSV 文件时，您只需要了解这些参数即可。 （对于其余的，您需要仔细检查 <code>.csv</code> 文件并阅读 <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> 的许多其他参数的文档。）</p>
 </section><section id="other-file-types" class="level3" data-number="8.2.3"><h3 data-number="8.2.3" class="anchored" data-anchor-id="other-file-types">
 <span class="header-section-number">8.2.3</span> Other file types</h3>
-<p>Once you’ve mastered <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>, using readr’s other functions is straightforward; it’s just a matter of knowing which function to reach for:</p>
+<p>一旦掌握了 <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>，使用 readr 的其他函数就很简单了；只需要知道要使用哪个函数即可：</p>
 <ul>
-<li><p><code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv2()</a></code> reads semicolon-separated files. These use <code>;</code> instead of <code>,</code> to separate fields and are common in countries that use <code>,</code> as the decimal marker.</p></li>
-<li><p><code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_tsv()</a></code> reads tab-delimited files.</p></li>
-<li><p><code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_delim()</a></code> reads in files with any delimiter, attempting to automatically guess the delimiter if you don’t specify it.</p></li>
-<li><p><code><a href="https://readr.tidyverse.org/reference/read_fwf.html">read_fwf()</a></code> reads fixed-width files. You can specify fields by their widths with <code><a href="https://readr.tidyverse.org/reference/read_fwf.html">fwf_widths()</a></code> or by their positions with <code><a href="https://readr.tidyverse.org/reference/read_fwf.html">fwf_positions()</a></code>.</p></li>
-<li><p><code><a href="https://readr.tidyverse.org/reference/read_table.html">read_table()</a></code> reads a common variation of fixed-width files where columns are separated by white space.</p></li>
-<li><p><code><a href="https://readr.tidyverse.org/reference/read_log.html">read_log()</a></code> reads Apache-style log files.</p></li>
+<li><p><code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv2()</a></code> 读取以分号分隔的（semicolon-separated）文件。 这些使用 <code>;</code> 而不是 <code>,</code> 来分隔字段，并且在使用 <code>,</code> 作为小数点标记的国家/地区很常见。</p></li>
+<li><p><code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_tsv()</a></code> 读取制表符分隔的（tab-delimited）文件。</p></li>
+<li><p><code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_delim()</a></code> 读取带有任何分隔符的文件，如果您未指定分隔符，则会尝试自动猜测分隔符。</p></li>
+<li><p><code><a href="https://readr.tidyverse.org/reference/read_fwf.html">read_fwf()</a></code> 读取固定宽度的文件。 您可以使用 <code><a href="https://readr.tidyverse.org/reference/read_fwf.html">fwf_widths()</a></code> 按宽度指定字段，或使用 <code><a href="https://readr.tidyverse.org/reference/read_fwf.html">fwf_positions()</a></code> 按字段位置指定字段。</p></li>
+<li><p><code><a href="https://readr.tidyverse.org/reference/read_table.html">read_table()</a></code> 读取固定宽度文件的常见变体，其中列由空格分隔。</p></li>
+<li><p><code><a href="https://readr.tidyverse.org/reference/read_log.html">read_log()</a></code> 读取 Apache 风格的日志文件。</p></li>
 </ul></section><section id="exercises" class="level3" data-number="8.2.4"><h3 data-number="8.2.4" class="anchored" data-anchor-id="exercises">
 <span class="header-section-number">8.2.4</span> Exercises</h3>
 <ol type="1">
-<li><p>What function would you use to read a file where fields were separated with “|”?</p></li>
-<li><p>Apart from <code>file</code>, <code>skip</code>, and <code>comment</code>, what other arguments do <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> and <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_tsv()</a></code> have in common?</p></li>
-<li><p>What are the most important arguments to <code><a href="https://readr.tidyverse.org/reference/read_fwf.html">read_fwf()</a></code>?</p></li>
+<li><p>您将使用什么函数来读取字段以 “|” 分隔的文件？</p></li>
+<li><p>除了 <code>file</code>、<code>skip</code> 和 <code>comment</code> 之外，<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> 和 <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_tsv()</a></code> 还有哪些其他参数的共同点？</p></li>
+<li><p><code><a href="https://readr.tidyverse.org/reference/read_fwf.html">read_fwf()</a></code> 最重要的参数是什么？</p></li>
 <li>
-<p>Sometimes strings in a CSV file contain commas. To prevent them from causing problems, they need to be surrounded by a quoting character, like <code>"</code> or <code>'</code>. By default, <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> assumes that the quoting character will be <code>"</code>. To read the following text into a data frame, what argument to <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> do you need to specify?</p>
+<p>有时 CSV 文件中的字符串包含逗号。 为了防止它们引起问题，它们需要被引号字符包围，例如 <code>"</code> 或 <code>'</code>。默认情况下，<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> 假设引号字符为 <code>"</code>。 要将以下文本读入数据框中，您需要为 <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> 指定什么参数？</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="st">"x,y\n1,'a,b'"</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="st">"x,y\n1,'a,b'"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li>
-<p>Identify what is wrong with each of the following inline CSV files. What happens when you run the code?</p>
+<p>确定以下每个内联 CSV 文件的问题所在。 运行代码时会发生什么？</p>
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b\n1,2,3\n4,5,6"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b,c\n1,2\n1,2,3,4"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b\n\"1"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a,b\n1,2\na,b"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a;b\n1;3"</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"a;b\n1;3"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li>
-<p>Practice referring to non-syntactic names in the following data frame by:</p>
+<p>通过以下方式练习引用以下数据框中的非语法名称：</p>
 <ol type="a">
-<li>Extracting the variable called <code>1</code>.</li>
-<li>Plotting a scatterplot of <code>1</code> vs.&nbsp;<code>2</code>.</li>
-<li>Creating a new column called <code>3</code>, which is <code>2</code> divided by <code>1</code>.</li>
-<li>Renaming the columns to <code>one</code>, <code>two</code>, and <code>three</code>.</li>
+<li>提取名为 <code>1</code> 的变量。</li>
+<li>绘制 <code>1</code> 与 <code>2</code> 的散点图。</li>
+<li>创建一个名为 <code>3</code> 的新列，即 <code>2</code> 除以 <code>1</code>。</li>
+<li>将列重命名为 <code>one</code>、<code>two</code> 和 <code>three</code>。</li>
 </ol>
 <div class="cell">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">annoying</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>  `1` <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span>
 <span>  `2` <span class="op">=</span> <span class="va">`1`</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">`1`</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 </ol></section></section><section id="sec-col-types" class="level2" data-number="8.3"><h2 data-number="8.3" class="anchored" data-anchor-id="sec-col-types">
 <span class="header-section-number">8.3</span> Controlling column types</h2>
-<p>A CSV file doesn’t contain any information about the type of each variable (i.e.&nbsp;whether it’s a logical, number, string, etc.), so readr will try to guess the type. This section describes how the guessing process works, how to resolve some common problems that cause it to fail, and, if needed, how to supply the column types yourself. Finally, we’ll mention a few general strategies that are useful if readr is failing catastrophically and you need to get more insight into the structure of your file.</p>
+<p>CSV 文件不包含有关每个变量类型的任何信息（i.e.&nbsp;whether it’s a logical, number, string, etc.），因此 readr 会尝试猜测类型。 本节介绍猜测过程的工作原理、如何解决导致其失败的一些常见问题，以及（如果需要）如何自行提供列类型。 最后，我们将提到一些通用策略，如果 readr 发生灾难性失败并且您需要更深入地了解文件结构，这些策略将非常有用。</p>
 <section id="guessing-types" class="level3" data-number="8.3.1"><h3 data-number="8.3.1" class="anchored" data-anchor-id="guessing-types">
 <span class="header-section-number">8.3.1</span> Guessing types</h3>
-<p>readr uses a heuristic to figure out the column types. For each column, it pulls the values of 1,000<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> rows spaced evenly from the first row to the last, ignoring missing values. It then works through the following questions:</p>
+<p>readr 使用启发式方法来确定列类型。 对于每一列，它会提取从第一行到最后一行均匀间隔的 1,000<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> 行的值，忽略缺失值。 然后它会回答以下问题：</p>
 <ul>
-<li>Does it contain only <code>F</code>, <code>T</code>, <code>FALSE</code>, or <code>TRUE</code> (ignoring case)? If so, it’s a logical.</li>
-<li>Does it contain only numbers (e.g., <code>1</code>, <code>-4.5</code>, <code>5e6</code>, <code>Inf</code>)? If so, it’s a number.</li>
-<li>Does it match the ISO8601 standard? If so, it’s a date or date-time. (We’ll return to date-times in more detail in <span class="quarto-unresolved-ref">?sec-creating-datetimes</span>).</li>
-<li>Otherwise, it must be a string.</li>
+<li>它仅包含 <code>F</code>、<code>T</code>、<code>FALSE</code> 或 <code>TRUE</code>（忽略大小写）吗？如果是这样，那就合乎逻辑了。</li>
+<li>它是否仅包含数字（e.g., <code>1</code>, <code>-4.5</code>, <code>5e6</code>, <code>Inf</code>）？如果是这样，它就是一个 number。</li>
+<li>是否符合 ISO8601 标准？如果是，则它是一个 date 或 date-time。（我们将在 <span class="quarto-unresolved-ref">?sec-creating-datetimes</span> 中更详细地返回 date-times）。</li>
+<li>否则，它必须是一个 string。</li>
 </ul>
-<p>You can see that behavior in action in this simple example:</p>
+<p>您可以在这个简单的示例中看到该行为的实际效果：</p>
 <div class="cell">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"</span></span>
 <span><span class="st">  logical,numeric,date,string</span></span>
@@ -787,22 +787,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt;   &lt;lgl&gt;     &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt; </span></span>
 <span><span class="co">#&gt; 1 TRUE        1   2021-01-15 abc   </span></span>
 <span><span class="co">#&gt; 2 FALSE       4.5 2021-02-15 def   </span></span>
-<span><span class="co">#&gt; 3 TRUE      Inf   2021-02-16 ghi</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 3 TRUE      Inf   2021-02-16 ghi</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This heuristic works well if you have a clean dataset, but in real life, you’ll encounter a selection of weird and beautiful failures.</p>
+<p>如果你有一个干净的数据集，这种启发式方法会很有效，但在现实生活中，你会遇到一系列奇怪而美丽的失败。</p>
 </section><section id="missing-values-column-types-and-problems" class="level3" data-number="8.3.2"><h3 data-number="8.3.2" class="anchored" data-anchor-id="missing-values-column-types-and-problems">
 <span class="header-section-number">8.3.2</span> Missing values, column types, and problems</h3>
-<p>The most common way column detection fails is that a column contains unexpected values, and you get a character column instead of a more specific type. One of the most common causes for this is a missing value, recorded using something other than the <code>NA</code> that readr expects.</p>
-<p>Take this simple 1 column CSV file as an example:</p>
+<p>列检测失败的最常见方式是列包含意外值，并且您得到的是字符列而不是更具体的类型。 造成这种情况的最常见原因之一是缺失值，该值是使用 readr 期望的 <code>NA</code> 之外的其他内容记录的。</p>
+<p>以这个简单的 1 列 CSV 文件为例：</p>
 <div class="cell">
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">simple_csv</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
 <span><span class="st">  x</span></span>
 <span><span class="st">  10</span></span>
 <span><span class="st">  .</span></span>
 <span><span class="st">  20</span></span>
-<span><span class="st">  30"</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="st">  30"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>If we read it without any additional arguments, <code>x</code> becomes a character column:</p>
+<p>如果我们在没有任何附加参数的情况下读取它，<code>x</code> 就会成为一个 character 列：</p>
 <div class="cell">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">simple_csv</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 4 × 1</span></span>
@@ -811,9 +811,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 1 10   </span></span>
 <span><span class="co">#&gt; 2 .    </span></span>
 <span><span class="co">#&gt; 3 20   </span></span>
-<span><span class="co">#&gt; 4 30</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 4 30</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In this very small case, you can easily see the missing value <code>.</code>. But what happens if you have thousands of rows with only a few missing values represented by <code>.</code>s sprinkled among them? One approach is to tell readr that <code>x</code> is a numeric column, and then see where it fails. You can do that with the <code>col_types</code> argument, which takes a named list where the names match the column names in the CSV file:</p>
+<p>在这个非常小的情况下，您可以轻松地看到缺失值 <code>.</code>。 但是，如果您有数千行，其中只有少数由 <code>.</code>s 表示的缺失值，会发生什么情况？ 一种方法是告诉 readr <code>x</code> 是一个 numeric 列，然后查看它在哪里失败。 您可以使用 <code>col_types</code> 参数来执行此操作，该参数采用命名列表，其中名称与 CSV 文件中的列名称匹配：</p>
 <div class="cell">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
 <span>  <span class="va">simple_csv</span>, </span>
@@ -822,17 +822,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; Warning: One or more parsing issues, call `problems()` on your data frame for</span></span>
 <span><span class="co">#&gt; details, e.g.:</span></span>
 <span><span class="co">#&gt;   dat &lt;- vroom(...)</span></span>
-<span><span class="co">#&gt;   problems(dat)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt;   problems(dat)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> reports that there was a problem, and tells us we can find out more with <code><a href="https://readr.tidyverse.org/reference/problems.html">problems()</a></code>:</p>
+<p>现在 <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> 报告存在问题，并告诉我们可以通过 <code><a href="https://readr.tidyverse.org/reference/problems.html">problems()</a></code> 找到更多信息：</p>
 <div class="cell">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/problems.html">problems</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 5</span></span>
 <span><span class="co">#&gt;     row   col expected actual file                                           </span></span>
 <span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;                                          </span></span>
-<span><span class="co">#&gt; 1     3     1 a double .      C:/Users/13081/AppData/Local/Temp/RtmpmMhQVf/f…</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1     3     1 a double .      C:/Users/13081/AppData/Local/Temp/RtmpmMITeQ/f…</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This tells us that there was a problem in row 3, col 1 where readr expected a double but got a <code>.</code>. That suggests this dataset uses <code>.</code> for missing values. So then we set <code>na = "."</code>, the automatic guessing succeeds, giving us the numeric column that we want:</p>
+<p>这告诉我们，第 3 行第 1 列存在问题，其中 readr 期望为 double，但得到的是 <code>.</code>. 这表明该数据集使用 <code>.</code> 对于缺失值。 然后我们设置 <code>na = "."</code>，自动猜测成功，得到我们想要的 numeric 列：</p>
 <div class="cell">
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">simple_csv</span>, na <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 4 × 1</span></span>
@@ -841,26 +841,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 1    10</span></span>
 <span><span class="co">#&gt; 2    NA</span></span>
 <span><span class="co">#&gt; 3    20</span></span>
-<span><span class="co">#&gt; 4    30</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 4    30</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="column-types" class="level3" data-number="8.3.3"><h3 data-number="8.3.3" class="anchored" data-anchor-id="column-types">
 <span class="header-section-number">8.3.3</span> Column types</h3>
-<p>readr provides a total of nine column types for you to use:</p>
+<p>readr 总共提供了九种列类型供您使用：</p>
 <ul>
 <li>
-<code><a href="https://readr.tidyverse.org/reference/parse_atomic.html">col_logical()</a></code> and <code><a href="https://readr.tidyverse.org/reference/parse_atomic.html">col_double()</a></code> read logicals and real numbers. They’re relatively rarely needed (except as above), since readr will usually guess them for you.</li>
+<code><a href="https://readr.tidyverse.org/reference/parse_atomic.html">col_logical()</a></code> 和 <code><a href="https://readr.tidyverse.org/reference/parse_atomic.html">col_double()</a></code> 读取逻辑数和实数。它们相对很少需要（除了上述情况），因为 readr 通常会为您猜测它们。</li>
 <li>
-<code><a href="https://readr.tidyverse.org/reference/parse_atomic.html">col_integer()</a></code> reads integers. We seldom distinguish integers and doubles in this book because they’re functionally equivalent, but reading integers explicitly can occasionally be useful because they occupy half the memory of doubles.</li>
+<code><a href="https://readr.tidyverse.org/reference/parse_atomic.html">col_integer()</a></code> 读取整数。在本书中，我们很少区分整数（integers）和双精度数（doubles），因为它们在功能上是等效的，但显式读取整数有时会很有用，因为它们占用双精度数一半的内存。</li>
 <li>
-<code><a href="https://readr.tidyverse.org/reference/parse_atomic.html">col_character()</a></code> reads strings. This can be useful to specify explicitly when you have a column that is a numeric identifier, i.e., long series of digits that identifies an object but doesn’t make sense apply mathematical operations to. Examples include phone numbers, social security numbers, credit card numbers, etc.</li>
+<code><a href="https://readr.tidyverse.org/reference/parse_atomic.html">col_character()</a></code> 读取字符串（strings）。当您有一列是数字标识符（即标识对象的一长串数字，但对其应用数学运算没有意义）时，这对于显式指定非常有用。示例包括电话号码、社会安全号码、信用卡号码等。</li>
 <li>
-<code><a href="https://readr.tidyverse.org/reference/parse_factor.html">col_factor()</a></code>, <code><a href="https://readr.tidyverse.org/reference/parse_datetime.html">col_date()</a></code>, and <code><a href="https://readr.tidyverse.org/reference/parse_datetime.html">col_datetime()</a></code> create factors, dates, and date-times respectively; you’ll learn more about those when we get to those data types in <a href="factors.html"><span>章节&nbsp;17</span></a> and <span class="quarto-unresolved-ref">?sec-dates-and-times</span>.</li>
+<code><a href="https://readr.tidyverse.org/reference/parse_factor.html">col_factor()</a></code>、<code><a href="https://readr.tidyverse.org/reference/parse_datetime.html">col_date()</a></code> 和 <code><a href="https://readr.tidyverse.org/reference/parse_datetime.html">col_datetime()</a></code> 分别创建因子（factors）、日期（dates）和日期时间（date-times）；当我们在 <a href="factors.html"><span>Chapter&nbsp;17</span></a> 和 <span class="quarto-unresolved-ref">?sec-dates-and-times</span> 中介绍这些数据类型时，您将了解更多信息。</li>
 <li>
-<code><a href="https://readr.tidyverse.org/reference/parse_number.html">col_number()</a></code> is a permissive numeric parser that will ignore non-numeric components, and is particularly useful for currencies. You’ll learn more about it in <a href="numbers.html"><span>章节&nbsp;14</span></a>.</li>
+<code><a href="https://readr.tidyverse.org/reference/parse_number.html">col_number()</a></code> 是一个宽松的数字解析器，它将忽略非数字组件，对于货币特别有用。您将在 <a href="numbers.html"><span>Chapter&nbsp;14</span></a> 中了解更多信息。</li>
 <li>
-<code><a href="https://readr.tidyverse.org/reference/col_skip.html">col_skip()</a></code> skips a column so it’s not included in the result, which can be useful for speeding up reading the data if you have a large CSV file and you only want to use some of the columns.</li>
+<code><a href="https://readr.tidyverse.org/reference/col_skip.html">col_skip()</a></code> 会跳过一列，因此它不会包含在结果中，如果您有一个大型 CSV 文件并且只想使用某些列，这对于加快读取数据的速度很有用。</li>
 </ul>
-<p>It’s also possible to override the default column by switching from <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> to <code><a href="https://readr.tidyverse.org/reference/cols.html">cols()</a></code> and specifying <code>.default</code>:</p>
+<p>还可以通过从 <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> 切换到 <code><a href="https://readr.tidyverse.org/reference/cols.html">cols()</a></code> 并指定 <code>.default</code> 来覆盖默认列：</p>
 <div class="cell">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">another_csv</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
 <span><span class="st">x,y,z</span></span>
@@ -873,9 +873,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; # A tibble: 1 × 3</span></span>
 <span><span class="co">#&gt;   x     y     z    </span></span>
 <span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
-<span><span class="co">#&gt; 1 1     2     3</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1 1     2     3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Another useful helper is <code><a href="https://readr.tidyverse.org/reference/cols.html">cols_only()</a></code> which will read in only the columns you specify:</p>
+<p>另一个有用的帮助器是 <code><a href="https://readr.tidyverse.org/reference/cols.html">cols_only()</a></code> ，它只会读取您指定的列：</p>
 <div class="cell">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
 <span>  <span class="va">another_csv</span>,</span>
@@ -884,11 +884,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; # A tibble: 1 × 1</span></span>
 <span><span class="co">#&gt;   x    </span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;</span></span>
-<span><span class="co">#&gt; 1 1</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 1 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section><section id="sec-readr-directory" class="level2" data-number="8.4"><h2 data-number="8.4" class="anchored" data-anchor-id="sec-readr-directory">
 <span class="header-section-number">8.4</span> Reading data from multiple files</h2>
-<p>Sometimes your data is split across multiple files instead of being contained in a single file. For example, you might have sales data for multiple months, with each month’s data in a separate file: <code>01-sales.csv</code> for January, <code>02-sales.csv</code> for February, and <code>03-sales.csv</code> for March. With <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> you can read these data in at once and stack them on top of each other in a single data frame.</p>
+<p>有时，您的数据会分割在多个文件中，而不是包含在单个文件中。 例如，您可能有多个月的销售数据，每个月的数据都位于单独的文件中：<code>01-sales.csv</code> for January, <code>02-sales.csv</code> for February, and <code>03-sales.csv</code> for March。 使用 <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>，您可以立即读取这些数据并将它们堆叠在单个数据框中。</p>
 <div class="cell">
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sales_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"data/01-sales.csv"</span>, <span class="st">"data/02-sales.csv"</span>, <span class="st">"data/03-sales.csv"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">sales_files</span>, id <span class="op">=</span> <span class="st">"file"</span><span class="op">)</span></span>
@@ -901,31 +901,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 4 data/01-sales.csv January  2019     2  3333     1</span></span>
 <span><span class="co">#&gt; 5 data/01-sales.csv January  2019     2  2156     9</span></span>
 <span><span class="co">#&gt; 6 data/01-sales.csv January  2019     2  3987     6</span></span>
-<span><span class="co">#&gt; # ℹ 13 more rows</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; # ℹ 13 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Once again, the code above will work if you have the CSV files in a <code>data</code> folder in your project. You can download these files from <a href="https://pos.it/r4ds-01-sales" class="uri">https://pos.it/r4ds-01-sales</a>, <a href="https://pos.it/r4ds-02-sales" class="uri">https://pos.it/r4ds-02-sales</a>, and <a href="https://pos.it/r4ds-03-sales" class="uri">https://pos.it/r4ds-03-sales</a> or you can read them directly with:</p>
+<p>再次强调，如果项目的 <code>data</code> 文件夹中有 CSV 文件，则上面的代码将起作用。 您可以从 <a href="https://pos.it/r4ds-01-sales" class="uri">https://pos.it/r4ds-01-sales</a>, <a href="https://pos.it/r4ds-02-sales" class="uri">https://pos.it/r4ds-02-sales</a>, and <a href="https://pos.it/r4ds-03-sales" class="uri">https://pos.it/r4ds-03-sales</a> 下载这些文件，或者您可以直接读取它们：</p>
 <div class="cell">
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sales_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"https://pos.it/r4ds-01-sales"</span>,</span>
 <span>  <span class="st">"https://pos.it/r4ds-02-sales"</span>,</span>
 <span>  <span class="st">"https://pos.it/r4ds-03-sales"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">sales_files</span>, id <span class="op">=</span> <span class="st">"file"</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="va">sales_files</span>, id <span class="op">=</span> <span class="st">"file"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The <code>id</code> argument adds a new column called <code>file</code> to the resulting data frame that identifies the file the data come from. This is especially helpful in circumstances where the files you’re reading in do not have an identifying column that can help you trace the observations back to their original sources.</p>
-<p>If you have many files you want to read in, it can get cumbersome to write out their names as a list. Instead, you can use the base <code><a href="https://rdrr.io/r/base/list.files.html">list.files()</a></code> function to find the files for you by matching a pattern in the file names. You’ll learn more about these patterns in <a href="regexps.html"><span>章节&nbsp;16</span></a>.</p>
+<p><code>id</code> 参数将一个名为 <code>file</code> 的新列添加到结果数据框中，用于标识数据来自的文件。 当您正在阅读的文件没有可帮助您将观察结果追溯到其原始来源的识别列的情况下，这尤其有用。</p>
+<p>如果您想要读入许多文件，则将它们的名称写为列表可能会很麻烦。 相反，您可以使用基本的 <code><a href="https://rdrr.io/r/base/list.files.html">list.files()</a></code> 函数通过匹配文件名中的模式来查找文件。 您将在 <a href="regexps.html"><span>Chapter&nbsp;16</span></a> 中了解有关这些模式的更多信息。</p>
 <div class="cell">
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sales_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="st">"data"</span>, pattern <span class="op">=</span> <span class="st">"sales\\.csv$"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">sales_files</span></span>
-<span><span class="co">#&gt; [1] "data/01-sales.csv" "data/02-sales.csv" "data/03-sales.csv"</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; [1] "data/01-sales.csv" "data/02-sales.csv" "data/03-sales.csv"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="sec-writing-to-a-file" class="level2" data-number="8.5"><h2 data-number="8.5" class="anchored" data-anchor-id="sec-writing-to-a-file">
 <span class="header-section-number">8.5</span> Writing to a file</h2>
-<p>readr also comes with two useful functions for writing data back to disk: <code><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv()</a></code> and <code><a href="https://readr.tidyverse.org/reference/write_delim.html">write_tsv()</a></code>. The most important arguments to these functions are <code>x</code> (the data frame to save) and <code>file</code> (the location to save it). You can also specify how missing values are written with <code>na</code>, and if you want to <code>append</code> to an existing file.</p>
+<p>readr 还附带两个有用的函数，用于将数据写回磁盘：<code><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv()</a></code> 和 <code><a href="https://readr.tidyverse.org/reference/write_delim.html">write_tsv()</a></code>。 这些函数最重要的参数是 <code>x</code>（要保存的数据框）和 <code>file</code>（保存数据的位置）。 您还可以指定如何使用 <code>na</code> 写入缺失值，以及是否要 <code>append</code> 到现有文件。</p>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">students</span>, <span class="st">"students.csv"</span><span class="op">)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">students</span>, <span class="st">"students.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now let’s read that csv file back in. Note that the variable type information that you just set up is lost when you save to CSV because you’re starting over with reading from a plain text file again:</p>
+<p>现在让我们重新读取该 csv 文件。 请注意，保存到 CSV 时，您刚刚设置的变量类型信息会丢失，因为您要再次从纯文本文件中读取：</p>
 <div class="cell">
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">students</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
@@ -947,12 +947,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 3          3 Jayendra Lyne    &lt;NA&gt;               Breakfast and lunch     7</span></span>
 <span><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only             NA</span></span>
 <span><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch     5</span></span>
-<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only              6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only              6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This makes CSVs a little unreliable for caching interim results—you need to recreate the column specification every time you load in. There are two main alternative:</p>
+<p>这使得 CSVs 对于缓存临时结果有点不可靠 — 每次加载时都需要重新创建列规范。 有两个主要替代方案：</p>
 <ol type="1">
 <li>
-<p><code><a href="https://readr.tidyverse.org/reference/read_rds.html">write_rds()</a></code> and <code><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds()</a></code> are uniform wrappers around the base functions <code><a href="https://rdrr.io/r/base/readRDS.html">readRDS()</a></code> and <code><a href="https://rdrr.io/r/base/readRDS.html">saveRDS()</a></code>. These store data in R’s custom binary format called RDS. This means that when you reload the object, you are loading the <em>exact same</em> R object that you stored.</p>
+<p><code><a href="https://readr.tidyverse.org/reference/read_rds.html">write_rds()</a></code> 和 <code><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds()</a></code> 是基本函数 <code><a href="https://rdrr.io/r/base/readRDS.html">readRDS()</a></code> 和 <code><a href="https://rdrr.io/r/base/readRDS.html">saveRDS()</a></code> 的统一包装器。 它们以 R 的自定义二进制格式（称为 RDS）存储数据。 这意味着当您重新加载对象时，您将加载与存储的完全相同的 R 对象。</p>
 <div class="cell">
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">write_rds</a></span><span class="op">(</span><span class="va">students</span>, <span class="st">"students.rds"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_rds.html">read_rds</a></span><span class="op">(</span><span class="st">"students.rds"</span><span class="op">)</span></span>
@@ -964,15 +964,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 3          3 Jayendra Lyne    &lt;NA&gt;               Breakfast and lunch     7</span></span>
 <span><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only             NA</span></span>
 <span><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch     5</span></span>
-<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only              6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only              6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li>
-<p>The arrow package allows you to read and write parquet files, a fast binary file format that can be shared across programming languages. We’ll return to arrow in more depth in <span class="quarto-unresolved-ref">?sec-arrow</span>.</p>
+<p>arrow 包允许您读取和写入 parquet 文件，这是一种可以跨编程语言共享的快速二进制文件格式。 我们将在 <span class="quarto-unresolved-ref">?sec-arrow</span> 中更深入地回到 arrow。</p>
 <div class="cell">
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/apache/arrow/">arrow</a></span><span class="op">)</span></span>
-<span><span class="fu">write_parquet</span><span class="op">(</span><span class="va">students</span>, <span class="st">"students.parquet"</span><span class="op">)</span></span>
-<span><span class="fu">read_parquet</span><span class="op">(</span><span class="st">"students.parquet"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://arrow.apache.org/docs/r/reference/write_parquet.html">write_parquet</a></span><span class="op">(</span><span class="va">students</span>, <span class="st">"students.parquet"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://arrow.apache.org/docs/r/reference/read_parquet.html">read_parquet</a></span><span class="op">(</span><span class="st">"students.parquet"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
 <span><span class="co">#&gt;   student_id full_name        favourite_food     meal_plan             age</span></span>
 <span><span class="co">#&gt;        &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;              &lt;fct&gt;               &lt;dbl&gt;</span></span>
@@ -981,14 +981,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 3          3 Jayendra Lyne    NA                 Breakfast and lunch     7</span></span>
 <span><span class="co">#&gt; 4          4 Leon Rossini     Anchovies          Lunch only             NA</span></span>
 <span><span class="co">#&gt; 5          5 Chidiegwu Dunkel Pizza              Breakfast and lunch     5</span></span>
-<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only              6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 6          6 Güvenç Attila    Ice cream          Lunch only              6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 </ol>
-<p>Parquet tends to be much faster than RDS and is usable outside of R, but does require the arrow package.</p>
+<p>Parquet 往往比 RDS 快得多，并且可以在 R 之外使用，但需要 arrow 包。</p>
 </section><section id="data-entry" class="level2" data-number="8.6"><h2 data-number="8.6" class="anchored" data-anchor-id="data-entry">
 <span class="header-section-number">8.6</span> Data entry</h2>
-<p>Sometimes you’ll need to assemble a tibble “by hand” doing a little data entry in your R script. There are two useful functions to help you do this which differ in whether you layout the tibble by columns or by rows. <code><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble()</a></code> works by column:</p>
+<p>有时，您需要在 R 脚本中输入一些数据，“手动”组装 tibble。 有两个有用的函数可以帮助您执行此操作，这两个函数的不同之处在于您是按列还是按行布局 tibble。 <code><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble()</a></code> 按列工作：</p>
 <div class="cell">
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>, </span>
@@ -1000,9 +1000,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1     1 h      0.08</span></span>
 <span><span class="co">#&gt; 2     2 m      0.83</span></span>
-<span><span class="co">#&gt; 3     5 g      0.6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 3     5 g      0.6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Laying out the data by column can make it hard to see how the rows are related, so an alternative is <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble()</a></code>, short for <strong>tr</strong>ansposed t<strong>ibble</strong>, which lets you lay out your data row by row. <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble()</a></code> is customized for data entry in code: column headings start with <code>~</code> and entries are separated by commas. This makes it possible to lay out small amounts of data in an easy to read form:</p>
+<p>按列布局数据可能会让人很难看出行之间的关系，因此另一种选择是 <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble()</a></code>，它是 <strong>tr</strong>ansposed t<strong>ibble</strong> 的缩写，它可以让您逐行布局数据。 <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble()</a></code> 是为代码中的数据输入而定制的：列标题以 <code>~</code> 开头，条目之间用逗号分隔。 这使得以易于阅读的形式布置少量数据成为可能：</p>
 <div class="cell">
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
 <span>  <span class="op">~</span><span class="va">x</span>, <span class="op">~</span><span class="va">y</span>, <span class="op">~</span><span class="va">z</span>,</span>
@@ -1015,12 +1015,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1     1 h      0.08</span></span>
 <span><span class="co">#&gt; 2     2 m      0.83</span></span>
-<span><span class="co">#&gt; 3     5 g      0.6</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; 3     5 g      0.6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="summary" class="level2" data-number="8.7"><h2 data-number="8.7" class="anchored" data-anchor-id="summary">
 <span class="header-section-number">8.7</span> Summary</h2>
-<p>In this chapter, you’ve learned how to load CSV files with <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> and to do your own data entry with <code><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble()</a></code> and <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble()</a></code>. You’ve learned how csv files work, some of the problems you might encounter, and how to overcome them. We’ll come to data import a few times in this book: <a href="spreadsheets.html"><span>章节&nbsp;21</span></a> from Excel and Google Sheets, <span class="quarto-unresolved-ref">?sec-import-databases</span> will show you how to load data from databases, <span class="quarto-unresolved-ref">?sec-arrow</span> from parquet files, <a href="rectangling.html"><span>章节&nbsp;24</span></a> from JSON, and <a href="webscraping.html"><span>章节&nbsp;25</span></a> from websites.</p>
-<p>We’re just about at the end of this section of the book, but there’s one important last topic to cover: how to get help. So in the next chapter, you’ll learn some good places to look for help, how to create a reprex to maximize your chances of getting good help, and some general advice on keeping up with the world of R.</p>
+<p>在本章中，您学习了如何使用 <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> 加载 CSV 文件以及如何使用 <code><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble()</a></code> 和 <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble()</a></code> 进行自己的数据输入。 您已经了解了 csv 文件的工作原理、可能遇到的一些问题以及如何克服这些问题。 我们将在本书中多次介绍数据导入：<a href="spreadsheets.html"><span>Chapter&nbsp;21</span></a> 来自 Excel 和 Google Sheets，<span class="quarto-unresolved-ref">?sec-import-databases</span> 将向您展示如何从数据库加载数据，<span class="quarto-unresolved-ref">?sec-arrow</span> 来自 parquet 文件，<a href="rectangling.html"><span>Chapter&nbsp;24</span></a> 来自 JSON ，<a href="webscraping.html"><span>Chapter&nbsp;25</span></a> 来自网站。</p>
+<p>我们即将读到本书这一部分的结尾，但最后还有一个重要的主题要讨论：如何获得帮助。 因此，在下一章中，您将了解一些寻求帮助的好地方、如何创建 reprex 以最大限度地提高获得良好帮助的机会，以及一些与 R 世界保持同步的一般建议。</p>
 
 
 </section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
@@ -1067,12 +1067,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "已复制");
+    button.setAttribute("title", "Copied!");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "已复制");
+      button.setAttribute("data-bs-title", "Copied!");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
