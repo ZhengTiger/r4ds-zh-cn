@@ -17,7 +17,7 @@ Try to translate R for Data Science (the second edition) into Simplified Chinese
 | 3 Workflow: basics               | ✔        | 2023.6.18 |
 | 4 Data transformation            | ✔        | 2023.6.19 |
 | 5 Workflow: code style           | ✔        | 2023.6.19 |
-| 6 Data tidying                   |          |           |
+| 6 Data tidying                   | ✔        | 2023.6.29 |
 | 7 Workflow: scripts and projects |          |           |
 | 8 Data import                    |          |           |
 | 9 Workflow: getting help         |          |           |

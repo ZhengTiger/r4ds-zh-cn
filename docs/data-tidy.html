@@ -653,8 +653,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; # ℹ 5,301 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>行数现在少得多，表明许多具有 <code>NA</code>s 的行已被删除。</p>
-<p>You might also wonder what happens if a song is in the top 100 for more than 76 weeks? We can’t tell from this data, but you might guess that additional columns <code>wk77</code>, <code>wk78</code>, … would be added to the dataset.</p>
-<p>This data is now tidy, but we could make future computation a bit easier by converting values of <code>week</code> from character strings to numbers using <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> and <code><a href="https://readr.tidyverse.org/reference/parse_number.html">readr::parse_number()</a></code>. <code><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number()</a></code> is a handy function that will extract the first number from a string, ignoring all other text.</p>
+<p>您可能还想知道如果一首歌进入前 100 名超过 76 周会发生什么？ 我们无法从这些数据中看出，但您可能会猜测额外的列 <code>wk77</code>、<code>wk78</code>, … 将添加到数据集中。</p>
+<p>这些数据现在很整洁，但我们可以通过使用 <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> 和 <code><a href="https://readr.tidyverse.org/reference/parse_number.html">readr::parse_number()</a></code> 将 <code>week</code> 值从字符串（character strings）转换为数字（numbers），从而使将来的计算变得更容易。 <code><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number()</a></code> 是一个方便的函数，它将从字符串中提取第一个数字，忽略所有其他文本。</p>
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">billboard_longer</span> <span class="op">&lt;-</span> <span class="va">billboard</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
@@ -678,7 +678,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 6 2 Pac  Baby Don't Cry (Keep... 2000-02-26       6    94</span></span>
 <span><span class="co">#&gt; # ℹ 5,301 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now that we have all the week numbers in one variable and all the rank values in another, we’re in a good position to visualize how song ranks vary over time. The code is shown below and the result is in <a href="#fig-billboard-ranks">Figure&nbsp;<span>6.2</span></a>. We can see that very few songs stay in the top 100 for more than 20 weeks.</p>
+<p>现在我们在一个变量中拥有所有 week 数值，在另一个变量中拥有所有 rank 值，我们可以很好地可视化歌曲排名如何随时间变化。 代码如下所示，结果如 <a href="#fig-billboard-ranks">Figure&nbsp;<span>6.2</span></a> 所示。 我们可以看到，很少有歌曲能在前 100 名中保持超过 20 周的时间。</p>
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">billboard_longer</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">week</span>, y <span class="op">=</span> <span class="va">rank</span>, group <span class="op">=</span> <span class="va">track</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -694,7 +694,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section><section id="how-does-pivoting-work" class="level3" data-number="6.3.2"><h3 data-number="6.3.2" class="anchored" data-anchor-id="how-does-pivoting-work">
 <span class="header-section-number">6.3.2</span> How does pivoting work?</h3>
-<p>Now that you’ve seen how we can use pivoting to reshape our data, let’s take a little time to gain some intuition about what pivoting does to the data. Let’s start with a very simple dataset to make it easier to see what’s happening. Suppose we have three patients with <code>id</code>s A, B, and C, and we take two blood pressure measurements on each patient. We’ll create the data with <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble()</a></code>, a handy function for constructing small tibbles by hand:</p>
+<p>现在您已经了解了如何使用 pivoting 来重塑数据，让我们花一点时间来直观地了解 pivoting 对数据的作用。 让我们从一个非常简单的数据集开始，以便更容易地了解正在发生的情况。 假设我们有 3 位 <code>id</code> 为 A、B、C 的患者（patients），我们对每位患者（patients）进行两次血压（blood pressure）测量。 我们将使用 <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble()</a></code> 创建数据，这是一个手动构建小 tibbles 的便捷函数：</p>
 <div class="cell">
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
 <span>  <span class="op">~</span><span class="va">id</span>,  <span class="op">~</span><span class="va">bp1</span>, <span class="op">~</span><span class="va">bp2</span>,</span>
@@ -703,7 +703,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>   <span class="st">"C"</span>,  <span class="fl">120</span>,  <span class="fl">125</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We want our new dataset to have three variables: <code>id</code> (already exists), <code>measurement</code> (the column names), and <code>value</code> (the cell values). To achieve this, we need to pivot <code>df</code> longer:</p>
+<p>我们希望我们的新数据集具有三个变量：<code>id</code>（已存在）、<code>measurement</code>（列名称）和 <code>value</code>（单元格值）。 为了实现这一点，我们需要 pivot <code>df</code> longer：</p>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
@@ -721,39 +721,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 5 C     bp1           120</span></span>
 <span><span class="co">#&gt; 6 C     bp2           125</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>How does the reshaping work? It’s easier to see if we think about it column by column. As shown in <a href="#fig-pivot-variables">Figure&nbsp;<span>6.3</span></a>, the values in column that was already a variable in the original dataset (<code>id</code>) need to be repeated, once for each column that is pivoted.</p>
+<p>重塑是如何进行的？ 如果我们逐列思考就更容易看出。 如 <a href="#fig-pivot-variables">Figure&nbsp;<span>6.3</span></a> 所示，对于原始数据集（<code>id</code>）中已经是变量的列中的值需要重复，对于每个被 pivoted 的列重复一次。</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-pivot-variables" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/tidy-data/variables.png" class="img-fluid figure-img" alt="A diagram showing how `pivot_longer()` transforms a simple dataset, using color to highlight how the values in the `id` column (&quot;A&quot;, &quot;B&quot;, &quot;C&quot;) are each repeated twice in the output because there are two columns being pivotted (&quot;bp1&quot; and &quot;bp2&quot;)." width="515"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;6.3: Columns that are already variables need to be repeated, once for each column that is pivotted.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;6.3: 已经是变量的列需要重复，每个 pivotted 的列重复一次。</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The column names become values in a new variable, whose name is defined by <code>names_to</code>, as shown in <a href="#fig-pivot-names">Figure&nbsp;<span>6.4</span></a>. They need to be repeated once for each row in the original dataset.</p>
+<p>column names 成为新变量中的值，其名称由 <code>names_to</code> 定义，如 <a href="#fig-pivot-names">Figure&nbsp;<span>6.4</span></a> 所示。 它们需要对原始数据集中的每一行重复一次。</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-pivot-names" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/tidy-data/column-names.png" class="img-fluid figure-img" alt="A diagram showing how `pivot_longer()` transforms a simple data set, using color to highlight how column names (&quot;bp1&quot; and &quot;bp2&quot;) become the values in a new `measurement` column. They are repeated three times because there were three rows in the input." width="515"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;6.4: The column names of pivoted columns become values in a new column. The values need to be repeated once for each row of the original dataset.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;6.4: pivoted columns 的 column names 成为 new column 中的值。对于原始数据集的每一行，这些值需要重复一次。</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The cell values also become values in a new variable, with a name defined by <code>values_to</code>. They are unwound row by row. <a href="#fig-pivot-values">Figure&nbsp;<span>6.5</span></a> illustrates the process.</p>
+<p>单元格值也会成为新变量中的值，其名称由 <code>values_to</code> 定义。 它们一排一排地展开。 <a href="#fig-pivot-values">Figure&nbsp;<span>6.5</span></a> 说明了该过程。</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-pivot-values" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/tidy-data/cell-values.png" class="img-fluid figure-img" alt="A diagram showing how `pivot_longer()` transforms data, using color to highlight how the cell values (blood pressure measurements) become the values in a new `value` column. They are unwound row-by-row, so the original rows (100,120), then (140,115), then (120,125), become a column running from 100 to 125." width="515"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;6.5: The number of values is preserved (not repeated), but unwound row-by-row.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;6.5: 值的数值被保留（不重复），但逐行展开。</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 </section><section id="many-variables-in-column-names" class="level3" data-number="6.3.3"><h3 data-number="6.3.3" class="anchored" data-anchor-id="many-variables-in-column-names">
 <span class="header-section-number">6.3.3</span> Many variables in column names</h3>
-<p>A more challenging situation occurs when you have multiple pieces of information crammed into the column names, and you would like to store these in separate new variables. For example, take the <code>who2</code> dataset, the source of <code>table1</code> and friends that you saw above:</p>
+<p>当您将多条信息塞入 column names 中，并且您希望将这些信息存储在单独的新变量中时，就会出现更具挑战性的情况。 例如，采用 <code>who2</code> 数据集，这是跟你之前看到的 <code>table1</code> 是相同来源的数据：</p>
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">who2</span></span>
 <span><span class="co">#&gt; # A tibble: 7,240 × 58</span></span>
@@ -768,8 +768,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; # ℹ 7,234 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 51 more variables: sp_m_5564 &lt;dbl&gt;, sp_m_65 &lt;dbl&gt;, sp_f_014 &lt;dbl&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This dataset, collected by the World Health Organisation, records information about tuberculosis diagnoses. There are two columns that are already variables and are easy to interpret: <code>country</code> and <code>year</code>. They are followed by 56 columns like <code>sp_m_014</code>, <code>ep_m_4554</code>, and <code>rel_m_3544</code>. If you stare at these columns for long enough, you’ll notice there’s a pattern. Each column name is made up of three pieces separated by <code>_</code>. The first piece, <code>sp</code>/<code>rel</code>/<code>ep</code>, describes the method used for the diagnosis, the second piece, <code>m</code>/<code>f</code> is the <code>gender</code> (coded as a binary variable in this dataset), and the third piece, <code>014</code>/<code>1524</code>/<code>2534</code>/<code>3544</code>/<code>4554</code>/<code>5564</code>/<code>65</code> is the <code>age</code> range (<code>014</code> represents 0-14, for example).</p>
-<p>So in this case we have six pieces of information recorded in <code>who2</code>: the country and the year (already columns); the method of diagnosis, the gender category, and the age range category (contained in the other column names); and the count of patients in that category (cell values). To organize these six pieces of information in six separate columns, we use <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> with a vector of column names for <code>names_to</code> and instructors for splitting the original variable names into pieces for <code>names_sep</code> as well as a column name for <code>values_to</code>:</p>
+<p>该数据集由世界卫生组织收集，记录有关结核病诊断（tuberculosis diagnoses）的信息。 有两列已经是变量（variables）且易于解释：<code>country</code> 和 <code>year</code>。 接下来是 56 列，例如 <code>sp_m_014</code>、<code>ep_m_4554</code>、<code>rel_m_3544</code>。 如果你盯着这些列足够长的时间，你会发现其中存在一种模式。 每个列名称由三部分组成，并用 <code>_</code> 分隔。 第一部分 <code>sp</code>/<code>rel</code>/<code>ep</code> 描述了用于诊断的方法（<code>diagnosis</code>），第二部分 <code>m</code>/<code>f</code> 是性别（<code>gender</code>）（在此数据集中编码为二进制变量），第三部分 <code>014</code>/<code>1524</code>/<code>2534</code>/<code>3544</code>/<code>4554</code>/<code>5564</code>/<code>65</code> 是年龄范围（<code>age</code>）（例如，<code>014</code> 代表 0-14）。</p>
+<p>因此，在本例中，<code>who2</code> 中记录了六条信息：country 和 year（已经是列）；诊断方法（diagnosis）、性别类别（gender）和年龄范围类别（age）（包含在其他列名称中）；以及该类别中的患者数量（count）（单元格值）。 为了将这六条信息组织在六个单独的列中，我们使用 <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> 以及 <code>names_to</code> 的列名称向量将原始变量名称拆分为 <code>names_sep</code> 片段以及 <code>values_to</code> 的列名称：</p>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">who2</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
@@ -789,20 +789,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 6 Afghanistan  1980 sp        m      5564     NA</span></span>
 <span><span class="co">#&gt; # ℹ 405,434 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>An alternative to <code>names_sep</code> is <code>names_pattern</code>, which you can use to extract variables from more complicated naming scenarios, once you’ve learned about regular expressions in <a href="regexps.html"><span>Chapter&nbsp;16</span></a>.</p>
-<p>Conceptually, this is only a minor variation on the simpler case you’ve already seen. <a href="#fig-pivot-multiple-names">Figure&nbsp;<span>6.6</span></a> shows the basic idea: now, instead of the column names pivoting into a single column, they pivot into multiple columns. You can imagine this happening in two steps (first pivoting and then separating) but under the hood it happens in a single step because that’s faster.</p>
+<p><code>names_sep</code> 的替代方法是 <code>names_pattern</code>，你可以使用它从更复杂的命名场景中提取变量， 一旦您在 <a href="regexps.html"><span>Chapter&nbsp;16</span></a> 中了解了正则表达式。</p>
+<p>从概念上讲，这只是您已经见过的更简单情况的一个微小变化。 <a href="#fig-pivot-multiple-names">Figure&nbsp;<span>6.6</span></a> 显示了基本思想：现在，column names 不再 pivoting 成单个列，而是 pivot 成多个列。 您可以想象这发生在两个步骤中（first pivoting and then separating），但在幕后它发生在一步中，因为这样更快。</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-pivot-multiple-names" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/tidy-data/multiple-names.png" class="img-fluid figure-img" alt="A diagram that uses color to illustrate how supplying `names_sep` and multiple `names_to` creates multiple variables in the output. The input has variable names &quot;x_1&quot; and &quot;y_2&quot; which are split up by &quot;_&quot; to create name and number columns in the output. This is is similar case with a single `names_to`, but what would have been a single output variable is now separated into multiple variables." width="524"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;6.6: Pivoting columns with multiple pieces of information in the names means that each column name now fills in values in multiple output columns.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;6.6: 对名称中包含多条信息的列进行 Pivoting 意味着每个列名称现在会填充多个输出列中的值。</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 </section><section id="data-and-variable-names-in-the-column-headers" class="level3" data-number="6.3.4"><h3 data-number="6.3.4" class="anchored" data-anchor-id="data-and-variable-names-in-the-column-headers">
 <span class="header-section-number">6.3.4</span> Data and variable names in the column headers</h3>
-<p>The next step up in complexity is when the column names include a mix of variable values and variable names. For example, take the <code>household</code> dataset:</p>
+<p>复杂性的下一步是列名包含变量值和变量名的混合。 以 <code>household</code> 数据集为例：</p>
 <div class="cell">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">household</span></span>
 <span><span class="co">#&gt; # A tibble: 5 × 5</span></span>
@@ -814,7 +814,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 4      4 2004-10-10 2009-08-27 Craig       Khai       </span></span>
 <span><span class="co">#&gt; 5      5 2000-12-05 2005-02-28 Parker      Gracie</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This dataset contains data about five families, with the names and dates of birth of up to two children. The new challenge in this dataset is that the column names contain the names of two variables (<code>dob</code>, <code>name)</code> and the values of another (<code>child,</code> with values 1 or 2). To solve this problem we again need to supply a vector to <code>names_to</code> but this time we use the special <code>".value"</code> sentinel; this isn’t the name of a variable but a unique value that tells <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> to do something different. This overrides the usual <code>values_to</code> argument to use the first component of the pivoted column name as a variable name in the output.</p>
+<p>该数据集包含有关五个家庭的数据，其中最多包含两个孩子的姓名和出生日期。 此数据集中的新挑战是列名称包含两个变量的名称（<code>dob</code>、<code>name</code>）和另一个变量的值（<code>child</code>，值为 1 或 2）。 为了解决这个问题，我们再次需要向 <code>names_to</code> 提供一个向量，但这次我们使用特殊的 <code>“.value”</code> 语句；这不是变量的名称，而是告诉 <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> 执行不同操作的唯一值。 这会覆盖通常的 <code>values_to</code> 参数，以使用 pivoted column name 的第一个组成部分作为输出中的变量名称。</p>
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">household</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
@@ -834,21 +834,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 6      4 child1 2004-10-10 Craig</span></span>
 <span><span class="co">#&gt; # ℹ 3 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We again use <code>values_drop_na = TRUE</code>, since the shape of the input forces the creation of explicit missing variables (e.g., for families with only one child).</p>
-<p><a href="#fig-pivot-names-and-values">Figure&nbsp;<span>6.7</span></a> illustrates the basic idea with a simpler example. When you use <code>".value"</code> in <code>names_to</code>, the column names in the input contribute to both values and variable names in the output.</p>
+<p>我们再次使用 <code>values_drop_na = TRUE</code>，因为输入的形状强制创建显式缺失变量（例如，对于只有一个孩子的家庭）。</p>
+<p><a href="#fig-pivot-names-and-values">Figure&nbsp;<span>6.7</span></a> 通过一个更简单的示例说明了基本思想。 当您在 <code>names_to</code> 中使用 <code>".value"</code> 时，输入中的列名称将影响输出中的值和变量名称。</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-pivot-names-and-values" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/tidy-data/names-and-values.png" class="img-fluid figure-img" alt="A diagram that uses color to illustrate how the special &quot;.value&quot; sentinel works. The input has names &quot;x_1&quot;, &quot;x_2&quot;, &quot;y_1&quot;, and &quot;y_2&quot;, and we want to use the first component (&quot;x&quot;, &quot;y&quot;) as a variable name and the second (&quot;1&quot;, &quot;2&quot;) as the value for a new &quot;num&quot; column." width="474"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;6.7: Pivoting with <code>names_to = c(".value", "num")</code> splits the column names into two components: the first part determines the output column name (<code>x</code> or <code>y</code>), and the second part determines the value of the <code>num</code> column.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;6.7: 使用 <code>names_to = c(".value", "num")</code> 进行 Pivoting 将列名称分为两个部分：第一部分确定输出列名称（<code>x</code> or <code>y</code>），第二部分确定 <code>num</code> 列的值。</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 </section></section><section id="widening-data" class="level2" data-number="6.4"><h2 data-number="6.4" class="anchored" data-anchor-id="widening-data">
 <span class="header-section-number">6.4</span> Widening data</h2>
-<p>So far we’ve used <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> to solve the common class of problems where values have ended up in column names. Next we’ll pivot (HA HA) to <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code>, which makes datasets <strong>wider</strong> by increasing columns and reducing rows and helps when one observation is spread across multiple rows. This seems to arise less commonly in the wild, but it does seem to crop up a lot when dealing with governmental data.</p>
-<p>We’ll start by looking at <code>cms_patient_experience</code>, a dataset from the Centers of Medicare and Medicaid services that collects data about patient experiences:</p>
+<p>到目前为止，我们已经使用 <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> 来解决值以列名结束的常见问题。 接下来，我们将转向 <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code>，它通过增加列和减少行来使数据集更宽（<strong>wider</strong>），并且当一个观测（observation）分布在多行上时会有所帮助。 这种情况在野外似乎不太常见，但在处理政府数据时似乎确实经常出现。</p>
+<p>我们首先查看 <code>cms_patient_experience</code>，这是来自 Medicare 和 Medicaid 服务中心的数据集，用于收集有关患者体验的数据：</p>
 <div class="cell">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cms_patient_experience</span></span>
 <span><span class="co">#&gt; # A tibble: 500 × 5</span></span>
@@ -862,7 +862,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 6 0446157747 USC CARE MEDICAL GROUP INC CAHPS_GRP_12 CAHPS for MIPS…       24</span></span>
 <span><span class="co">#&gt; # ℹ 494 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The core unit being studied is an organization, but each organization is spread across six rows, with one row for each measurement taken in the survey organization. We can see the complete set of values for <code>measure_cd</code> and <code>measure_title</code> by using <code><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct()</a></code>:</p>
+<p>所研究的核心单位是一个组织，但每个组织分布在六行中，每一行代表调查组织中进行的每个测量。 我们可以使用 <code><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct()</a></code> 查看 <code>measure_cd</code> 和 <code>measure_title</code> 的完整值集：</p>
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cms_patient_experience</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">measure_cd</span>, <span class="va">measure_title</span><span class="op">)</span></span>
@@ -876,8 +876,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 5 CAHPS_GRP_8  CAHPS for MIPS SSM: Courteous and Helpful Office Staff        </span></span>
 <span><span class="co">#&gt; 6 CAHPS_GRP_12 CAHPS for MIPS SSM: Stewardship of Patient Resources</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Neither of these columns will make particularly great variable names: <code>measure_cd</code> doesn’t hint at the meaning of the variable and <code>measure_title</code> is a long sentence containing spaces. We’ll use <code>measure_cd</code> as the source for our new column names for now, but in a real analysis you might want to create your own variable names that are both short and meaningful.</p>
-<p><code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> has the opposite interface to <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code>: instead of choosing new column names, we need to provide the existing columns that define the values (<code>values_from</code>) and the column name (<code>names_from)</code>:</p>
+<p>这些列都不会成为特别好的变量名称：<code>measure_cd</code> 不会暗示变量的含义，而 <code>measure_title</code> 是一个包含空格的长句子。 我们现在将使用 <code>measure_cd</code> 作为新列名称的来源，但在实际分析中，您可能希望创建自己的既短又有意义的变量名称。</p>
+<p><code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> 与 <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> 具有相反的接口：我们不需要选择新的列名，而是需要提供定义值 (<code>values_from</code>) 和列名 (<code>names_from</code>) 的现有列：</p>
 <div class="cell">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cms_patient_experience</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
@@ -896,7 +896,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; # ℹ 494 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 4 more variables: CAHPS_GRP_3 &lt;dbl&gt;, CAHPS_GRP_5 &lt;dbl&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The output doesn’t look quite right; we still seem to have multiple rows for each organization. That’s because, we also need to tell <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> which column or columns have values that uniquely identify each row; in this case those are the variables starting with <code>"org"</code>:</p>
+<p>输出看起来不太正确；我们似乎仍然为每个组织有多行。 这是因为，我们还需要告诉 <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> 哪一列或多列具有唯一标识每一行的值；在本例中，这些是以 <code>"org"</code> 开头的变量：</p>
 <div class="cell">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cms_patient_experience</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
@@ -916,10 +916,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; # ℹ 89 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 2 more variables: CAHPS_GRP_8 &lt;dbl&gt;, CAHPS_GRP_12 &lt;dbl&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This gives us the output that we’re looking for.</p>
+<p>这给了我们我们正在寻找的输出。</p>
 <section id="how-does-pivot_wider-work" class="level3" data-number="6.4.1"><h3 data-number="6.4.1" class="anchored" data-anchor-id="how-does-pivot_wider-work">
 <span class="header-section-number">6.4.1</span> How does <code>pivot_wider()</code> work?</h3>
-<p>To understand how <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> works, let’s again start with a very simple dataset. This time we have two patients with <code>id</code>s A and B, we have three blood pressure measurements on patient A and two on patient B:</p>
+<p>为了理解 <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> 的工作原理，让我们再次从一个非常简单的数据集开始。 这次我们有两名 <code>id</code> 为 A 和 B 的患者，我们对患者 A 进行了三次血压（blood pressure）测量，对患者 B 进行了两次血压（blood pressure）测量：</p>
 <div class="cell">
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
 <span>  <span class="op">~</span><span class="va">id</span>, <span class="op">~</span><span class="va">measurement</span>, <span class="op">~</span><span class="va">value</span>,</span>
@@ -930,7 +930,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="st">"A"</span>,        <span class="st">"bp3"</span>,    <span class="fl">105</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We’ll take the values from the <code>value</code> column and the names from the <code>measurement</code> column:</p>
+<p>我们将从 <code>value</code> 列中获取值并从 <code>measurement</code> 列中获取名称：</p>
 <div class="cell">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
@@ -943,14 +943,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 1 A       100   120   105</span></span>
 <span><span class="co">#&gt; 2 B       140   115    NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>To begin the process <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> needs to first figure out what will go in the rows and columns. The new column names will be the unique values of <code>measurement</code>.</p>
+<p>要开始该过程，<code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> 需要首先弄清楚行和列中的内容。 新的列名称将是 <code>measurement</code> 中唯一的值。</p>
 <div class="cell">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">measurement</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "bp1" "bp2" "bp3"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>By default, the rows in the output are determined by all the variables that aren’t going into the new names or values. These are called the <code>id_cols</code>. Here there is only one column, but in general there can be any number.</p>
+<p>默认情况下，输出中的行由未进入新名称或值的所有变量确定。 这些称为 <code>id_cols</code>。 这里只有一列，但一般可以有任意数量。</p>
 <div class="cell">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">measurement</span>, <span class="op">-</span><span class="va">value</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -961,7 +961,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 1 A    </span></span>
 <span><span class="co">#&gt; 2 B</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> then combines these results to generate an empty data frame:</p>
+<p>然后，<code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> 结合这些结果来生成一个空 data frame：</p>
 <div class="cell">
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">measurement</span>, <span class="op">-</span><span class="va">value</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -973,8 +973,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 1 A     NA    NA    NA   </span></span>
 <span><span class="co">#&gt; 2 B     NA    NA    NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>It then fills in all the missing values using the data in the input. In this case, not every cell in the output has a corresponding value in the input as there’s no third blood pressure measurement for patient B, so that cell remains missing. We’ll come back to this idea that <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> can “make” missing values in <a href="missing-values.html"><span>Chapter&nbsp;19</span></a>.</p>
-<p>You might also wonder what happens if there are multiple rows in the input that correspond to one cell in the output. The example below has two rows that correspond to <code>id</code> “A” and <code>measurement</code> “bp1”:</p>
+<p>然后，它使用输入中的数据填充所有缺失值。 在这种情况下，并非输出中的每个单元格在输入中都有对应的值，因为患者 B 没有第三次血压测量，因此该单元格仍然缺失。 我们将在 <a href="missing-values.html"><span>Chapter&nbsp;19</span></a> 中回到这个观点：<code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> 可以”制造”缺失值。</p>
+<p>您可能还想知道如果输入中有多行对应于输出中的一个单元格，会发生什么情况。 下面的示例有两行对应于 <code>id</code> “A” 和 <code>measurement</code> “bp1”：</p>
 <div class="cell">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
 <span>  <span class="op">~</span><span class="va">id</span>, <span class="op">~</span><span class="va">measurement</span>, <span class="op">~</span><span class="va">value</span>,</span>
@@ -985,7 +985,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="st">"B"</span>,        <span class="st">"bp2"</span>,    <span class="fl">115</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>If we attempt to pivot this we get an output that contains list-columns, which you’ll learn more about in <a href="rectangling.html"><span>Chapter&nbsp;24</span></a>:</p>
+<p>如果我们尝试对此进行 pivot，我们会得到一个包含 list-columns 的输出，您将在 <a href="rectangling.html"><span>Chapter&nbsp;24</span></a> 中了解更多信息：</p>
 <div class="cell">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
@@ -1007,7 +1007,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; 1 A     &lt;dbl [2]&gt; &lt;dbl [1]&gt;</span></span>
 <span><span class="co">#&gt; 2 B     &lt;dbl [1]&gt; &lt;dbl [1]&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Since you don’t know how to work with this sort of data yet, you’ll want to follow the hint in the warning to figure out where the problem is:</p>
+<p>由于您还不知道如何处理此类数据，因此您需要按照警告中的提示找出问题所在：</p>
 <div class="cell">
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">measurement</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -1018,13 +1018,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;       &lt;int&gt;</span></span>
 <span><span class="co">#&gt; 1 A     bp1             2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>It’s then up to you to figure out what’s gone wrong with your data and either repair the underlying damage or use your grouping and summarizing skills to ensure that each combination of row and column values only has a single row.</p>
+<p>然后，您需要找出数据出了什么问题，并修复潜在的损坏，或者使用您的 grouping 和 summarizing 技能来确保行和列值的每个组合只有一行。</p>
 </section></section><section id="summary" class="level2" data-number="6.5"><h2 data-number="6.5" class="anchored" data-anchor-id="summary">
 <span class="header-section-number">6.5</span> Summary</h2>
-<p>In this chapter you learned about tidy data: data that has variables in columns and observations in rows. Tidy data makes working in the tidyverse easier, because it’s a consistent structure understood by most functions, the main challenge is transforming the data from whatever structure you receive it in to a tidy format. To that end, you learned about <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> which allow you to tidy up many untidy datasets. The examples we presented here are a selection of those from <code><a href="https://tidyr.tidyverse.org/articles/pivot.html">vignette("pivot", package = "tidyr")</a></code>, so if you encounter a problem that this chapter doesn’t help you with, that vignette is a good place to try next.</p>
-<p>Another challenge is that, for a given dataset, it can be impossible to label the longer or the wider version as the “tidy” one. This is partly a reflection of our definition of tidy data, where we said tidy data has one variable in each column, but we didn’t actually define what a variable is (and it’s surprisingly hard to do so). It’s totally fine to be pragmatic and to say a variable is whatever makes your analysis easiest. So if you’re stuck figuring out how to do some computation, consider switching up the organisation of your data; don’t be afraid to untidy, transform, and re-tidy as needed!</p>
-<p>If you enjoyed this chapter and want to learn more about the underlying theory, you can learn more about the history and theoretical underpinnings in the <a href="https://www.jstatsoft.org/article/view/v059i10">Tidy Data</a> paper published in the Journal of Statistical Software.</p>
-<p>Now that you’re writing a substantial amount of R code, it’s time to learn more about organizing your code into files and directories. In the next chapter, you’ll learn all about the advantages of scripts and projects, and some of the many tools that they provide to make your life easier.</p>
+<p>在本章中，您了解了整洁数据（tidy data）：列中包含变量、行中包含观测值的数据。 Tidy data 使 tidyverse 中的工作变得更加容易，因为它是大多数函数都可以理解的一致结构，主要的挑战是将数据从您收到的任何结构转换为 tidy 格式。 为此，您了解了 <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> 和 <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code>，它们可以让您整理许多杂乱的数据集。 我们在这里提供的示例是从 <code><a href="https://tidyr.tidyverse.org/articles/pivot.html">vignette("pivot", package = "tidyr")</a></code> 中精选出来的，因此，如果您遇到本章无法帮助您解决的问题，那么该 vignette 是下一步尝试的好地方。</p>
+<p>另一个挑战是，对于给定的数据集，不可能将较长或较宽的版本标记为 “tidy”。 这在一定程度上反映了我们对 tidy data 的定义，我们说 tidy data 在每一列中都有一个变量，但我们实际上并没有定义变量是什么（而且很难做到这一点）。 务实一点并说变量是让你的分析最容易的任何东西都是完全可以的。 因此，如果您不知道如何进行一些计算，请考虑改变数据的组织方式；不要害怕根据需要进行整理、改造和重新整理！</p>
+<p>如果您喜欢本章并且想要了解有关基础理论的更多信息，您可以在《Journal of Statistical Software》上发表的 <a href="https://www.jstatsoft.org/article/view/v059i10">Tidy Data</a> 论文中了解有关历史和理论基础的更多信息。</p>
+<p>现在您正在编写大量 R 代码，是时候了解有关将代码组织到文件和目录中的更多信息了。 在下一章中，您将了解脚本和项目的所有优点，以及它们提供的一些使您的生活更轻松的工具。</p>
 
 
 </section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
