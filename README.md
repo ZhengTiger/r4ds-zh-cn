@@ -21,7 +21,7 @@ Try to translate R for Data Science (the second edition) into Simplified Chinese
 | 7 Workflow: scripts and projects | ✔        | 2023.6.29 |
 | 8 Data import                    | ✔        | 2023.6.29 |
 | 9 Workflow: getting help         | ✔        | 2023.6.29 |
-| 10 Layers                        |          |           |
+| 10 Layers                        | ✔        | 2023.7.6  |
 | 11 Exploratory data analysis     |          |           |
 | 12 Communication                 |          |           |
 | 13 Logical vectors               |          |           |

@@ -10,22 +10,22 @@ status("complete")
 
 ## Introduction
 
-In @sec-data-visualization, you learned much more than just how to make scatterplots, bar charts, and boxplots.
-You learned a foundation that you can use to make *any* type of plot with ggplot2.
+在 @sec-data-visualization 中，您学到的不仅仅是如何制作 scatterplots、bar charts、boxplots。
+您学习了一个基础知识，可用于使用 ggplot2 绘制任何类型的绘图。
 
-In this chapter, you'll expand on that foundation as you learn about the layered grammar of graphics.
-We'll start with a deeper dive into aesthetic mappings, geometric objects, and facets.
-Then, you will learn about statistical transformations ggplot2 makes under the hood when creating a plot.
-These transformations are used to calculate new values to plot, such as the heights of bars in a bar plot or medians in a box plot.
-You will also learn about position adjustments, which modify how geoms are displayed in your plots.
-Finally, we'll briefly introduce coordinate systems.
+在本章中，当您学习图形的分层语法时，您将在此基础上进行扩展。
+我们将从更深入地研究美学映射（aesthetic mappings）、几何对象（geometric objects）和分面（facets）开始。
+然后，您将了解 ggplot2 在创建绘图时在幕后进行的统计转换。
+这些转换用于计算要绘制的新值，例如条形图中的条形高度或箱形图中的中位数。
+您还将了解位置调整，这会修改几何图形在绘图中的显示方式。
+最后，我们将简要介绍一下坐标系。
 
-We will not cover every single function and option for each of these layers, but we will walk you through the most important and commonly used functionality provided by ggplot2 as well as introduce you to packages that extend ggplot2.
+我们不会涵盖每个层的每个功能和选项，但我们将引导您了解 ggplot2 提供的最重要和最常用的功能，并向您介绍扩展 ggplot2 的包。
 
 ### Prerequisites
 
-This chapter focuses on ggplot2.
-To access the datasets, help pages, and functions used in this chapter, load the tidyverse by running this code:
+本章重点介绍 ggplot2。
+要访问本章中使用的数据集、帮助页面和函数，请通过运行以下代码加载 tidyverse：
 
 ```{r}
 #| label: setup
@@ -38,26 +38,26 @@ library(tidyverse)
 
 > "The greatest value of a picture is when it forces us to notice what we never expected to see." --- John Tukey
 
-Remember that the `mpg` data frame bundled with the ggplot2 package contains `r nrow(mpg)` observations on `r mpg |> distinct(model) |> nrow()` car models.
+请记住，与 ggplot2 包捆绑在一起的 `mpg` 数据框包含 `r mpg |> distinct(model) |> nrow()` 种汽车模型的 `r nrow(mpg)` 个观察值。
 
 ```{r}
 mpg
 ```
 
-Among the variables in `mpg` are:
+`mpg` 中的变量包括：
 
-1.  `displ`: A car's engine size, in liters.
-    A numerical variable.
+1.  `displ`：汽车的发动机尺寸，以升为单位。
+    数值变量。
 
-2.  `hwy`: A car's fuel efficiency on the highway, in miles per gallon (mpg).
-    A car with a low fuel efficiency consumes more fuel than a car with a high fuel efficiency when they travel the same distance.
-    A numerical variable.
+2.  `hwy`：汽车在高速公路上的燃油效率，以英里/加仑 (mpg) 为单位。
+    行驶相同距离时，燃油效率低的汽车比燃油效率高的汽车消耗更多的燃油。
+    数值变量。
 
-3.  `class`: Type of car.
-    A categorical variable.
+3.  `class`：汽车类型。
+    一个分类变量。
 
-Let's start by visualizing the relationship between `displ` and `hwy` for various `class`es of cars.
-We can do this with a scatterplot where the numerical variables are mapped to the `x` and `y` aesthetics and the categorical variable is mapped to an aesthetic like `color` or `shape`.
+让我们首先可视化各类汽车的 `displ` 和 `hwy` 之间的关系。
+我们可以使用散点图来做到这一点，其中数值变量 mapped 到 `x` 和 `y` aesthetics，分类变量 mapped 到 `color` 或 `shape` 等 aesthetic。
 
 ```{r}
 #| layout-ncol: 2
@@ -81,17 +81,17 @@ ggplot(mpg, aes(x = displ, y = hwy, shape = class)) +
   geom_point()
 ```
 
-When `class` is mapped to `shape`, we get two warnings:
+当 `class` mapped 到 `shape` 时，我们收到两个 warnings：
 
 > 1: The shape palette can deal with a maximum of 6 discrete values because more than 6 becomes difficult to discriminate; you have 7.
 > Consider specifying shapes manually if you must have them.
 >
 > 2: Removed 62 rows containing missing values (`geom_point()`).
 
-Since ggplot2 will only use six shapes at a time, by default, additional groups will go unplotted when you use the shape aesthetic.
-The second warning is related -- there are 62 SUVs in the dataset and they're not plotted.
+由于 ggplot2 同时只能使用六个 shapes，因此默认情况下，当您使用 shape aesthetic 时，其他组将不会绘制。
+第二个 warning 是相关的 -- 数据集中有 62 辆 SUVs，但它们没有被绘制出来。
 
-Similarly, we can map `class` to `size` or `alpha` aesthetics as well, which control the shape and the transparency of the points, respectively.
+类似地，我们也可以将 `class` map 到 `size` 或 `alpha` aesthetics，它们分别控制 points 的 大小和透明度。
 
 ```{r}
 #| layout-ncol: 2
@@ -115,19 +115,19 @@ ggplot(mpg, aes(x = displ, y = hwy, alpha = class)) +
   geom_point()
 ```
 
-Both of these produce warnings as well:
+这两者也会产生 warnings：
 
 > Using alpha for a discrete variable is not advised.
 
-Mapping an unordered discrete (categorical) variable (`class`) to an ordered aesthetic (`size` or `alpha`) is generally not a good idea because it implies a ranking that does not in fact exist.
+将无序离散（分类）变量（`class`）Mapping 到有序 aesthetic（`size` or `alpha`）通常不是一个好主意，因为它意味着实际上不存在的排名。
 
-Once you map an aesthetic, ggplot2 takes care of the rest.
-It selects a reasonable scale to use with the aesthetic, and it constructs a legend that explains the mapping between levels and values.
-For x and y aesthetics, ggplot2 does not create a legend, but it creates an axis line with tick marks and a label.
-The axis line provides the same information as a legend; it explains the mapping between locations and values.
+一旦你 map 一个 aesthetic，ggplot2 就会处理剩下的事情。
+它选择合理的尺度来符合 aesthetic，并构建一个图例（legend）来解释 levels 和 values 之间的映射。
+对于 x 和 y aesthetics，ggplot2 不会创建 legend，但会创建带有刻度线（tick marks）和标签（label）的轴线（axis line）。
+轴线（axis line）提供与图例（legend）相同的信息；它解释了位置（locations）和值（values）之间的映射（mapping）。
 
-You can also set the visual properties of your geom manually as an argument of your geom function (*outside* of `aes()`) instead of relying on a variable mapping to determine the appearance.
-For example, we can make all of the points in our plot blue:
+您还可以手动将 geom 的视觉属性设置为 geom 函数的参数（*outside* of `aes()`），而不是依赖变量映射来确定外观。
+例如，我们可以将图中的所有 points 设为蓝色：
 
 ```{r}
 #| fig-alt: |
@@ -138,12 +138,12 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(color = "blue")
 ```
 
-Here, the color doesn't convey information about a variable, but only changes the appearance of the plot.
-You'll need to pick a value that makes sense for that aesthetic:
+在这里，颜色并不传达有关变量的信息，而仅改变绘图的外观。
+您需要选择一个对该 aesthetic 有意义的值：
 
--   The name of a color as a character string, e.g., `color = "blue"`
--   The size of a point in mm, e.g., `size = 1`
--   The shape of a point as a number, e.g, `shape = 1`, as shown in @fig-shapes.
+-   字符串形式的颜色名称，例如 `color = "blue"`
+-   point 的大小（以毫米为单位），例如 `size = 1`
+-   point 的 shape 作为数字，例如，`shape = 1`，如 @fig-shapes 所示。
 
 ```{r}
 #| label: fig-shapes
@@ -152,13 +152,7 @@ You'll need to pick a value that makes sense for that aesthetic:
 #| fig.asp: 0.364
 #| fig-align: "center"
 #| fig-cap: |
-#|   R has 25 built-in shapes that are identified by numbers. There are some 
-#|   seeming duplicates: for example, 0, 15, and 22 are all squares. The 
-#|   difference comes from the interaction of the `color` and `fill` 
-#|   aesthetics. The hollow shapes (0--14) have a border determined by `color`; 
-#|   the solid shapes (15--20) are filled with `color`; the filled shapes 
-#|   (21--24) have a border of `color` and are filled with `fill`. Shapes are 
-#|   arranged to keep similar shapes next to each other.  
+#|   R 有 25 个由数字标识的内置形状。有些看似重复：例如，0、15、22 都是正方形。差异来自于 `color` 和 `fill` aesthetics 的相互作用。空心形状 (0--14) 的边框由 `color` 决定；实心形状（15--20）通过 `color` 填充；填充形状 (21--24) 具有 `color` 边框并通过 `fill` 填充。形状的排列使相似的形状彼此相邻。
 #| fig-alt: |
 #|   Mapping between shapes and the numbers that represent them: 0 - square, 
 #|   1 - circle, 2 - triangle point up, 3 - plus, 4 - cross, 5 - diamond, 
@@ -186,17 +180,17 @@ ggplot(shapes, aes(x, y)) +
   theme(aspect.ratio = 1/2.75)
 ```
 
-So far we have discussed aesthetics that we can map or set in a scatterplot, when using a point geom.
-You can learn more about all possible aesthetic mappings in the aesthetic specifications vignette at <https://ggplot2.tidyverse.org/articles/ggplot2-specs.html>.
+到目前为止，我们已经讨论了使用 point geom 时可以在散点图中映射或设置的 aesthetics。
+您可以在 aesthetic specifications vignette 中了解有关所有可能的 aesthetic mappings 的更多信息：<https://ggplot2.tidyverse.org/articles/ggplot2-specs.html>。
 
-The specific aesthetics you can use for a plot depend on the geom you use to represent the data.
-In the next section we dive deeper into geoms.
+您可以用于绘图的具体美观效果取决于您用来表示数据的几何图形。
+在下一节中，我们将更深入地研究 geoms。
 
 ### Exercises
 
-1.  Create a scatterplot of `hwy` vs. `displ` where the points are pink filled in triangles.
+1.  创建 `hwy` 与 `displ` 的散点图，其中点用粉红色填充三角形。
 
-2.  Why did the following code not result in a plot with blue points?
+2.  为什么以下代码没有生成带有蓝点的图？
 
     ```{r}
     #| fig-show: hide
@@ -209,16 +203,16 @@ In the next section we dive deeper into geoms.
       geom_point(aes(x = displ, y = hwy, color = "blue"))
     ```
 
-3.  What does the `stroke` aesthetic do?
-    What shapes does it work with?
-    (Hint: use `?geom_point`)
+3.  `stroke` aesthetic 有什么作用？
+    它适用于什么形状？
+    （提示：使用 `?geom_point`）
 
-4.  What happens if you map an aesthetic to something other than a variable name, like `aes(color = displ < 5)`?
-    Note, you'll also need to specify x and y.
+4.  如果将 aesthetic map 到变量名称以外的其他内容，例如 `aes(color = displ < 5)` 会发生什么？
+    请注意，您还需要指定 x 和 y。
 
 ## Geometric objects {#sec-geometric-objects}
 
-How are these two plots similar?
+这两个图有何相似之处？
 
 ```{r}
 #| echo: false
@@ -239,13 +233,13 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_smooth()
 ```
 
-Both plots contain the same x variable, the same y variable, and both describe the same data.
-But the plots are not identical.
-Each plot uses a different geometric object, geom, to represent the data.
-The plot on the left uses the point geom, and the plot on the right uses the smooth geom, a smooth line fitted to the data.
+两个图都包含相同的 x 变量、相同的 y 变量，并且都描述相同的数据。
+但图并不相同。
+每个图使用不同的几何对象（geometric object），geom，来表示数据。
+左侧的图使用 point geom，右侧的图使用 smooth geom，一条平滑线拟合数据。
 
-To change the geom in your plot, change the geom function that you add to `ggplot()`.
-For instance, to make the plots above, you can use the following code:
+要更改绘图中的 geom，请更改添加到 `ggplot()` 的 geom 函数。
+例如，要绘制上面的图，您可以使用以下代码：
 
 ```{r}
 #| fig-show: hide
@@ -259,12 +253,12 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_smooth()
 ```
 
-Every geom function in ggplot2 takes a `mapping` argument, either defined locally in the geom layer or globally in the `ggplot()` layer.
-However, not every aesthetic works with every geom.
-You could set the shape of a point, but you couldn't set the "shape" of a line.
-If you try, ggplot2 will silently ignore that aesthetic mapping.
-On the other hand, you *could* set the linetype of a line.
-`geom_smooth()` will draw a different line, with a different linetype, for each unique value of the variable that you map to linetype.
+ggplot2 中的每个 geom 函数都带有一个 `mapping` 参数，该参数可以在 geom layer 中本地定义，也可以在 `ggplot()` layer 中全局定义。
+然而，并非每种美学（aesthetic）都适用于每种几何（geom）。
+您可以设置点（point）的形状（shape），但无法设置线（line）的形状（shape）。
+如果您尝试，ggplot2 将默默地忽略该美学映射（aesthetic mapping）。
+另一方面，您可以设置线条（line）的线型（linetype）。
+`geom_smooth()` 将为映射（map）到线型（linetype）的变量的每个唯一值绘制一条具有不同线型（linetype）的不同线（line）。
 
 ```{r}
 #| message: false
@@ -287,11 +281,11 @@ ggplot(mpg, aes(x = displ, y = hwy, linetype = drv)) +
   geom_smooth()
 ```
 
-Here, `geom_smooth()` separates the cars into three lines based on their `drv` value, which describes a car's drive train.
-One line describes all of the points that have a `4` value, one line describes all of the points that have an `f` value, and one line describes all of the points that have an `r` value.
-Here, `4` stands for four-wheel drive, `f` for front-wheel drive, and `r` for rear-wheel drive.
+在这里，`geom_smooth()` 将汽车分成三条线（lines）根据它们的 `drv` 值，该值描述了汽车的传动系统。
+一条线描述具有 `4` 值的所有点，一条线描述具有 `f` 值的所有点，一条线描述具有 `r` 值的所有点。
+这里，`4` 代表四轮驱动，`f` 代表前轮驱动，`r` 代表后轮驱动。
 
-If this sounds strange, we can make it clearer by overlaying the lines on top of the raw data and then coloring everything according to `drv`.
+如果这听起来很奇怪，我们可以通过将线条叠加在原始数据上，然后根据 `drv` 对所有内容进行着色来使其更清晰。
 
 ```{r}
 #| message: false
@@ -306,13 +300,13 @@ ggplot(mpg, aes(x = displ, y = hwy, color = drv)) +
   geom_smooth(aes(linetype = drv))
 ```
 
-Notice that this plot contains two geoms in the same graph.
+请注意，该图在同一图中包含两个 geoms。
 
-Many geoms, like `geom_smooth()`, use a single geometric object to display multiple rows of data.
-For these geoms, you can set the `group` aesthetic to a categorical variable to draw multiple objects.
-ggplot2 will draw a separate object for each unique value of the grouping variable.
-In practice, ggplot2 will automatically group the data for these geoms whenever you map an aesthetic to a discrete variable (as in the `linetype` example).
-It is convenient to rely on this feature because the `group` aesthetic by itself does not add a legend or distinguishing features to the geoms.
+许多 geoms，像 `geom_smooth()`，使用单个几何对象（geometric object）来显示多行数据。
+对于这些 geoms，您可以将 `group` aesthetic 设置为分类变量以绘制多个对象。
+ggplot2 将为分组变量的每个唯一值绘制一个单独的对象。
+实际上，每当您将 aesthetic 映射到离散变量（如 `linetype` 示例中）时，ggplot2 都会自动对这些 geoms 的数据进行分组。
+依赖此功能很方便，因为 `group` aesthetic 本身不会向 geoms 添加图例或显着特征。
 
 ```{r}
 #| layout-ncol: 3
@@ -342,9 +336,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_smooth(aes(color = drv), show.legend = FALSE)
 ```
 
-If you place mappings in a geom function, ggplot2 will treat them as local mappings for the layer.
-It will use these mappings to extend or overwrite the global mappings *for that layer only*.
-This makes it possible to display different aesthetics in different layers.
+如果将 mappings 放置在 geom 函数中，ggplot2 会将它们视为图层的本地映射（local mappings）。
+它将使用这些 mappings 来扩展或覆盖*仅该层*的全局映射（global mappings）。
+这使得在不同图层上展现不同的 aesthetics 成为可能。
 
 ```{r}
 #| message: false
@@ -359,9 +353,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_smooth()
 ```
 
-You can use the same idea to specify different `data` for each layer.
-Here, we use red points as well as open circles to highlight two-seater cars.
-The local data argument in `geom_point()` overrides the global data argument in `ggplot()` for that layer only.
+您可以使用相同的想法为每一图层指定不同的 `data` 。
+在这里，我们使用红点和空心圆圈来突出显示 two-seater cars。
+`geom_point()` 中的本地数据参数仅覆盖该图层的 `ggplot()` 中的全局数据参数。
 
 ```{r}
 #| message: false
@@ -384,9 +378,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   )
 ```
 
-Geoms are the fundamental building blocks of ggplot2.
-You can completely transform the look of your plot by changing its geom, and different geoms can reveal different features of your data.
-For example, the histogram and density plot below reveal that the distribution of highway mileage is bimodal and right skewed while the boxplot reveals two potential outliers.
+Geoms 是 ggplot2 的基本构建块。
+您可以通过更改绘图的 geom 来彻底改变绘图的外观，并且不同的 geoms 可以揭示数据的不同特征。
+例如，下面的直方图和密度图显示高速公路里程的分布是双峰且右偏的，而箱线图则显示两个潜在的异常值。
 
 ```{r}
 #| layout-ncol: 3
@@ -408,10 +402,10 @@ ggplot(mpg, aes(x = hwy)) +
   geom_boxplot()
 ```
 
-ggplot2 provides more than 40 geoms but these don't cover all possible plots one could make.
-If you need a different geom, we recommend looking into extension packages first to see if someone else has already implemented it (see <https://exts.ggplot2.tidyverse.org/gallery/> for a sampling).
-For example, the **ggridges** package ([https://wilkelab.org/ggridges](https://wilkelab.org/ggridges/){.uri}) is useful for making ridgeline plots, which can be useful for visualizing the density of a numerical variable for different levels of a categorical variable.
-In the following plot not only did we use a new geom (`geom_density_ridges()`), but we have also mapped the same variable to multiple aesthetics (`drv` to `y`, `fill`, and `color`) as well as set an aesthetic (`alpha = 0.5`) to make the density curves transparent.
+ggplot2 提供了 40 多种几何图形（geoms），但这些并没有涵盖人们可以绘制的所有可能的绘图。
+如果您需要不同的 geom，我们建议首先查看扩展包，看看其他人是否已经实现了它（请参阅 <https://exts.ggplot2.tidyverse.org/gallery/>）。
+例如，**ggridges** 包 ([https://wilkelab.org/ggridges](https://wilkelab.org/ggridges/){.uri}) 对于制作山脊线图（ridgeline plots）非常有用，这对于可视化不同级别的分类变量的数值变量的密度非常有用。
+在下图中，我们不仅使用了新的 geom（`geom_density_ridges()`），而且还将相同的变量映射到多种 aesthetics（`drv` to `y`, `fill`, and `color`）并设置 aesthetic（`alpha = 0.5`）使密度曲线透明。
 
 ```{r}
 #| fig-asp: 0.33
@@ -428,17 +422,17 @@ ggplot(mpg, aes(x = hwy, y = drv, fill = drv, color = drv)) +
   geom_density_ridges(alpha = 0.5, show.legend = FALSE)
 ```
 
-The best place to get a comprehensive overview of all of the geoms ggplot2 offers, as well as all functions in the package, is the reference page: <https://ggplot2.tidyverse.org/reference>.
-To learn more about any single geom, use the help (e.g., `?geom_smooth`).
+全面概述 ggplot2 提供的所有 geoms 以及包中所有功能的最佳位置是参考页面：<https://ggplot2.tidyverse.org/reference>。
+要了解有关任何单个 geom 的更多信息，请使用帮助（例如`?geom_smooth`）。
 
 ### Exercises
 
-1.  What geom would you use to draw a line chart?
-    A boxplot?
-    A histogram?
-    An area chart?
+1.  您会使用什么 geom 来绘制 line chart？b
+    oxplot？h
+    istogram？a
+    rea chart？
 
-2.  Earlier in this chapter we used `show.legend` without explaining it:
+2.  在本章前面我们使用了 `show.legend`，但没有解释它：
 
     ```{r}
     #| fig-show: hide
@@ -448,14 +442,14 @@ To learn more about any single geom, use the help (e.g., `?geom_smooth`).
       geom_smooth(aes(color = drv), show.legend = FALSE)
     ```
 
-    What does `show.legend = FALSE` do here?
-    What happens if you remove it?
-    Why do you think we used it earlier?
+    `show.legend = FALSE` 在这里做什么？
+    如果删除它会发生什么？
+    您认为我们为什么之前使用它？
 
-3.  What does the `se` argument to `geom_smooth()` do?
+3.  `geom_smooth()` 的 `se` 参数有什么作用？
 
-4.  Recreate the R code necessary to generate the following graphs.
-    Note that wherever a categorical variable is used in the plot, it's `drv`.
+4.  重新创建生成以下图表所需的 R 代码。
+    请注意，图中只要使用分类变量，它就是 `drv`。
 
     ```{r}
     #| echo: false
@@ -500,7 +494,7 @@ To learn more about any single geom, use the help (e.g., `?geom_smooth`).
 
 ## Facets
 
-In @sec-data-visualization you learned about faceting with `facet_wrap()`, which splits a plot into subplots that each display one subset of the data based on a categorical variable.
+在 @sec-data-visualization 中，您了解了如何使用 `facet_wrap()` 进行分面（faceting），它将图分割成子图，每个子图基于分类变量显示数据的一个子集。
 
 ```{r}
 #| fig-alt: |
@@ -512,8 +506,8 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   facet_wrap(~cyl)
 ```
 
-To facet your plot with the combination of two variables, switch from `facet_wrap()` to `facet_grid()`.
-The first argument of `facet_grid()` is also a formula, but now it's a double sided formula: `rows ~ cols`.
+要使用两个变量的组合对图进行分面（facet），请从 `facet_wrap()` 切换到 `facet_grid()`。
+`facet_grid()` 的第一个参数也是一个公式，但现在它是一个双面公式：`rows ~ cols`。
 
 ```{r}
 #| fig-alt: |
@@ -528,9 +522,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   facet_grid(drv ~ cyl)
 ```
 
-By default each of the facets share the same scale and range for x and y axes.
-This is useful when you want to compare data across facets but it can be limiting when you want to visualize the relationship within each facet better.
-Setting the `scales` argument in a faceting function to `"free"` will allow for different axis scales across both rows and columns, `"free_x"` will allow for different scales across rows, and `"free_y"` will allow for different scales across columns.
+默认情况下，每个 facets 的 x 轴和 y 轴共享相同的比例和范围。
+当您想要跨 facets 比较数据时，这很有用，但当您想要更好地可视化每个 facet 内的关系时，它可能会受到限制。
+将 faceting 函数中的 `scales` 参数设置为 `"free"` 将允许跨行和列使用不同的轴比例， `"free_x"` 将允许跨行使用不同的比例，`"free_y"` 将允许跨列使用不同的比例。
 
 ```{r}
 #| fig-alt: |
@@ -548,11 +542,11 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ### Exercises
 
-1.  What happens if you facet on a continuous variable?
+1.  如果对连续变量进行分面（facet）会发生什么？
 
-2.  What do the empty cells in plot with `facet_grid(drv ~ cyl)` mean?
-    Run the following code.
-    How do they relate to the resulting plot?
+2.  `facet_grid(drv ~ cyl)` 图中的空单元格是什么意思？
+    运行以下代码。
+    它们与最终的绘图有什么关系？
 
     ```{r}
     #| fig-show: hide
@@ -561,8 +555,8 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
       geom_point(aes(x = drv, y = cyl))
     ```
 
-3.  What plots does the following code make?
-    What does `.` do?
+3.  下面的代码会绘制什么图？
+    `.` 的作用是什么？
 
     ```{r}
     #| fig-show: hide
@@ -576,7 +570,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
       facet_grid(. ~ cyl)
     ```
 
-4.  Take the first faceted plot in this section:
+4.  以本节中的第一个 faceted plot 为例：
 
     ```{r}
     #| fig-show: hide
@@ -586,18 +580,18 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
       facet_wrap(~ class, nrow = 2)
     ```
 
-    What are the advantages to using faceting instead of the color aesthetic?
-    What are the disadvantages?
-    How might the balance change if you had a larger dataset?
+    使用 faceting 代替 color aesthetic 有什么优点？
+    有什么缺点？
+    如果您有更大的数据集，平衡会如何变化？
 
-5.  Read `?facet_wrap`.
-    What does `nrow` do?
-    What does `ncol` do?
-    What other options control the layout of the individual panels?
-    Why doesn't `facet_grid()` have `nrow` and `ncol` arguments?
+5.  阅读 `?facet_wrap`。
+    `nrow` 的作用是什么？
+    `ncol` 的作用是什么？
+    还有哪些其他选项控制各个面板的布局？
+    为什么 `facet_grid()` 没有 `nrow` 和 `ncol` 参数？
 
-6.  Which of the following plots makes it easier to compare engine size (`displ`) across cars with different drive trains?
-    What does this say about when to place a faceting variable across rows or columns?
+6.  以下哪幅图可以更轻松地比较具有不同传动系统的汽车的发动机尺寸 (`displ`)？
+    这对于何时跨行或列放置 faceting 变量意味着什么？
 
     ```{r}
     #| fig-show: hide
@@ -612,8 +606,8 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
       facet_grid(. ~ drv)
     ```
 
-7.  Recreate the following plot using `facet_wrap()` instead of `facet_grid()`.
-    How do the positions of the facet labels change?
+7.  使用 `facet_wrap()` 而不是 `facet_grid()` 重新创建以下图。
+    facet 标签的位置如何变化？
 
     ```{r}
     #| fig-show: hide
@@ -625,10 +619,10 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ## Statistical transformations
 
-Consider a basic bar chart, drawn with `geom_bar()` or `geom_col()`.
-The following chart displays the total number of diamonds in the `diamonds` dataset, grouped by `cut`.
-The `diamonds` dataset is in the ggplot2 package and contains information on \~54,000 diamonds, including the `price`, `carat`, `color`, `clarity`, and `cut` of each diamond.
-The chart shows that more diamonds are available with high quality cuts than with low quality cuts.
+考虑使用 `geom_bar()` 或 `geom_col()` 绘制的基本条形图（bar chart）。
+下图显示了 `diamonds` 数据集中的钻石（diamonds）总数，按 `cut` 分组。
+`diamonds` 数据集位于 ggplot2 包中，包含 \~54,000 颗钻石的信息，包括每颗钻石的 `price`, `carat`, `color`, `clarity`, and `cut`。
+该图表显示，高质量 cuts 的钻石数量多于低质量 cuts 的钻石。
 
 ```{r}
 #| fig-alt: |
@@ -640,29 +634,27 @@ ggplot(diamonds, aes(x = cut)) +
   geom_bar()
 ```
 
-On the x-axis, the chart displays `cut`, a variable from `diamonds`.
-On the y-axis, it displays count, but count is not a variable in `diamonds`!
-Where does count come from?
-Many graphs, like scatterplots, plot the raw values of your dataset.
-Other graphs, like bar charts, calculate new values to plot:
+在 x-axis，图表显示 `cut`，这是 `diamonds` 的一个变量。
+在 y-axis，它显示 count，但 count 不是 `diamonds` 中的变量！
+count 从何而来？
+许多图表，例如 scatterplots，都会绘制数据集的原始值。
+其他图表，例如 bar charts，会计算要绘制的新值：
 
--   Bar charts, histograms, and frequency polygons bin your data and then plot bin counts, the number of points that fall in each bin.
+-   Bar charts, histograms, and frequency polygons 对数据进行分 bin，然后绘制 bin counts，即每个 bin 中的点数。
 
--   Smoothers fit a model to your data and then plot predictions from the model.
+-   Smoothers 将模型拟合到您的数据，然后根据模型绘制预测。
 
--   Boxplots compute the five-number summary of the distribution and then display that summary as a specially formatted box.
+-   Boxplots 计算分布的 five-number summary，然后将该 summary 显示为特殊格式的 box。
 
-The algorithm used to calculate new values for a graph is called a **stat**, short for statistical transformation.
-@fig-vis-stat-bar shows how this process works with `geom_bar()`.
+用于计算图形新值的算法称为 **stat**，是统计变换（statistical transformation）的缩写。
+@fig-vis-stat-bar 显示了此过程如何与 `geom_bar()` 配合使用。
 
 ```{r}
 #| label: fig-vis-stat-bar
 #| echo: false
 #| out-width: "100%"
 #| fig-cap: |
-#|   When creating a bar chart we first start with the raw data, then
-#|   aggregate it to count the number of observations in each bar,
-#|   and finally map those computed variables to plot aesthetics.
+#|   创建条形图时，我们首先从原始数据开始，然后将其聚合以计算每个条形中的观察值数量，最后映射这些计算变量以绘制美观的图。
 #| fig-alt: |
 #|   A figure demonstrating three steps of creating a bar chart. 
 #|   Step 1. geom_bar() begins with the diamonds data set. Step 2. geom_bar() 
@@ -673,18 +665,18 @@ The algorithm used to calculate new values for a graph is called a **stat**, sho
 knitr::include_graphics("images/visualization-stat-bar.png")
 ```
 
-You can learn which stat a geom uses by inspecting the default value for the `stat` argument.
-For example, `?geom_bar` shows that the default value for `stat` is "count", which means that `geom_bar()` uses `stat_count()`.
-`stat_count()` is documented on the same page as `geom_bar()`.
-If you scroll down, the section called "Computed variables" explains that it computes two new variables: `count` and `prop`.
+您可以通过检查 `stat` 参数的默认值来了解 geom 使用哪个 stat。
+例如，`?geom_bar` 显示 `stat` 的默认值为 "count"，这意味着 `geom_bar()` 使用 `stat_count()`。
+`stat_count()` 与 `geom_bar()` 记录在同一页面上。
+如果向下滚动，名为 "Computed variables" 的部分会解释它计算两个新变量：`count` 和 `prop`。
 
-Every geom has a default stat; and every stat has a default geom.
-This means that you can typically use geoms without worrying about the underlying statistical transformation.
-However, there are three reasons why you might need to use a stat explicitly:
+每个 geom 都有一个默认的 stat；每个 stat 都有一个默认的 geom。
+这意味着您通常可以使用 geoms，而不必担心底层的统计转换。
+但是，您可能需要显式使用 stat 的三个原因如下：
 
-1.  You might want to override the default stat.
-    In the code below, we change the stat of `geom_bar()` from count (the default) to identity.
-    This lets us map the height of the bars to the raw values of a y variable.
+1.  您可能想要覆盖默认 stat。
+    在下面的代码中，我们将 `geom_bar()` 的 stat 从 count （默认）更改为 identity。
+    这让我们可以将条形的高度映射到 y 变量的原始值。
 
     ```{r}
     #| warning: false
@@ -699,8 +691,8 @@ However, there are three reasons why you might need to use a stat explicitly:
       geom_bar(stat = "identity")
     ```
 
-2.  You might want to override the default mapping from transformed variables to aesthetics.
-    For example, you might want to display a bar chart of proportions, rather than counts:
+2.  您可能想要覆盖从转换变量到美学的默认映射。
+    例如，您可能想要显示比例条形图，而不是计数：
 
     ```{r}
     #| fig-alt: |
@@ -712,10 +704,10 @@ However, there are three reasons why you might need to use a stat explicitly:
       geom_bar()
     ```
 
-    To find the possible variables that can be computed by the stat, look for the section titled "computed variables" in the help for `geom_bar()`.
+    要查找可由 stat 计算的可能变量，请在 `geom_bar()` 的帮助中查找标题为 "computed variables" 的部分。
 
-3.  You might want to draw greater attention to the statistical transformation in your code.
-    For example, you might use `stat_summary()`, which summarizes the y values for each unique x value, to draw attention to the summary that you're computing:
+3.  您可能希望更加关注代码中的统计转换。
+    例如，您可以使用 `stat_summary()`，它总结每个唯一 x 值的 y 值，以引起人们对您正在计算的 summary 的注意：
 
     ```{r}
     #| fig-alt: |
@@ -734,28 +726,28 @@ However, there are three reasons why you might need to use a stat explicitly:
       )
     ```
 
-ggplot2 provides more than 20 stats for you to use.
-Each stat is a function, so you can get help in the usual way, e.g., `?stat_bin`.
+ggplot2 提供了 20 多种 stats 供您使用。
+每个 stat 都是一个函数，因此您可以通过通常的方式获得帮助，例如 `?stat_bin`。
 
 ### Exercises
 
-1.  What is the default geom associated with `stat_summary()`?
-    How could you rewrite the previous plot to use that geom function instead of the stat function?
+1.  与 `stat_summary()` 关联的默认 geom 是什么？
+    如何重写前面的绘图以使用 geom 函数而不是 stat 函数？
 
-2.  What does `geom_col()` do?
-    How is it different from `geom_bar()`?
+2.  `geom_col()` 的作用是什么？
+    它与 `geom_bar()` 有什么不同？
 
-3.  Most geoms and stats come in pairs that are almost always used in concert.
-    Make a list of all the pairs.
-    What do they have in common?
-    (Hint: Read through the documentation.)
+3.  大多数 geoms 和 stats 都是成对出现的，几乎总是一起使用。
+    列出所有配对的列表。
+    他们有什么共同点？
+    （提示：通读文档。）
 
-4.  What variables does `stat_smooth()` compute?
-    What arguments control its behavior?
+4.  `stat_smooth()` 计算哪些变量？
+    什么参数控制其行为？
 
-5.  In our proportion bar chart, we need to set `group = 1`.
-    Why?
-    In other words, what is the problem with these two graphs?
+5.  在我们的比例条形图中，我们需要设置 `group = 1`。
+    为什么呢？换
+    句话说，这两张图有什么问题呢？
 
     ```{r}
     #| fig-show: hide
@@ -768,8 +760,8 @@ Each stat is a function, so you can get help in the usual way, e.g., `?stat_bin`
 
 ## Position adjustments
 
-There's one more piece of magic associated with bar charts.
-You can color a bar chart using either the `color` aesthetic, or, more usefully, the `fill` aesthetic:
+条形图还有一个神奇之处。
+您可以使用 `color` aesthetic 或更有用的 `fill` aesthetic 来为条形图着色：
 
 ```{r}
 #| layout-ncol: 2
@@ -788,8 +780,8 @@ ggplot(mpg, aes(x = drv, fill = drv)) +
   geom_bar()
 ```
 
-Note what happens if you map the fill aesthetic to another variable, like `class`: the bars are automatically stacked.
-Each colored rectangle represents a combination of `drv` and `class`.
+请注意，如果将 fill aesthetic 映射到另一个变量（例如 `class`），会发生什么：条形图会自动堆叠（stacked）。
+每个彩色矩形代表 `drv` 和 `class` 的组合。
 
 ```{r}
 #| fig-alt: |
@@ -803,12 +795,12 @@ ggplot(mpg, aes(x = drv, fill = class)) +
   geom_bar()
 ```
 
-The stacking is performed automatically using the **position adjustment** specified by the `position` argument.
-If you don't want a stacked bar chart, you can use one of three other options: `"identity"`, `"dodge"` or `"fill"`.
+使用 `position` 参数指定的位置调整（**position adjustment**）自动执行堆叠。
+如果您不需要堆叠条形图，可以使用其他三个选项之一：`"identity"`, `"dodge"` or `"fill"`。
 
--   `position = "identity"` will place each object exactly where it falls in the context of the graph.
-    This is not very useful for bars, because it overlaps them.
-    To see that overlapping we either need to make the bars slightly transparent by setting `alpha` to a small value, or completely transparent by setting `fill = NA`.
+-   `position = "identity"` 将把每个对象准确地放置在图表上下文中的位置。
+    这对于条形图来说不是很有用，因为它会导致重叠。
+    要看到重叠，我们需要通过将 `alpha` 设置为较小的值来使条形稍微透明，或者通过设置 `fill = NA` 使条形完全透明。
 
     ```{r}
     #| layout-ncol: 2
@@ -831,13 +823,13 @@ If you don't want a stacked bar chart, you can use one of three other options: `
       geom_bar(fill = NA, position = "identity")
     ```
 
-    The identity position adjustment is more useful for 2d geoms, like points, where it is the default.
+    identity position 调整对于 2d geoms 更有用，例如 points，它是默认值。
 
--   `position = "fill"` works like stacking, but makes each set of stacked bars the same height.
-    This makes it easier to compare proportions across groups.
+-   `position = "fill"` 的工作方式类似于堆叠（stacking），但使每组堆叠的条形高度相同。
+    这使得比较不同组之间的比例变得更加容易。
 
--   `position = "dodge"` places overlapping objects directly *beside* one another.
-    This makes it easier to compare individual values.
+-   `position = "dodge"` 将重叠的对象直接放在一起。
+    这使得比较各个值变得更容易。
 
     ```{r}
     #| layout-ncol: 2
@@ -863,9 +855,9 @@ If you don't want a stacked bar chart, you can use one of three other options: `
       geom_bar(position = "dodge")
     ```
 
-There's one other type of adjustment that's not useful for bar charts, but can be very useful for scatterplots.
-Recall our first scatterplot.
-Did you notice that the plot displays only 126 points, even though there are 234 observations in the dataset?
+还有另一种类型的调整对于条形图没有用，但对于散点图非常有用。
+回想一下我们的第一个散点图。
+您是否注意到该图仅显示 126 个点，即使数据集中有 234 个观测值？
 
 ```{r}
 #| echo: false
@@ -877,14 +869,14 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point()
 ```
 
-The underlying values of `hwy` and `displ` are rounded so the points appear on a grid and many points overlap each other.
-This problem is known as **overplotting**.
-This arrangement makes it difficult to see the distribution of the data.
-Are the data points spread equally throughout the graph, or is there one special combination of `hwy` and `displ` that contains 109 values?
+`hwy` 和 `displ` 的基础值是四舍五入的，因此这些点出现在网格上，并且许多点彼此重叠。
+此问题称为过度绘图（**overplotting**）。这
+种安排使得很难看到数据的分布。
+数据点是否均匀分布在整个图表中，或者是否存在包含 109 个值的 `hwy` 和 `displ` 的一种特殊组合？
 
-You can avoid this gridding by setting the position adjustment to "jitter".
-`position = "jitter"` adds a small amount of random noise to each point.
-This spreads the points out because no two points are likely to receive the same amount of random noise.
+您可以通过将位置调整设置为 "jitter" 来避免这种网格化。
+`position = "jitter"` 为每个点添加少量随机噪声。
+这会将点分散开，因为没有两个点可能接收到相同数量的随机噪声。
 
 ```{r}
 #| fig-alt: |
@@ -895,15 +887,15 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(position = "jitter")
 ```
 
-Adding randomness seems like a strange way to improve your plot, but while it makes your graph less accurate at small scales, it makes your graph *more* revealing at large scales.
-Because this is such a useful operation, ggplot2 comes with a shorthand for `geom_point(position = "jitter")`: `geom_jitter()`.
+添加随机性似乎是改善绘图的一种奇怪方法，但虽然它会使您的图表在小尺度上不太准确，但它会使您的图表在大尺度上更具启发性。
+因为这是一个非常有用的操作，所以 ggplot2 附带了 `geom_point(position = "jitter")` 的简写形式：`geom_jitter()`。
 
-To learn more about a position adjustment, look up the help page associated with each adjustment: `?position_dodge`, `?position_fill`, `?position_identity`, `?position_jitter`, and `?position_stack`.
+要了解有关 position adjustment 的更多信息，请查找与每个调整相关的帮助页面：`?position_dodge`, `?position_fill`, `?position_identity`, `?position_jitter`, and `?position_stack`。
 
 ### Exercises
 
-1.  What is the problem with the following plot?
-    How could you improve it?
+1.  下面的绘图有什么问题吗？
+    你可以如何改进它？
 
     ```{r}
     #| fig-show: hide
@@ -912,8 +904,8 @@ To learn more about a position adjustment, look up the help page associated with
       geom_point()
     ```
 
-2.  What, if anything, is the difference between the two plots?
-    Why?
+2.  两个图之间有什么区别（如果有的话）？为
+    什么？
 
     ```{r}
     #| fig-show: hide
@@ -924,22 +916,22 @@ To learn more about a position adjustment, look up the help page associated with
       geom_point(position = "identity")
     ```
 
-3.  What parameters to `geom_jitter()` control the amount of jittering?
+3.  `geom_jitter()` 的哪些参数控制抖动量？
 
-4.  Compare and contrast `geom_jitter()` with `geom_count()`.
+4.  将 `geom_jitter()` 与 `geom_count()` 进行比较和对比。
 
-5.  What's the default position adjustment for `geom_boxplot()`?
-    Create a visualization of the `mpg` dataset that demonstrates it.
+5.  `geom_boxplot()` 的默认位置调整是多少？
+    创建 `mpg` 数据集的可视化来演示它。
 
 ## Coordinate systems
 
-Coordinate systems are probably the most complicated part of ggplot2.
-The default coordinate system is the Cartesian coordinate system where the x and y positions act independently to determine the location of each point.
-There are two other coordinate systems that are occasionally helpful.
+坐标系统（Coordinate systems）可能是 ggplot2 中最复杂的部分。
+默认坐标系是笛卡尔坐标系，其中 x 和 y 位置独立作用以确定每个点的位置。
+还有另外两个坐标系偶尔会有帮助。
 
--   `coord_quickmap()` sets the aspect ratio correctly for geographic maps.
-    This is very important if you're plotting spatial data with ggplot2.
-    We don't have the space to discuss maps in this book, but you can learn more in the [Maps chapter](https://ggplot2-book.org/maps.html) of *ggplot2: Elegant graphics for data analysis*.
+-   `coord_quickmap()` 正确设置地理地图的纵横比。
+    如果您使用 ggplot2 绘制空间数据，这一点非常重要。
+    本书没有足够的篇幅来讨论地图，但您可以在 *ggplot2: Elegant graphics for data analysis* 的 [Maps chapter](https://ggplot2-book.org/maps.html) 了解更多信息。
 
     ```{r}
     #| layout-ncol: 2
@@ -959,8 +951,8 @@ There are two other coordinate systems that are occasionally helpful.
       coord_quickmap()
     ```
 
--   `coord_polar()` uses polar coordinates.
-    Polar coordinates reveal an interesting connection between a bar chart and a Coxcomb chart.
+-   `coord_polar()` 使用极坐标。
+    极坐标揭示了 bar chart 和 Coxcomb chart 之间的有趣联系。
 
     ```{r}
     #| layout-ncol: 2
@@ -984,13 +976,13 @@ There are two other coordinate systems that are occasionally helpful.
 
 ### Exercises
 
-1.  Turn a stacked bar chart into a pie chart using `coord_polar()`.
+1.  使用 `coord_polar()` 将 stacked bar chart 转换为 pie chart。
 
-2.  What's the difference between `coord_quickmap()` and `coord_map()`?
+2.  `coord_quickmap()` 和 `coord_map()` 有什么区别？
 
-3.  What does the following plot tell you about the relationship between city and highway mpg?
-    Why is `coord_fixed()` important?
-    What does `geom_abline()` do?
+3.  下图告诉您什么关于城市和高速公路 mpg 之间的关系？
+    为什么 `coord_fixed()` 很重要？
+    `geom_abline()` 的作用是什么？
 
     ```{r}
     #| fig-show: hide
@@ -1003,29 +995,31 @@ There are two other coordinate systems that are occasionally helpful.
 
 ## The layered grammar of graphics
 
-We can expand on the graphing template you learned in @sec-ggplot2-calls by adding position adjustments, stats, coordinate systems, and faceting:
+我们可以通过添加 position adjustments, stats, coordinate systems, and faceting 来扩展您在 @sec-ggplot2-calls 中学到的图形模板：
 
-    ggplot(data = <DATA>) + 
-      <GEOM_FUNCTION>(
-         mapping = aes(<MAPPINGS>),
-         stat = <STAT>, 
-         position = <POSITION>
-      ) +
-      <COORDINATE_FUNCTION> +
-      <FACET_FUNCTION>
+```         
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(
+     mapping = aes(<MAPPINGS>),
+     stat = <STAT>, 
+     position = <POSITION>
+  ) +
+  <COORDINATE_FUNCTION> +
+  <FACET_FUNCTION>
+```
 
-Our new template takes seven parameters, the bracketed words that appear in the template.
-In practice, you rarely need to supply all seven parameters to make a graph because ggplot2 will provide useful defaults for everything except the data, the mappings, and the geom function.
+我们的新模板采用七个参数，即模板中出现的括号内的单词。
+在实践中，您很少需要提供所有七个参数来制作图表，因为 ggplot2 将为除 data、mappings、 、geom 函数之外的所有内容提供有用的默认值。
 
-The seven parameters in the template compose the grammar of graphics, a formal system for building plots.
-The grammar of graphics is based on the insight that you can uniquely describe *any* plot as a combination of a dataset, a geom, a set of mappings, a stat, a position adjustment, a coordinate system, a faceting scheme, and a theme.
+模板中的七个参数组成了图形语法，这是一个用于构建绘图的正式系统。
+图形语法基于这样的见解：您可以将任何绘图独特地描述为 a dataset、a geom、a set of mappings、a stat、a position adjustment、a coordinate system、a faceting scheme、a theme 的组合。
 
-To see how this works, consider how you could build a basic plot from scratch: you could start with a dataset and then transform it into the information that you want to display (with a stat).
-Next, you could choose a geometric object to represent each observation in the transformed data.
-You could then use the aesthetic properties of the geoms to represent variables in the data.
-You would map the values of each variable to the levels of an aesthetic.
-These steps are illustrated in @fig-visualization-grammar.
-You'd then select a coordinate system to place the geoms into, using the location of the objects (which is itself an aesthetic property) to display the values of the x and y variables.
+要了解其工作原理，请考虑如何从头开始构建基本图：您可以从 dataset 开始，然后将其转换为您想要显示的信息（with a stat）。
+接下来，您可以选择一个 geometric object 来表示转换数据中的每个观测值。
+然后，您可以使用 geoms 的 aesthetic properties 来表示数据中的变量。
+您可以将每个变量的值 map 到 aesthetic 水平。
+这些步骤如 @fig-visualization-grammar 所示。
+然后，您可以选择一个 coordinate system 来放置 geoms，使用对象的位置（其本身就是一种美学属性）来显示 x 和 y 变量的值。
 
 ```{r}
 #| label: fig-visualization-grammar
@@ -1036,25 +1030,25 @@ You'd then select a coordinate system to place the geoms into, using the locatio
 #|   shows how many diamonds are in that cut level. Then, these values are 
 #|   mapped to heights of bars.
 #| fig-cap: |
-#|   Steps for going from raw data to a table of frequencies to a bar plot where 
-#|   the heights of the bar represent the frequencies.
+#|   从原始数据到频率表再到条形图的步骤，其中条形的高度代表频率。
 
 knitr::include_graphics("images/visualization-grammar.png")
 ```
 
-At this point, you would have a complete graph, but you could further adjust the positions of the geoms within the coordinate system (a position adjustment) or split the graph into subplots (faceting).
-You could also extend the plot by adding one or more additional layers, where each additional layer uses a dataset, a geom, a set of mappings, a stat, and a position adjustment.
+此时，您将拥有一个完整的图形，但您可以进一步调整坐标系内 geoms 的位置（a position adjustment）或将图形拆分为子图（faceting）。
+您还可以通过添加一个或多个附加图层来扩展绘图，其中每个附加图层都使用 a dataset, a geom, a set of mappings, a stat, and a position adjustment。
 
-You could use this method to build *any* plot that you imagine.
-In other words, you can use the code template that you've learned in this chapter to build hundreds of thousands of unique plots.
+您可以使用此方法来构建您想象的任何绘图。
+换句话说，您可以使用本章中学到的代码模板来构建数十万个独特的绘图。
 
-If you'd like to learn more about the theoretical underpinnings of ggplot2, you might enjoy reading "[The Layered Grammar of Graphics](https://vita.had.co.nz/papers/layered-grammar.pdf)", the scientific paper that describes the theory of ggplot2 in detail.
+如果您想了解更多关于 ggplot2 的理论基础，您可能会喜欢阅读 "[The Layered Grammar of Graphics](https://vita.had.co.nz/papers/layered-grammar.pdf)"，这是一篇详细描述 ggplot2 理论的科学论文。
 
 ## Summary
 
-In this chapter you learned about the layered grammar of graphics starting with aesthetics and geometries to build a simple plot, facets for splitting the plot into subsets, statistics for understanding how geoms are calculated, position adjustments for controlling the fine details of position when geoms might otherwise overlap, and coordinate systems which allow you to fundamentally change what `x` and `y` mean.
-One layer we have not yet touched on is theme, which we will introduce in @sec-themes.
+在本章中，您学习了图形的分层语法，从 aesthetics 和 geometries 开始构建简单的绘图，将绘图 facets 成子集，了解如何计算 geoms 的 statistics，在 geoms 可能发生变化时控制位置细节以避免重叠的 position adjustments。
+coordinate systems 允许您从根本上改变 `x` 和 `y` 的含义。
+我们还没有触及的一层是 theme，我们将在 @sec-themes 中介绍它。
 
-Two very useful resources for getting an overview of the complete ggplot2 functionality are the ggplot2 cheatsheet (which you can find at <https://posit.co/resources/cheatsheets>) and the ggplot2 package website ([https://ggplot2.tidyverse.org](https://ggplot2.tidyverse.org/)).
+ggplot2 cheatsheet (which you can find at <https://posit.co/resources/cheatsheets>) 和 ggplot2 package website ([https://ggplot2.tidyverse.org](https://ggplot2.tidyverse.org/)) 是了解完整 ggplot2 功能的两个非常有用的资源。
 
-An important lesson you should take from this chapter is that when you feel the need for a geom that is not provided by ggplot2, it's always a good idea to look into whether someone else has already solved your problem by creating a ggplot2 extension package that offers that geom.
+从本章中你应该学到的一个重要教训是，当你觉得需要 ggplot2 未提供的 geom 时，最好看看其他人是否已经通过创建一个 ggplot2 扩展包来解决你的问题，该扩展包提供了那个 geom。

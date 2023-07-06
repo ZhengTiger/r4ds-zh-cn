@@ -453,12 +453,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <section id="introduction" class="level2" data-number="10.1"><h2 data-number="10.1" class="anchored" data-anchor-id="introduction">
 <span class="header-section-number">10.1</span> Introduction</h2>
-<p>In <span class="quarto-unresolved-ref">?sec-data-visualization</span>, you learned much more than just how to make scatterplots, bar charts, and boxplots. You learned a foundation that you can use to make <em>any</em> type of plot with ggplot2.</p>
-<p>In this chapter, you’ll expand on that foundation as you learn about the layered grammar of graphics. We’ll start with a deeper dive into aesthetic mappings, geometric objects, and facets. Then, you will learn about statistical transformations ggplot2 makes under the hood when creating a plot. These transformations are used to calculate new values to plot, such as the heights of bars in a bar plot or medians in a box plot. You will also learn about position adjustments, which modify how geoms are displayed in your plots. Finally, we’ll briefly introduce coordinate systems.</p>
-<p>We will not cover every single function and option for each of these layers, but we will walk you through the most important and commonly used functionality provided by ggplot2 as well as introduce you to packages that extend ggplot2.</p>
+<p>在 <span class="quarto-unresolved-ref">?sec-data-visualization</span> 中，您学到的不仅仅是如何制作 scatterplots、bar charts、boxplots。 您学习了一个基础知识，可用于使用 ggplot2 绘制任何类型的绘图。</p>
+<p>在本章中，当您学习图形的分层语法时，您将在此基础上进行扩展。 我们将从更深入地研究美学映射（aesthetic mappings）、几何对象（geometric objects）和分面（facets）开始。 然后，您将了解 ggplot2 在创建绘图时在幕后进行的统计转换。 这些转换用于计算要绘制的新值，例如条形图中的条形高度或箱形图中的中位数。 您还将了解位置调整，这会修改几何图形在绘图中的显示方式。 最后，我们将简要介绍一下坐标系。</p>
+<p>我们不会涵盖每个层的每个功能和选项，但我们将引导您了解 ggplot2 提供的最重要和最常用的功能，并向您介绍扩展 ggplot2 的包。</p>
 <section id="prerequisites" class="level3" data-number="10.1.1"><h3 data-number="10.1.1" class="anchored" data-anchor-id="prerequisites">
 <span class="header-section-number">10.1.1</span> Prerequisites</h3>
-<p>This chapter focuses on ggplot2. To access the datasets, help pages, and functions used in this chapter, load the tidyverse by running this code:</p>
+<p>本章重点介绍 ggplot2。 要访问本章中使用的数据集、帮助页面和函数，请通过运行以下代码加载 tidyverse：</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: package 'tidyverse' was built under R version 4.2.3</span></span>
@@ -477,7 +477,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <blockquote class="blockquote">
 <p>“The greatest value of a picture is when it forces us to notice what we never expected to see.” — John Tukey</p>
 </blockquote>
-<p>Remember that the <code>mpg</code> data frame bundled with the ggplot2 package contains 234 observations on 38 car models.</p>
+<p>请记住，与 ggplot2 包捆绑在一起的 <code>mpg</code> 数据框包含 38 种汽车模型的 234 个观察值。</p>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mpg</span></span>
 <span><span class="co">#&gt; # A tibble: 234 × 11</span></span>
@@ -492,13 +492,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; # ℹ 228 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 1 more variable: class &lt;chr&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Among the variables in <code>mpg</code> are:</p>
+<p><code>mpg</code> 中的变量包括：</p>
 <ol type="1">
-<li><p><code>displ</code>: A car’s engine size, in liters. A numerical variable.</p></li>
-<li><p><code>hwy</code>: A car’s fuel efficiency on the highway, in miles per gallon (mpg). A car with a low fuel efficiency consumes more fuel than a car with a high fuel efficiency when they travel the same distance. A numerical variable.</p></li>
-<li><p><code>class</code>: Type of car. A categorical variable.</p></li>
+<li><p><code>displ</code>：汽车的发动机尺寸，以升为单位。 数值变量。</p></li>
+<li><p><code>hwy</code>：汽车在高速公路上的燃油效率，以英里/加仑 (mpg) 为单位。 行驶相同距离时，燃油效率低的汽车比燃油效率高的汽车消耗更多的燃油。 数值变量。</p></li>
+<li><p><code>class</code>：汽车类型。 一个分类变量。</p></li>
 </ol>
-<p>Let’s start by visualizing the relationship between <code>displ</code> and <code>hwy</code> for various <code>class</code>es of cars. We can do this with a scatterplot where the numerical variables are mapped to the <code>x</code> and <code>y</code> aesthetics and the categorical variable is mapped to an aesthetic like <code>color</code> or <code>shape</code>.</p>
+<p>让我们首先可视化各类汽车的 <code>displ</code> 和 <code>hwy</code> 之间的关系。 我们可以使用散点图来做到这一点，其中数值变量 mapped 到 <code>x</code> 和 <code>y</code> aesthetics，分类变量 mapped 到 <code>color</code> 或 <code>shape</code> 等 aesthetic。</p>
 <div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Left</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -522,13 +522,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<p>When <code>class</code> is mapped to <code>shape</code>, we get two warnings:</p>
+<p>当 <code>class</code> mapped 到 <code>shape</code> 时，我们收到两个 warnings：</p>
 <blockquote class="blockquote">
 <p>1: The shape palette can deal with a maximum of 6 discrete values because more than 6 becomes difficult to discriminate; you have 7. Consider specifying shapes manually if you must have them.</p>
 <p>2: Removed 62 rows containing missing values (<code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code>).</p>
 </blockquote>
-<p>Since ggplot2 will only use six shapes at a time, by default, additional groups will go unplotted when you use the shape aesthetic. The second warning is related – there are 62 SUVs in the dataset and they’re not plotted.</p>
-<p>Similarly, we can map <code>class</code> to <code>size</code> or <code>alpha</code> aesthetics as well, which control the shape and the transparency of the points, respectively.</p>
+<p>由于 ggplot2 同时只能使用六个 shapes，因此默认情况下，当您使用 shape aesthetic 时，其他组将不会绘制。 第二个 warning 是相关的 – 数据集中有 62 辆 SUVs，但它们没有被绘制出来。</p>
+<p>类似地，我们也可以将 <code>class</code> map 到 <code>size</code> 或 <code>alpha</code> aesthetics，它们分别控制 points 的 大小和透明度。</p>
 <div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Left</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, size <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -550,13 +550,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<p>Both of these produce warnings as well:</p>
+<p>这两者也会产生 warnings：</p>
 <blockquote class="blockquote">
 <p>Using alpha for a discrete variable is not advised.</p>
 </blockquote>
-<p>Mapping an unordered discrete (categorical) variable (<code>class</code>) to an ordered aesthetic (<code>size</code> or <code>alpha</code>) is generally not a good idea because it implies a ranking that does not in fact exist.</p>
-<p>Once you map an aesthetic, ggplot2 takes care of the rest. It selects a reasonable scale to use with the aesthetic, and it constructs a legend that explains the mapping between levels and values. For x and y aesthetics, ggplot2 does not create a legend, but it creates an axis line with tick marks and a label. The axis line provides the same information as a legend; it explains the mapping between locations and values.</p>
-<p>You can also set the visual properties of your geom manually as an argument of your geom function (<em>outside</em> of <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code>) instead of relying on a variable mapping to determine the appearance. For example, we can make all of the points in our plot blue:</p>
+<p>将无序离散（分类）变量（<code>class</code>）Mapping 到有序 aesthetic（<code>size</code> or <code>alpha</code>）通常不是一个好主意，因为它意味着实际上不存在的排名。</p>
+<p>一旦你 map 一个 aesthetic，ggplot2 就会处理剩下的事情。 它选择合理的尺度来符合 aesthetic，并构建一个图例（legend）来解释 levels 和 values 之间的映射。 对于 x 和 y aesthetics，ggplot2 不会创建 legend，但会创建带有刻度线（tick marks）和标签（label）的轴线（axis line）。 轴线（axis line）提供与图例（legend）相同的信息；它解释了位置（locations）和值（values）之间的映射（mapping）。</p>
+<p>您还可以手动将 geom 的视觉属性设置为 geom 函数的参数（<em>outside</em> of <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code>），而不是依赖变量映射来确定外观。 例如，我们可以将图中的所有 points 设为蓝色：</p>
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -564,41 +564,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="layers_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" alt="Scatterplot of highway fuel efficiency versus engine size of cars that shows a negative association. All points are blue." width="576"></p>
 </div>
 </div>
-<p>Here, the color doesn’t convey information about a variable, but only changes the appearance of the plot. You’ll need to pick a value that makes sense for that aesthetic:</p>
+<p>在这里，颜色并不传达有关变量的信息，而仅改变绘图的外观。 您需要选择一个对该 aesthetic 有意义的值：</p>
 <ul>
-<li>The name of a color as a character string, e.g., <code>color = "blue"</code>
+<li>字符串形式的颜色名称，例如 <code>color = "blue"</code>
 </li>
-<li>The size of a point in mm, e.g., <code>size = 1</code>
+<li>point 的大小（以毫米为单位），例如 <code>size = 1</code>
 </li>
-<li>The shape of a point as a number, e.g, <code>shape = 1</code>, as shown in <a href="#fig-shapes">Figure&nbsp;<span>10.1</span></a>.</li>
+<li>point 的 shape 作为数字，例如，<code>shape = 1</code>，如 <a href="#fig-shapes">Figure&nbsp;<span>10.1</span></a> 所示。</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-shapes" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="layers_files/figure-html/fig-shapes-1.png" class="img-fluid figure-img" alt="Mapping between shapes and the numbers that represent them: 0 - square, 1 - circle, 2 - triangle point up, 3 - plus, 4 - cross, 5 - diamond, 6 - triangle point down, 7 - square cross, 8 - star, 9 - diamond plus, 10 - circle plus, 11 - triangles up and down, 12 - square plus, 13 - circle cross, 14 - square and triangle down, 15 - filled square, 16 - filled circle, 17 - filled triangle point-up, 18 - filled diamond, 19 - solid circle, 20 - bullet (smaller circle), 21 - filled circle blue, 22 - filled square blue, 23 - filled diamond blue, 24 - filled triangle point-up blue, 25 - filled triangle point down blue." width="576"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;10.1: R has 25 built-in shapes that are identified by numbers. There are some seeming duplicates: for example, 0, 15, and 22 are all squares. The difference comes from the interaction of the <code>color</code> and <code>fill</code> aesthetics. The hollow shapes (0–14) have a border determined by <code>color</code>; the solid shapes (15–20) are filled with <code>color</code>; the filled shapes (21–24) have a border of <code>color</code> and are filled with <code>fill</code>. Shapes are arranged to keep similar shapes next to each other.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;10.1: R 有 25 个由数字标识的内置形状。有些看似重复：例如，0、15、22 都是正方形。差异来自于 <code>color</code> 和 <code>fill</code> aesthetics 的相互作用。空心形状 (0–14) 的边框由 <code>color</code> 决定；实心形状（15–20）通过 <code>color</code> 填充；填充形状 (21–24) 具有 <code>color</code> 边框并通过 <code>fill</code> 填充。形状的排列使相似的形状彼此相邻。</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>So far we have discussed aesthetics that we can map or set in a scatterplot, when using a point geom. You can learn more about all possible aesthetic mappings in the aesthetic specifications vignette at <a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html" class="uri">https://ggplot2.tidyverse.org/articles/ggplot2-specs.html</a>.</p>
-<p>The specific aesthetics you can use for a plot depend on the geom you use to represent the data. In the next section we dive deeper into geoms.</p>
+<p>到目前为止，我们已经讨论了使用 point geom 时可以在散点图中映射或设置的 aesthetics。 您可以在 aesthetic specifications vignette 中了解有关所有可能的 aesthetic mappings 的更多信息：<a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html" class="uri">https://ggplot2.tidyverse.org/articles/ggplot2-specs.html</a>。</p>
+<p>您可以用于绘图的具体美观效果取决于您用来表示数据的几何图形。 在下一节中，我们将更深入地研究 geoms。</p>
 <section id="exercises" class="level3" data-number="10.2.1"><h3 data-number="10.2.1" class="anchored" data-anchor-id="exercises">
 <span class="header-section-number">10.2.1</span> Exercises</h3>
 <ol type="1">
-<li><p>Create a scatterplot of <code>hwy</code> vs.&nbsp;<code>displ</code> where the points are pink filled in triangles.</p></li>
+<li><p>创建 <code>hwy</code> 与 <code>displ</code> 的散点图，其中点用粉红色填充三角形。</p></li>
 <li>
-<p>Why did the following code not result in a plot with blue points?</p>
+<p>为什么以下代码没有生成带有蓝点的图？</p>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
-<li><p>What does the <code>stroke</code> aesthetic do? What shapes does it work with? (Hint: use <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">?geom_point</a></code>)</p></li>
-<li><p>What happens if you map an aesthetic to something other than a variable name, like <code>aes(color = displ &lt; 5)</code>? Note, you’ll also need to specify x and y.</p></li>
+<li><p><code>stroke</code> aesthetic 有什么作用？ 它适用于什么形状？ （提示：使用 <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">?geom_point</a></code>）</p></li>
+<li><p>如果将 aesthetic map 到变量名称以外的其他内容，例如 <code>aes(color = displ &lt; 5)</code> 会发生什么？ 请注意，您还需要指定 x 和 y。</p></li>
 </ol></section></section><section id="sec-geometric-objects" class="level2" data-number="10.3"><h2 data-number="10.3" class="anchored" data-anchor-id="sec-geometric-objects">
 <span class="header-section-number">10.3</span> Geometric objects</h2>
-<p>How are these two plots similar?</p>
+<p>这两个图有何相似之处？</p>
 <div class="cell quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -609,8 +609,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<p>Both plots contain the same x variable, the same y variable, and both describe the same data. But the plots are not identical. Each plot uses a different geometric object, geom, to represent the data. The plot on the left uses the point geom, and the plot on the right uses the smooth geom, a smooth line fitted to the data.</p>
-<p>To change the geom in your plot, change the geom function that you add to <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code>. For instance, to make the plots above, you can use the following code:</p>
+<p>两个图都包含相同的 x 变量、相同的 y 变量，并且都描述相同的数据。 但图并不相同。 每个图使用不同的几何对象（geometric object），geom，来表示数据。 左侧的图使用 point geom，右侧的图使用 smooth geom，一条平滑线拟合数据。</p>
+<p>要更改绘图中的 geom，请更改添加到 <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> 的 geom 函数。 例如，要绘制上面的图，您可以使用以下代码：</p>
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Left</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -621,7 +621,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula = 'y ~ x'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Every geom function in ggplot2 takes a <code>mapping</code> argument, either defined locally in the geom layer or globally in the <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> layer. However, not every aesthetic works with every geom. You could set the shape of a point, but you couldn’t set the “shape” of a line. If you try, ggplot2 will silently ignore that aesthetic mapping. On the other hand, you <em>could</em> set the linetype of a line. <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> will draw a different line, with a different linetype, for each unique value of the variable that you map to linetype.</p>
+<p>ggplot2 中的每个 geom 函数都带有一个 <code>mapping</code> 参数，该参数可以在 geom layer 中本地定义，也可以在 <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> layer 中全局定义。 然而，并非每种美学（aesthetic）都适用于每种几何（geom）。 您可以设置点（point）的形状（shape），但无法设置线（line）的形状（shape）。 如果您尝试，ggplot2 将默默地忽略该美学映射（aesthetic mapping）。 另一方面，您可以设置线条（line）的线型（linetype）。 <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> 将为映射（map）到线型（linetype）的变量的每个唯一值绘制一条具有不同线型（linetype）的不同线（line）。</p>
 <div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Left</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, shape <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -641,8 +641,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<p>Here, <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> separates the cars into three lines based on their <code>drv</code> value, which describes a car’s drive train. One line describes all of the points that have a <code>4</code> value, one line describes all of the points that have an <code>f</code> value, and one line describes all of the points that have an <code>r</code> value. Here, <code>4</code> stands for four-wheel drive, <code>f</code> for front-wheel drive, and <code>r</code> for rear-wheel drive.</p>
-<p>If this sounds strange, we can make it clearer by overlaying the lines on top of the raw data and then coloring everything according to <code>drv</code>.</p>
+<p>在这里，<code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> 将汽车分成三条线（lines）根据它们的 <code>drv</code> 值，该值描述了汽车的传动系统。 一条线描述具有 <code>4</code> 值的所有点，一条线描述具有 <code>f</code> 值的所有点，一条线描述具有 <code>r</code> 值的所有点。 这里，<code>4</code> 代表四轮驱动，<code>f</code> 代表前轮驱动，<code>r</code> 代表后轮驱动。</p>
+<p>如果这听起来很奇怪，我们可以通过将线条叠加在原始数据上，然后根据 <code>drv</code> 对所有内容进行着色来使其更清晰。</p>
 <div class="cell">
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -651,8 +651,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="layers_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" alt="A plot of highway fuel efficiency versus engine size of cars. The data are represented with points (colored by drive train) as well as smooth curves (where line type is determined based on drive train as well). Confidence intervals around the smooth curves are also displayed." width="576"></p>
 </div>
 </div>
-<p>Notice that this plot contains two geoms in the same graph.</p>
-<p>Many geoms, like <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code>, use a single geometric object to display multiple rows of data. For these geoms, you can set the <code>group</code> aesthetic to a categorical variable to draw multiple objects. ggplot2 will draw a separate object for each unique value of the grouping variable. In practice, ggplot2 will automatically group the data for these geoms whenever you map an aesthetic to a discrete variable (as in the <code>linetype</code> example). It is convenient to rely on this feature because the <code>group</code> aesthetic by itself does not add a legend or distinguishing features to the geoms.</p>
+<p>请注意，该图在同一图中包含两个 geoms。</p>
+<p>许多 geoms，像 <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code>，使用单个几何对象（geometric object）来显示多行数据。 对于这些 geoms，您可以将 <code>group</code> aesthetic 设置为分类变量以绘制多个对象。 ggplot2 将为分组变量的每个唯一值绘制一个单独的对象。 实际上，每当您将 aesthetic 映射到离散变量（如 <code>linetype</code> 示例中）时，ggplot2 都会自动对这些 geoms 的数据进行分组。 依赖此功能很方便，因为 <code>group</code> aesthetic 本身不会向 geoms 添加图例或显着特征。</p>
 <div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Left</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -679,7 +679,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<p>If you place mappings in a geom function, ggplot2 will treat them as local mappings for the layer. It will use these mappings to extend or overwrite the global mappings <em>for that layer only</em>. This makes it possible to display different aesthetics in different layers.</p>
+<p>如果将 mappings 放置在 geom 函数中，ggplot2 会将它们视为图层的本地映射（local mappings）。 它将使用这些 mappings 来扩展或覆盖<em>仅该层</em>的全局映射（global mappings）。 这使得在不同图层上展现不同的 aesthetics 成为可能。</p>
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -688,7 +688,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="layers_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" alt="Scatterplot of highway fuel efficiency versus engine size of cars, where points are colored according to the car class. A smooth curve following the trajectory of the relationship between highway fuel efficiency versus engine size of cars is overlaid along with a confidence interval around it." width="576"></p>
 </div>
 </div>
-<p>You can use the same idea to specify different <code>data</code> for each layer. Here, we use red points as well as open circles to highlight two-seater cars. The local data argument in <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> overrides the global data argument in <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> for that layer only.</p>
+<p>您可以使用相同的想法为每一图层指定不同的 <code>data</code> 。 在这里，我们使用红点和空心圆圈来突出显示 two-seater cars。 <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> 中的本地数据参数仅覆盖该图层的 <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> 中的全局数据参数。</p>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -704,7 +704,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="layers_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" alt="Scatterplot of highway fuel efficiency versus engine size of cars, where points are colored according to the car class. A smooth curve following the trajectory of the relationship between highway fuel efficiency versus engine size of subcompact cars is overlaid along with a confidence interval around it." width="576"></p>
 </div>
 </div>
-<p>Geoms are the fundamental building blocks of ggplot2. You can completely transform the look of your plot by changing its geom, and different geoms can reveal different features of your data. For example, the histogram and density plot below reveal that the distribution of highway mileage is bimodal and right skewed while the boxplot reveals two potential outliers.</p>
+<p>Geoms 是 ggplot2 的基本构建块。 您可以通过更改绘图的 geom 来彻底改变绘图的外观，并且不同的 geoms 可以揭示数据的不同特征。 例如，下面的直方图和密度图显示高速公路里程的分布是双峰且右偏的，而箱线图则显示两个潜在的异常值。</p>
 <div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Left</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -731,7 +731,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<p>ggplot2 provides more than 40 geoms but these don’t cover all possible plots one could make. If you need a different geom, we recommend looking into extension packages first to see if someone else has already implemented it (see <a href="https://exts.ggplot2.tidyverse.org/gallery/" class="uri">https://exts.ggplot2.tidyverse.org/gallery/</a> for a sampling). For example, the <strong>ggridges</strong> package (<a href="https://wilkelab.org/ggridges/" class="uri">https://wilkelab.org/ggridges</a>) is useful for making ridgeline plots, which can be useful for visualizing the density of a numerical variable for different levels of a categorical variable. In the following plot not only did we use a new geom (<code><a href="https://wilkelab.org/ggridges/reference/geom_density_ridges.html">geom_density_ridges()</a></code>), but we have also mapped the same variable to multiple aesthetics (<code>drv</code> to <code>y</code>, <code>fill</code>, and <code>color</code>) as well as set an aesthetic (<code>alpha = 0.5</code>) to make the density curves transparent.</p>
+<p>ggplot2 提供了 40 多种几何图形（geoms），但这些并没有涵盖人们可以绘制的所有可能的绘图。 如果您需要不同的 geom，我们建议首先查看扩展包，看看其他人是否已经实现了它（请参阅 <a href="https://exts.ggplot2.tidyverse.org/gallery/" class="uri">https://exts.ggplot2.tidyverse.org/gallery/</a>）。 例如，<strong>ggridges</strong> 包 (<a href="https://wilkelab.org/ggridges/" class="uri">https://wilkelab.org/ggridges</a>) 对于制作山脊线图（ridgeline plots）非常有用，这对于可视化不同级别的分类变量的数值变量的密度非常有用。 在下图中，我们不仅使用了新的 geom（<code><a href="https://wilkelab.org/ggridges/reference/geom_density_ridges.html">geom_density_ridges()</a></code>），而且还将相同的变量映射到多种 aesthetics（<code>drv</code> to <code>y</code>, <code>fill</code>, and <code>color</code>）并设置 aesthetic（<code>alpha = 0.5</code>）使密度曲线透明。</p>
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/ggridges/">ggridges</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: package 'ggridges' was built under R version 4.2.1</span></span>
@@ -743,22 +743,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="layers_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" alt="Density curves for highway mileage for cars with rear wheel, front wheel, and 4-wheel drives plotted separately. The distribution is bimodal and roughly symmetric for real and 4 wheel drive cars and unimodal and right skewed for front wheel drive cars." width="576"></p>
 </div>
 </div>
-<p>The best place to get a comprehensive overview of all of the geoms ggplot2 offers, as well as all functions in the package, is the reference page: <a href="https://ggplot2.tidyverse.org/reference" class="uri">https://ggplot2.tidyverse.org/reference</a>. To learn more about any single geom, use the help (e.g., <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">?geom_smooth</a></code>).</p>
+<p>全面概述 ggplot2 提供的所有 geoms 以及包中所有功能的最佳位置是参考页面：<a href="https://ggplot2.tidyverse.org/reference" class="uri">https://ggplot2.tidyverse.org/reference</a>。 要了解有关任何单个 geom 的更多信息，请使用帮助（例如<code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">?geom_smooth</a></code>）。</p>
 <section id="exercises-1" class="level3" data-number="10.3.1"><h3 data-number="10.3.1" class="anchored" data-anchor-id="exercises-1">
 <span class="header-section-number">10.3.1</span> Exercises</h3>
 <ol type="1">
-<li><p>What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?</p></li>
+<li><p>您会使用什么 geom 来绘制 line chart？b oxplot？h istogram？a rea chart？</p></li>
 <li>
-<p>Earlier in this chapter we used <code>show.legend</code> without explaining it:</p>
+<p>在本章前面我们使用了 <code>show.legend</code>，但没有解释它：</p>
 <div class="cell">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">drv</span><span class="op">)</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>What does <code>show.legend = FALSE</code> do here? What happens if you remove it? Why do you think we used it earlier?</p>
+<p><code>show.legend = FALSE</code> 在这里做什么？ 如果删除它会发生什么？ 您认为我们为什么之前使用它？</p>
 </li>
-<li><p>What does the <code>se</code> argument to <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> do?</p></li>
+<li><p><code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> 的 <code>se</code> 参数有什么作用？</p></li>
 <li>
-<p>Recreate the R code necessary to generate the following graphs. Note that wherever a categorical variable is used in the plot, it’s <code>drv</code>.</p>
+<p>重新创建生成以下图表所需的 R 代码。 请注意，图中只要使用分类变量，它就是 <code>drv</code>。</p>
 <div class="cell quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -788,7 +788,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
 </ol></section></section><section id="facets" class="level2" data-number="10.4"><h2 data-number="10.4" class="anchored" data-anchor-id="facets">
 <span class="header-section-number">10.4</span> Facets</h2>
-<p>In <span class="quarto-unresolved-ref">?sec-data-visualization</span> you learned about faceting with <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap()</a></code>, which splits a plot into subplots that each display one subset of the data based on a categorical variable.</p>
+<p>在 <span class="quarto-unresolved-ref">?sec-data-visualization</span> 中，您了解了如何使用 <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap()</a></code> 进行分面（faceting），它将图分割成子图，每个子图基于分类变量显示数据的一个子集。</p>
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -797,7 +797,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="layers_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" alt="Scatterplot of highway fuel efficiency versus engine size of cars, faceted by class, with facets spanning two rows." width="576"></p>
 </div>
 </div>
-<p>To facet your plot with the combination of two variables, switch from <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap()</a></code> to <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid()</a></code>. The first argument of <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid()</a></code> is also a formula, but now it’s a double sided formula: <code>rows ~ cols</code>.</p>
+<p>要使用两个变量的组合对图进行分面（facet），请从 <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap()</a></code> 切换到 <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid()</a></code>。 <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid()</a></code> 的第一个参数也是一个公式，但现在它是一个双面公式：<code>rows ~ cols</code>。</p>
 <div class="cell">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -806,7 +806,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="layers_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" alt="Scatterplot of highway fuel efficiency versus engine size of cars, faceted by number of cylinders across rows and by type of drive train across columns. This results in a 4x3 grid of 12 facets. Some of these facets have no observations: 5 cylinders and 4 wheel drive, 4 or 5 cylinders and front wheel drive." width="576"></p>
 </div>
 </div>
-<p>By default each of the facets share the same scale and range for x and y axes. This is useful when you want to compare data across facets but it can be limiting when you want to visualize the relationship within each facet better. Setting the <code>scales</code> argument in a faceting function to <code>"free"</code> will allow for different axis scales across both rows and columns, <code>"free_x"</code> will allow for different scales across rows, and <code>"free_y"</code> will allow for different scales across columns.</p>
+<p>默认情况下，每个 facets 的 x 轴和 y 轴共享相同的比例和范围。 当您想要跨 facets 比较数据时，这很有用，但当您想要更好地可视化每个 facet 内的关系时，它可能会受到限制。 将 faceting 函数中的 <code>scales</code> 参数设置为 <code>"free"</code> 将允许跨行和列使用不同的轴比例， <code>"free_x"</code> 将允许跨行使用不同的比例，<code>"free_y"</code> 将允许跨列使用不同的比例。</p>
 <div class="cell">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -818,16 +818,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="exercises-2" class="level3" data-number="10.4.1"><h3 data-number="10.4.1" class="anchored" data-anchor-id="exercises-2">
 <span class="header-section-number">10.4.1</span> Exercises</h3>
 <ol type="1">
-<li><p>What happens if you facet on a continuous variable?</p></li>
+<li><p>如果对连续变量进行分面（facet）会发生什么？</p></li>
 <li>
-<p>What do the empty cells in plot with <code>facet_grid(drv ~ cyl)</code> mean? Run the following code. How do they relate to the resulting plot?</p>
+<p><code>facet_grid(drv ~ cyl)</code> 图中的空单元格是什么意思？ 运行以下代码。 它们与最终的绘图有什么关系？</p>
 <div class="cell">
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, y <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li>
-<p>What plots does the following code make? What does <code>.</code> do?</p>
+<p>下面的代码会绘制什么图？ <code>.</code> 的作用是什么？</p>
 <div class="cell">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -839,17 +839,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </li>
 <li>
-<p>Take the first faceted plot in this section:</p>
+<p>以本节中的第一个 faceted plot 为例：</p>
 <div class="cell">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">class</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>What are the advantages to using faceting instead of the color aesthetic? What are the disadvantages? How might the balance change if you had a larger dataset?</p>
+<p>使用 faceting 代替 color aesthetic 有什么优点？ 有什么缺点？ 如果您有更大的数据集，平衡会如何变化？</p>
 </li>
-<li><p>Read <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">?facet_wrap</a></code>. What does <code>nrow</code> do? What does <code>ncol</code> do? What other options control the layout of the individual panels? Why doesn’t <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid()</a></code> have <code>nrow</code> and <code>ncol</code> arguments?</p></li>
+<li><p>阅读 <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">?facet_wrap</a></code>。 <code>nrow</code> 的作用是什么？ <code>ncol</code> 的作用是什么？ 还有哪些其他选项控制各个面板的布局？ 为什么 <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid()</a></code> 没有 <code>nrow</code> 和 <code>ncol</code> 参数？</p></li>
 <li>
-<p>Which of the following plots makes it easier to compare engine size (<code>displ</code>) across cars with different drive trains? What does this say about when to place a faceting variable across rows or columns?</p>
+<p>以下哪幅图可以更轻松地比较具有不同传动系统的汽车的发动机尺寸 (<code>displ</code>)？ 这对于何时跨行或列放置 faceting 变量意味着什么？</p>
 <div class="cell">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -861,7 +861,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </li>
 <li>
-<p>Recreate the following plot using <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap()</a></code> instead of <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid()</a></code>. How do the positions of the facet labels change?</p>
+<p>使用 <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap()</a></code> 而不是 <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid()</a></code> 重新创建以下图。 facet 标签的位置如何变化？</p>
 <div class="cell">
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -870,7 +870,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
 </ol></section></section><section id="statistical-transformations" class="level2" data-number="10.5"><h2 data-number="10.5" class="anchored" data-anchor-id="statistical-transformations">
 <span class="header-section-number">10.5</span> Statistical transformations</h2>
-<p>Consider a basic bar chart, drawn with <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code> or <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col()</a></code>. The following chart displays the total number of diamonds in the <code>diamonds</code> dataset, grouped by <code>cut</code>. The <code>diamonds</code> dataset is in the ggplot2 package and contains information on ~54,000 diamonds, including the <code>price</code>, <code>carat</code>, <code>color</code>, <code>clarity</code>, and <code>cut</code> of each diamond. The chart shows that more diamonds are available with high quality cuts than with low quality cuts.</p>
+<p>考虑使用 <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code> 或 <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col()</a></code> 绘制的基本条形图（bar chart）。 下图显示了 <code>diamonds</code> 数据集中的钻石（diamonds）总数，按 <code>cut</code> 分组。 <code>diamonds</code> 数据集位于 ggplot2 包中，包含 ~54,000 颗钻石的信息，包括每颗钻石的 <code>price</code>, <code>carat</code>, <code>color</code>, <code>clarity</code>, and <code>cut</code>。 该图表显示，高质量 cuts 的钻石数量多于低质量 cuts 的钻石。</p>
 <div class="cell">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -878,27 +878,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="layers_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" alt="Bar chart of number of each cut of diamond. There are roughly 1500 Fair, 5000 Good, 12000 Very Good, 14000 Premium, and 22000 Ideal cut diamonds." width="576"></p>
 </div>
 </div>
-<p>On the x-axis, the chart displays <code>cut</code>, a variable from <code>diamonds</code>. On the y-axis, it displays count, but count is not a variable in <code>diamonds</code>! Where does count come from? Many graphs, like scatterplots, plot the raw values of your dataset. Other graphs, like bar charts, calculate new values to plot:</p>
+<p>在 x-axis，图表显示 <code>cut</code>，这是 <code>diamonds</code> 的一个变量。 在 y-axis，它显示 count，但 count 不是 <code>diamonds</code> 中的变量！ count 从何而来？ 许多图表，例如 scatterplots，都会绘制数据集的原始值。 其他图表，例如 bar charts，会计算要绘制的新值：</p>
 <ul>
-<li><p>Bar charts, histograms, and frequency polygons bin your data and then plot bin counts, the number of points that fall in each bin.</p></li>
-<li><p>Smoothers fit a model to your data and then plot predictions from the model.</p></li>
-<li><p>Boxplots compute the five-number summary of the distribution and then display that summary as a specially formatted box.</p></li>
+<li><p>Bar charts, histograms, and frequency polygons 对数据进行分 bin，然后绘制 bin counts，即每个 bin 中的点数。</p></li>
+<li><p>Smoothers 将模型拟合到您的数据，然后根据模型绘制预测。</p></li>
+<li><p>Boxplots 计算分布的 five-number summary，然后将该 summary 显示为特殊格式的 box。</p></li>
 </ul>
-<p>The algorithm used to calculate new values for a graph is called a <strong>stat</strong>, short for statistical transformation. <a href="#fig-vis-stat-bar">Figure&nbsp;<span>10.2</span></a> shows how this process works with <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code>.</p>
+<p>用于计算图形新值的算法称为 <strong>stat</strong>，是统计变换（statistical transformation）的缩写。 <a href="#fig-vis-stat-bar">Figure&nbsp;<span>10.2</span></a> 显示了此过程如何与 <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code> 配合使用。</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-vis-stat-bar" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/visualization-stat-bar.png" class="img-fluid figure-img" style="width:100.0%" alt="A figure demonstrating three steps of creating a bar chart. Step 1. geom_bar() begins with the diamonds data set. Step 2. geom_bar() transforms the data with the count stat, which returns a data set of cut values and counts. Step 3. geom_bar() uses the transformed data to build the plot. cut is mapped to the x-axis, count is mapped to the y-axis."></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;10.2: When creating a bar chart we first start with the raw data, then aggregate it to count the number of observations in each bar, and finally map those computed variables to plot aesthetics.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;10.2: 创建条形图时，我们首先从原始数据开始，然后将其聚合以计算每个条形中的观察值数量，最后映射这些计算变量以绘制美观的图。</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>You can learn which stat a geom uses by inspecting the default value for the <code>stat</code> argument. For example, <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">?geom_bar</a></code> shows that the default value for <code>stat</code> is “count”, which means that <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code> uses <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">stat_count()</a></code>. <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">stat_count()</a></code> is documented on the same page as <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code>. If you scroll down, the section called “Computed variables” explains that it computes two new variables: <code>count</code> and <code>prop</code>.</p>
-<p>Every geom has a default stat; and every stat has a default geom. This means that you can typically use geoms without worrying about the underlying statistical transformation. However, there are three reasons why you might need to use a stat explicitly:</p>
+<p>您可以通过检查 <code>stat</code> 参数的默认值来了解 geom 使用哪个 stat。 例如，<code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">?geom_bar</a></code> 显示 <code>stat</code> 的默认值为 “count”，这意味着 <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code> 使用 <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">stat_count()</a></code>。 <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">stat_count()</a></code> 与 <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code> 记录在同一页面上。 如果向下滚动，名为 “Computed variables” 的部分会解释它计算两个新变量：<code>count</code> 和 <code>prop</code>。</p>
+<p>每个 geom 都有一个默认的 stat；每个 stat 都有一个默认的 geom。 这意味着您通常可以使用 geoms，而不必担心底层的统计转换。 但是，您可能需要显式使用 stat 的三个原因如下：</p>
 <ol type="1">
 <li>
-<p>You might want to override the default stat. In the code below, we change the stat of <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code> from count (the default) to identity. This lets us map the height of the bars to the raw values of a y variable.</p>
+<p>您可能想要覆盖默认 stat。 在下面的代码中，我们将 <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code> 的 stat 从 count （默认）更改为 identity。 这让我们可以将条形的高度映射到 y 变量的原始值。</p>
 <div class="cell">
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">diamonds</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -910,7 +910,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </li>
 <li>
-<p>You might want to override the default mapping from transformed variables to aesthetics. For example, you might want to display a bar chart of proportions, rather than counts:</p>
+<p>您可能想要覆盖从转换变量到美学的默认映射。 例如，您可能想要显示比例条形图，而不是计数：</p>
 <div class="cell">
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html">after_stat</a></span><span class="op">(</span><span class="va">prop</span><span class="op">)</span>, group <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -918,10 +918,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="layers_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" alt="Bar chart of proportion of each cut of diamond. Roughly, Fair diamonds make up 0.03, Good 0.09, Very Good 0.22, Premium 0.26, and Ideal 0.40." width="576"></p>
 </div>
 </div>
-<p>To find the possible variables that can be computed by the stat, look for the section titled “computed variables” in the help for <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code>.</p>
+<p>要查找可由 stat 计算的可能变量，请在 <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code> 的帮助中查找标题为 “computed variables” 的部分。</p>
 </li>
 <li>
-<p>You might want to draw greater attention to the statistical transformation in your code. For example, you might use <code><a href="https://ggplot2.tidyverse.org/reference/stat_summary.html">stat_summary()</a></code>, which summarizes the y values for each unique x value, to draw attention to the summary that you’re computing:</p>
+<p>您可能希望更加关注代码中的统计转换。 例如，您可以使用 <code><a href="https://ggplot2.tidyverse.org/reference/stat_summary.html">stat_summary()</a></code>，它总结每个唯一 x 值的 y 值，以引起人们对您正在计算的 summary 的注意：</p>
 <div class="cell">
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_summary.html">stat_summary</a></span><span class="op">(</span></span>
@@ -936,16 +936,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </li>
 </ol>
-<p>ggplot2 provides more than 20 stats for you to use. Each stat is a function, so you can get help in the usual way, e.g., <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">?stat_bin</a></code>.</p>
+<p>ggplot2 提供了 20 多种 stats 供您使用。 每个 stat 都是一个函数，因此您可以通过通常的方式获得帮助，例如 <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">?stat_bin</a></code>。</p>
 <section id="exercises-3" class="level3" data-number="10.5.1"><h3 data-number="10.5.1" class="anchored" data-anchor-id="exercises-3">
 <span class="header-section-number">10.5.1</span> Exercises</h3>
 <ol type="1">
-<li><p>What is the default geom associated with <code><a href="https://ggplot2.tidyverse.org/reference/stat_summary.html">stat_summary()</a></code>? How could you rewrite the previous plot to use that geom function instead of the stat function?</p></li>
-<li><p>What does <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col()</a></code> do? How is it different from <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code>?</p></li>
-<li><p>Most geoms and stats come in pairs that are almost always used in concert. Make a list of all the pairs. What do they have in common? (Hint: Read through the documentation.)</p></li>
-<li><p>What variables does <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">stat_smooth()</a></code> compute? What arguments control its behavior?</p></li>
+<li><p>与 <code><a href="https://ggplot2.tidyverse.org/reference/stat_summary.html">stat_summary()</a></code> 关联的默认 geom 是什么？ 如何重写前面的绘图以使用 geom 函数而不是 stat 函数？</p></li>
+<li><p><code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col()</a></code> 的作用是什么？ 它与 <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code> 有什么不同？</p></li>
+<li><p>大多数 geoms 和 stats 都是成对出现的，几乎总是一起使用。 列出所有配对的列表。 他们有什么共同点？ （提示：通读文档。）</p></li>
+<li><p><code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">stat_smooth()</a></code> 计算哪些变量？ 什么参数控制其行为？</p></li>
 <li>
-<p>In our proportion bar chart, we need to set <code>group = 1</code>. Why? In other words, what is the problem with these two graphs?</p>
+<p>在我们的比例条形图中，我们需要设置 <code>group = 1</code>。 为什么呢？换 句话说，这两张图有什么问题呢？</p>
 <div class="cell">
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html">after_stat</a></span><span class="op">(</span><span class="va">prop</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -955,7 +955,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
 </ol></section></section><section id="position-adjustments" class="level2" data-number="10.6"><h2 data-number="10.6" class="anchored" data-anchor-id="position-adjustments">
 <span class="header-section-number">10.6</span> Position adjustments</h2>
-<p>There’s one more piece of magic associated with bar charts. You can color a bar chart using either the <code>color</code> aesthetic, or, more usefully, the <code>fill</code> aesthetic:</p>
+<p>条形图还有一个神奇之处。 您可以使用 <code>color</code> aesthetic 或更有用的 <code>fill</code> aesthetic 来为条形图着色：</p>
 <div>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Left</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, color <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -975,7 +975,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<p>Note what happens if you map the fill aesthetic to another variable, like <code>class</code>: the bars are automatically stacked. Each colored rectangle represents a combination of <code>drv</code> and <code>class</code>.</p>
+<p>请注意，如果将 fill aesthetic 映射到另一个变量（例如 <code>class</code>），会发生什么：条形图会自动堆叠（stacked）。 每个彩色矩形代表 <code>drv</code> 和 <code>class</code> 的组合。</p>
 <div class="cell">
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, fill <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -983,10 +983,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="layers_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" alt="Segmented bar chart of drive types of cars, where each bar is filled with colors for the classes of cars. Heights of the bars correspond to the number of cars in each drive category, and heights of the colored segments are proportional to the number of cars with a given class level within a given drive type level." width="576"></p>
 </div>
 </div>
-<p>The stacking is performed automatically using the <strong>position adjustment</strong> specified by the <code>position</code> argument. If you don’t want a stacked bar chart, you can use one of three other options: <code>"identity"</code>, <code>"dodge"</code> or <code>"fill"</code>.</p>
+<p>使用 <code>position</code> 参数指定的位置调整（<strong>position adjustment</strong>）自动执行堆叠。 如果您不需要堆叠条形图，可以使用其他三个选项之一：<code>"identity"</code>, <code>"dodge"</code> or <code>"fill"</code>。</p>
 <ul>
 <li>
-<p><code>position = "identity"</code> will place each object exactly where it falls in the context of the graph. This is not very useful for bars, because it overlaps them. To see that overlapping we either need to make the bars slightly transparent by setting <code>alpha</code> to a small value, or completely transparent by setting <code>fill = NA</code>.</p>
+<p><code>position = "identity"</code> 将把每个对象准确地放置在图表上下文中的位置。 这对于条形图来说不是很有用，因为它会导致重叠。 要看到重叠，我们需要通过将 <code>alpha</code> 设置为较小的值来使条形稍微透明，或者通过设置 <code>fill = NA</code> 使条形完全透明。</p>
 <div>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Left</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, fill <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -1006,11 +1006,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<p>The identity position adjustment is more useful for 2d geoms, like points, where it is the default.</p>
+<p>identity position 调整对于 2d geoms 更有用，例如 points，它是默认值。</p>
 </li>
-<li><p><code>position = "fill"</code> works like stacking, but makes each set of stacked bars the same height. This makes it easier to compare proportions across groups.</p></li>
+<li><p><code>position = "fill"</code> 的工作方式类似于堆叠（stacking），但使每组堆叠的条形高度相同。 这使得比较不同组之间的比例变得更加容易。</p></li>
 <li>
-<p><code>position = "dodge"</code> places overlapping objects directly <em>beside</em> one another. This makes it easier to compare individual values.</p>
+<p><code>position = "dodge"</code> 将重叠的对象直接放在一起。 这使得比较各个值变得更容易。</p>
 <div>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Left</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, fill <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -1032,14 +1032,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </li>
 </ul>
-<p>There’s one other type of adjustment that’s not useful for bar charts, but can be very useful for scatterplots. Recall our first scatterplot. Did you notice that the plot displays only 126 points, even though there are 234 observations in the dataset?</p>
+<p>还有另一种类型的调整对于条形图没有用，但对于散点图非常有用。 回想一下我们的第一个散点图。 您是否注意到该图仅显示 126 个点，即使数据集中有 234 个观测值？</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="layers_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" alt="Scatterplot of highway fuel efficiency versus engine size of cars that shows a negative association." width="576"></p>
 </div>
 </div>
-<p>The underlying values of <code>hwy</code> and <code>displ</code> are rounded so the points appear on a grid and many points overlap each other. This problem is known as <strong>overplotting</strong>. This arrangement makes it difficult to see the distribution of the data. Are the data points spread equally throughout the graph, or is there one special combination of <code>hwy</code> and <code>displ</code> that contains 109 values?</p>
-<p>You can avoid this gridding by setting the position adjustment to “jitter”. <code>position = "jitter"</code> adds a small amount of random noise to each point. This spreads the points out because no two points are likely to receive the same amount of random noise.</p>
+<p><code>hwy</code> 和 <code>displ</code> 的基础值是四舍五入的，因此这些点出现在网格上，并且许多点彼此重叠。 此问题称为过度绘图（<strong>overplotting</strong>）。这 种安排使得很难看到数据的分布。 数据点是否均匀分布在整个图表中，或者是否存在包含 109 个值的 <code>hwy</code> 和 <code>displ</code> 的一种特殊组合？</p>
+<p>您可以通过将位置调整设置为 “jitter” 来避免这种网格化。 <code>position = "jitter"</code> 为每个点添加少量随机噪声。 这会将点分散开，因为没有两个点可能接收到相同数量的随机噪声。</p>
 <div class="cell">
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">"jitter"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1047,20 +1047,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="layers_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid" alt="Jittered scatterplot of highway fuel efficiency versus engine size of cars. The plot shows a negative association." width="576"></p>
 </div>
 </div>
-<p>Adding randomness seems like a strange way to improve your plot, but while it makes your graph less accurate at small scales, it makes your graph <em>more</em> revealing at large scales. Because this is such a useful operation, ggplot2 comes with a shorthand for <code>geom_point(position = "jitter")</code>: <code><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter()</a></code>.</p>
-<p>To learn more about a position adjustment, look up the help page associated with each adjustment: <code><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">?position_dodge</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/position_stack.html">?position_fill</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/position_identity.html">?position_identity</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">?position_jitter</a></code>, and <code><a href="https://ggplot2.tidyverse.org/reference/position_stack.html">?position_stack</a></code>.</p>
+<p>添加随机性似乎是改善绘图的一种奇怪方法，但虽然它会使您的图表在小尺度上不太准确，但它会使您的图表在大尺度上更具启发性。 因为这是一个非常有用的操作，所以 ggplot2 附带了 <code>geom_point(position = "jitter")</code> 的简写形式：<code><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter()</a></code>。</p>
+<p>要了解有关 position adjustment 的更多信息，请查找与每个调整相关的帮助页面：<code><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">?position_dodge</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/position_stack.html">?position_fill</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/position_identity.html">?position_identity</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">?position_jitter</a></code>, and <code><a href="https://ggplot2.tidyverse.org/reference/position_stack.html">?position_stack</a></code>。</p>
 <section id="exercises-4" class="level3" data-number="10.6.1"><h3 data-number="10.6.1" class="anchored" data-anchor-id="exercises-4">
 <span class="header-section-number">10.6.1</span> Exercises</h3>
 <ol type="1">
 <li>
-<p>What is the problem with the following plot? How could you improve it?</p>
+<p>下面的绘图有什么问题吗？ 你可以如何改进它？</p>
 <div class="cell">
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
 <li>
-<p>What, if anything, is the difference between the two plots? Why?</p>
+<p>两个图之间有什么区别（如果有的话）？为 什么？</p>
 <div class="cell">
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1068,15 +1068,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
-<li><p>What parameters to <code><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter()</a></code> control the amount of jittering?</p></li>
-<li><p>Compare and contrast <code><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter()</a></code> with <code><a href="https://ggplot2.tidyverse.org/reference/geom_count.html">geom_count()</a></code>.</p></li>
-<li><p>What’s the default position adjustment for <code><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot()</a></code>? Create a visualization of the <code>mpg</code> dataset that demonstrates it.</p></li>
+<li><p><code><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter()</a></code> 的哪些参数控制抖动量？</p></li>
+<li><p>将 <code><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter()</a></code> 与 <code><a href="https://ggplot2.tidyverse.org/reference/geom_count.html">geom_count()</a></code> 进行比较和对比。</p></li>
+<li><p><code><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot()</a></code> 的默认位置调整是多少？ 创建 <code>mpg</code> 数据集的可视化来演示它。</p></li>
 </ol></section></section><section id="coordinate-systems" class="level2" data-number="10.7"><h2 data-number="10.7" class="anchored" data-anchor-id="coordinate-systems">
 <span class="header-section-number">10.7</span> Coordinate systems</h2>
-<p>Coordinate systems are probably the most complicated part of ggplot2. The default coordinate system is the Cartesian coordinate system where the x and y positions act independently to determine the location of each point. There are two other coordinate systems that are occasionally helpful.</p>
+<p>坐标系统（Coordinate systems）可能是 ggplot2 中最复杂的部分。 默认坐标系是笛卡尔坐标系，其中 x 和 y 位置独立作用以确定每个点的位置。 还有另外两个坐标系偶尔会有帮助。</p>
 <ul>
 <li>
-<p><code><a href="https://ggplot2.tidyverse.org/reference/coord_map.html">coord_quickmap()</a></code> sets the aspect ratio correctly for geographic maps. This is very important if you’re plotting spatial data with ggplot2. We don’t have the space to discuss maps in this book, but you can learn more in the <a href="https://ggplot2-book.org/maps.html">Maps chapter</a> of <em>ggplot2: Elegant graphics for data analysis</em>.</p>
+<p><code><a href="https://ggplot2.tidyverse.org/reference/coord_map.html">coord_quickmap()</a></code> 正确设置地理地图的纵横比。 如果您使用 ggplot2 绘制空间数据，这一点非常重要。 本书没有足够的篇幅来讨论地图，但您可以在 <em>ggplot2: Elegant graphics for data analysis</em> 的 <a href="https://ggplot2-book.org/maps.html">Maps chapter</a> 了解更多信息。</p>
 <div>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nz</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/map_data.html">map_data</a></span><span class="op">(</span><span class="st">"nz"</span><span class="op">)</span></span>
 <span></span>
@@ -1099,7 +1099,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </li>
 <li>
-<p><code><a href="https://ggplot2.tidyverse.org/reference/coord_polar.html">coord_polar()</a></code> uses polar coordinates. Polar coordinates reveal an interesting connection between a bar chart and a Coxcomb chart.</p>
+<p><code><a href="https://ggplot2.tidyverse.org/reference/coord_polar.html">coord_polar()</a></code> 使用极坐标。 极坐标揭示了 bar chart 和 Coxcomb chart 之间的有趣联系。</p>
 <div>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">bar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span></span>
@@ -1127,10 +1127,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="exercises-5" class="level3" data-number="10.7.1"><h3 data-number="10.7.1" class="anchored" data-anchor-id="exercises-5">
 <span class="header-section-number">10.7.1</span> Exercises</h3>
 <ol type="1">
-<li><p>Turn a stacked bar chart into a pie chart using <code><a href="https://ggplot2.tidyverse.org/reference/coord_polar.html">coord_polar()</a></code>.</p></li>
-<li><p>What’s the difference between <code><a href="https://ggplot2.tidyverse.org/reference/coord_map.html">coord_quickmap()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/coord_map.html">coord_map()</a></code>?</p></li>
+<li><p>使用 <code><a href="https://ggplot2.tidyverse.org/reference/coord_polar.html">coord_polar()</a></code> 将 stacked bar chart 转换为 pie chart。</p></li>
+<li><p><code><a href="https://ggplot2.tidyverse.org/reference/coord_map.html">coord_quickmap()</a></code> 和 <code><a href="https://ggplot2.tidyverse.org/reference/coord_map.html">coord_map()</a></code> 有什么区别？</p></li>
 <li>
-<p>What does the following plot tell you about the relationship between city and highway mpg? Why is <code><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_fixed()</a></code> important? What does <code><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline()</a></code> do?</p>
+<p>下图告诉您什么关于城市和高速公路 mpg 之间的关系？ 为什么 <code><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_fixed()</a></code> 很重要？ <code><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline()</a></code> 的作用是什么？</p>
 <div class="cell">
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -1140,7 +1140,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
 </ol></section></section><section id="the-layered-grammar-of-graphics" class="level2" data-number="10.8"><h2 data-number="10.8" class="anchored" data-anchor-id="the-layered-grammar-of-graphics">
 <span class="header-section-number">10.8</span> The layered grammar of graphics</h2>
-<p>We can expand on the graphing template you learned in <span class="quarto-unresolved-ref">?sec-ggplot2-calls</span> by adding position adjustments, stats, coordinate systems, and faceting:</p>
+<p>我们可以通过添加 position adjustments, stats, coordinate systems, and faceting 来扩展您在 <span class="quarto-unresolved-ref">?sec-ggplot2-calls</span> 中学到的图形模板：</p>
 <pre><code>ggplot(data = &lt;DATA&gt;) + 
   &lt;GEOM_FUNCTION&gt;(
      mapping = aes(&lt;MAPPINGS&gt;),
@@ -1149,26 +1149,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   ) +
   &lt;COORDINATE_FUNCTION&gt; +
   &lt;FACET_FUNCTION&gt;</code></pre>
-<p>Our new template takes seven parameters, the bracketed words that appear in the template. In practice, you rarely need to supply all seven parameters to make a graph because ggplot2 will provide useful defaults for everything except the data, the mappings, and the geom function.</p>
-<p>The seven parameters in the template compose the grammar of graphics, a formal system for building plots. The grammar of graphics is based on the insight that you can uniquely describe <em>any</em> plot as a combination of a dataset, a geom, a set of mappings, a stat, a position adjustment, a coordinate system, a faceting scheme, and a theme.</p>
-<p>To see how this works, consider how you could build a basic plot from scratch: you could start with a dataset and then transform it into the information that you want to display (with a stat). Next, you could choose a geometric object to represent each observation in the transformed data. You could then use the aesthetic properties of the geoms to represent variables in the data. You would map the values of each variable to the levels of an aesthetic. These steps are illustrated in <a href="#fig-visualization-grammar">Figure&nbsp;<span>10.3</span></a>. You’d then select a coordinate system to place the geoms into, using the location of the objects (which is itself an aesthetic property) to display the values of the x and y variables.</p>
+<p>我们的新模板采用七个参数，即模板中出现的括号内的单词。 在实践中，您很少需要提供所有七个参数来制作图表，因为 ggplot2 将为除 data、mappings、 、geom 函数之外的所有内容提供有用的默认值。</p>
+<p>模板中的七个参数组成了图形语法，这是一个用于构建绘图的正式系统。 图形语法基于这样的见解：您可以将任何绘图独特地描述为 a dataset、a geom、a set of mappings、a stat、a position adjustment、a coordinate system、a faceting scheme、a theme 的组合。</p>
+<p>要了解其工作原理，请考虑如何从头开始构建基本图：您可以从 dataset 开始，然后将其转换为您想要显示的信息（with a stat）。 接下来，您可以选择一个 geometric object 来表示转换数据中的每个观测值。 然后，您可以使用 geoms 的 aesthetic properties 来表示数据中的变量。 您可以将每个变量的值 map 到 aesthetic 水平。 这些步骤如 <a href="#fig-visualization-grammar">Figure&nbsp;<span>10.3</span></a> 所示。 然后，您可以选择一个 coordinate system 来放置 geoms，使用对象的位置（其本身就是一种美学属性）来显示 x 和 y 变量的值。</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-visualization-grammar" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/visualization-grammar.png" class="img-fluid figure-img" alt="A figure demonstrating the steps for going from raw data to table of frequencies where each row represents one level of cut and a count column shows how many diamonds are in that cut level. Then, these values are mapped to heights of bars. " width="1332"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;10.3: Steps for going from raw data to a table of frequencies to a bar plot where the heights of the bar represent the frequencies.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;10.3: 从原始数据到频率表再到条形图的步骤，其中条形的高度代表频率。</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>At this point, you would have a complete graph, but you could further adjust the positions of the geoms within the coordinate system (a position adjustment) or split the graph into subplots (faceting). You could also extend the plot by adding one or more additional layers, where each additional layer uses a dataset, a geom, a set of mappings, a stat, and a position adjustment.</p>
-<p>You could use this method to build <em>any</em> plot that you imagine. In other words, you can use the code template that you’ve learned in this chapter to build hundreds of thousands of unique plots.</p>
-<p>If you’d like to learn more about the theoretical underpinnings of ggplot2, you might enjoy reading “<a href="https://vita.had.co.nz/papers/layered-grammar.pdf">The Layered Grammar of Graphics</a>”, the scientific paper that describes the theory of ggplot2 in detail.</p>
+<p>此时，您将拥有一个完整的图形，但您可以进一步调整坐标系内 geoms 的位置（a position adjustment）或将图形拆分为子图（faceting）。 您还可以通过添加一个或多个附加图层来扩展绘图，其中每个附加图层都使用 a dataset, a geom, a set of mappings, a stat, and a position adjustment。</p>
+<p>您可以使用此方法来构建您想象的任何绘图。 换句话说，您可以使用本章中学到的代码模板来构建数十万个独特的绘图。</p>
+<p>如果您想了解更多关于 ggplot2 的理论基础，您可能会喜欢阅读 “<a href="https://vita.had.co.nz/papers/layered-grammar.pdf">The Layered Grammar of Graphics</a>”，这是一篇详细描述 ggplot2 理论的科学论文。</p>
 </section><section id="summary" class="level2" data-number="10.9"><h2 data-number="10.9" class="anchored" data-anchor-id="summary">
 <span class="header-section-number">10.9</span> Summary</h2>
-<p>In this chapter you learned about the layered grammar of graphics starting with aesthetics and geometries to build a simple plot, facets for splitting the plot into subsets, statistics for understanding how geoms are calculated, position adjustments for controlling the fine details of position when geoms might otherwise overlap, and coordinate systems which allow you to fundamentally change what <code>x</code> and <code>y</code> mean. One layer we have not yet touched on is theme, which we will introduce in <span class="quarto-unresolved-ref">?sec-themes</span>.</p>
-<p>Two very useful resources for getting an overview of the complete ggplot2 functionality are the ggplot2 cheatsheet (which you can find at <a href="https://posit.co/resources/cheatsheets" class="uri">https://posit.co/resources/cheatsheets</a>) and the ggplot2 package website (<a href="https://ggplot2.tidyverse.org/">https://ggplot2.tidyverse.org</a>).</p>
-<p>An important lesson you should take from this chapter is that when you feel the need for a geom that is not provided by ggplot2, it’s always a good idea to look into whether someone else has already solved your problem by creating a ggplot2 extension package that offers that geom.</p>
+<p>在本章中，您学习了图形的分层语法，从 aesthetics 和 geometries 开始构建简单的绘图，将绘图 facets 成子集，了解如何计算 geoms 的 statistics，在 geoms 可能发生变化时控制位置细节以避免重叠的 position adjustments。 coordinate systems 允许您从根本上改变 <code>x</code> 和 <code>y</code> 的含义。 我们还没有触及的一层是 theme，我们将在 <span class="quarto-unresolved-ref">?sec-themes</span> 中介绍它。</p>
+<p>ggplot2 cheatsheet (which you can find at <a href="https://posit.co/resources/cheatsheets" class="uri">https://posit.co/resources/cheatsheets</a>) 和 ggplot2 package website (<a href="https://ggplot2.tidyverse.org/">https://ggplot2.tidyverse.org</a>) 是了解完整 ggplot2 功能的两个非常有用的资源。</p>
+<p>从本章中你应该学到的一个重要教训是，当你觉得需要 ggplot2 未提供的 geom 时，最好看看其他人是否已经通过创建一个 ggplot2 扩展包来解决你的问题，该扩展包提供了那个 geom。</p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
