@@ -14,8 +14,8 @@ book:
       This book was built with <a href="https://quarto.org/">Quarto</a>.
   cover-image: cover.jpg
   favicon: cover.jpg
-  site-url: https://zhenghu159.github.io/r4ds-zh-cn/
-  repo-url: https://github.com/zhenghu159/r4ds-zh-cn
+  site-url: https://ZhengTiger.github.io/r4ds-zh-cn/
+  repo-url: https://github.com/ZhengTiger/r4ds-zh-cn
   repo-branch: main
   repo-actions: [edit, issue]
   chapters:

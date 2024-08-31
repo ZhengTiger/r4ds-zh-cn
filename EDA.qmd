@@ -9,29 +9,29 @@ status("complete")
 
 ## Introduction
 
-This chapter will show you how to use visualization and transformation to explore your data in a systematic way, a task that statisticians call exploratory data analysis, or EDA for short.
-EDA is an iterative cycle.
-You:
+本章将向您展示如何使用可视化和转换以系统的方式探索数据，统计学家将这项任务称为探索性数据分析（exploratory data analysis），简称 EDA。
+EDA 是一个迭代循环。
+你：
 
-1.  Generate questions about your data.
+1.  提出有关您的数据的问题。
 
-2.  Search for answers by visualizing, transforming, and modelling your data.
+2.  通过可视化、转换和建模数据来搜索答案。
 
-3.  Use what you learn to refine your questions and/or generate new questions.
+3.  使用您学到的知识来完善您的问题和/或产生新问题。
 
-EDA is not a formal process with a strict set of rules.
-More than anything, EDA is a state of mind.
-During the initial phases of EDA you should feel free to investigate every idea that occurs to you.
-Some of these ideas will pan out, and some will be dead ends.
-As your exploration continues, you will home in on a few particularly productive insights that you'll eventually write up and communicate to others.
+EDA 不是一个具有严格规则的正式流程。
+最重要的是，EDA 是一种心态。
+在 EDA 的初始阶段，您应该随意调查您想到的每个想法。
+其中一些想法会成功，而另一些则会是死胡同。
+随着探索的继续，您将获得一些特别富有成效的见解，最终将其写下来并与其他人交流。
 
-EDA is an important part of any data analysis, even if the primary research questions are handed to you on a platter, because you always need to investigate the quality of your data.
-Data cleaning is just one application of EDA: you ask questions about whether your data meets your expectations or not.
-To do data cleaning, you'll need to deploy all the tools of EDA: visualization, transformation, and modelling.
+EDA 是任何数据分析的重要组成部分，即使主要的研究问题已经摆在您面前，因为您始终需要调查数据的质量。
+数据清理只是 EDA 的一种应用：您询问数据是否符合您的期望。
+要进行数据清理，您需要部署 EDA 的所有工具：可视化、转换和建模。
 
 ### Prerequisites
 
-In this chapter we'll combine what you've learned about dplyr and ggplot2 to interactively ask questions, answer them with data, and then ask new questions.
+在本章中，我们将结合您所学到的有关 dplyr 和 ggplot2 的知识来交互式地提出问题，用数据回答它们，然后提出新问题。
 
 ```{r}
 #| label: setup
@@ -46,39 +46,39 @@ library(tidyverse)
 
 > "Far better an approximate answer to the right question, which is often vague, than an exact answer to the wrong question, which can always be made precise." --- John Tukey
 
-Your goal during EDA is to develop an understanding of your data.
-The easiest way to do this is to use questions as tools to guide your investigation.
-When you ask a question, the question focuses your attention on a specific part of your dataset and helps you decide which graphs, models, or transformations to make.
+您在 EDA 期间的目标是加深对数据的理解。
+最简单的方法是使用问题作为指导调查的工具。
+当您提出问题时，该问题会将您的注意力集中在数据集的特定部分上，并帮助您决定要进行哪些图形、模型或转换。
 
-EDA is fundamentally a creative process.
-And like most creative processes, the key to asking *quality* questions is to generate a large *quantity* of questions.
-It is difficult to ask revealing questions at the start of your analysis because you do not know what insights can be gleaned from your dataset.
-On the other hand, each new question that you ask will expose you to a new aspect of your data and increase your chance of making a discovery.
-You can quickly drill down into the most interesting parts of your data---and develop a set of thought-provoking questions---if you follow up each question with a new question based on what you find.
+EDA 从根本上来说是一个创造性的过程。
+与大多数创意过程一样，提出高质量问题的关键是产生大量问题。
+在分析开始时很难提出有启发性的问题，因为您不知道可以从数据集中收集哪些见解。
+另一方面，您提出的每个新问题都会让您接触到数据的新方面，并增加您做出发现的机会。
+如果您根据发现的内容提出一个新问题来跟进每个问题，则可以快速深入了解数据中最有趣的部分，并提出一组发人深省的问题。
 
-There is no rule about which questions you should ask to guide your research.
-However, two types of questions will always be useful for making discoveries within your data.
-You can loosely word these questions as:
+对于应该提出哪些问题来指导您的研究，没有任何规定。
+然而，有两种类型的问题对于在数据中进行发现总是有用的。
+您可以将这些问题大致表述为：
 
-1.  What type of variation occurs within my variables?
+1.  我的变量中发生什么类型的变化？
 
-2.  What type of covariation occurs between my variables?
+2.  我的变量之间发生什么类型的共同变化？
 
-The rest of this chapter will look at these two questions.
-We'll explain what variation and covariation are, and we'll show you several ways to answer each question.
+本章的其余部分将讨论这两个问题。
+我们将解释什么是变化（variation）和共同变化（covariation），并向您展示回答每个问题的几种方法。
 
 ## Variation
 
-**Variation** is the tendency of the values of a variable to change from measurement to measurement.
-You can see variation easily in real life; if you measure any continuous variable twice, you will get two different results.
-This is true even if you measure quantities that are constant, like the speed of light.
-Each of your measurements will include a small amount of error that varies from measurement to measurement.
-Variables can also vary if you measure across different subjects (e.g., the eye colors of different people) or at different times (e.g., the energy levels of an electron at different moments).
-Every variable has its own pattern of variation, which can reveal interesting information about how that it varies between measurements on the same observation as well as across observations.
-The best way to understand that pattern is to visualize the distribution of the variable's values, which you've learned about in @sec-data-visualization.
+**Variation** 是变量值在不同测量中发生变化的趋势。
+在现实生活中你可以很容易地看到 variation；如果您两次测量任何连续变量，您将得到两个不同的结果。
+即使您测量的是恒定量情况也是如此，例如光速。
+您的每次测量都会包含少量误差，该误差因测量而异。
+如果您在不同的对象（例如，不同人的眼睛颜色）或在不同的时间（例如，不同时刻的电子能级）进行测量，变量也会有所不同。
+每个变量都有自己的变化模式，这可以揭示有关同一观察的测量之间以及不同观察之间的变化的有趣信息。
+理解该模式的最佳方法是可视化变量值的分布，您已在 @sec-data-visualization 中了解了这一点。
 
-We'll start our exploration by visualizing the distribution of weights (`carat`) of \~54,000 diamonds from the `diamonds` dataset.
-Since `carat` is a numerical variable, we can use a histogram:
+我们将通过可视化 `diamonds` 数据集中 \~54,000 颗钻石的重量（`carat`）分布来开始我们的探索。
+由于 `carat` 是一个数值变量，我们可以使用直方图（histogram）：
 
 ```{r}
 #| fig-alt: |
@@ -93,28 +93,28 @@ ggplot(diamonds, aes(x = carat)) +
   geom_histogram(binwidth = 0.5)
 ```
 
-Now that you can visualize variation, what should you look for in your plots?
-And what type of follow-up questions should you ask?
-We've put together a list below of the most useful types of information that you will find in your graphs, along with some follow-up questions for each type of information.
-The key to asking good follow-up questions will be to rely on your curiosity (What do you want to learn more about?) as well as your skepticism (How could this be misleading?).
+现在您可以可视化 variation，您应该在图中寻找什么？
+您应该提出什么类型的后续问题？
+我们在下面列出了您将在图表中找到的最有用的信息类型，以及针对每种信息类型的一些后续问题。
+提出好的后续问题的关键是依靠你的好奇心（你想了解更多什么？）以及你的怀疑精神（这怎么可能误导？）。
 
 ### Typical values
 
-In both bar charts and histograms, tall bars show the common values of a variable, and shorter bars show less-common values.
-Places that do not have bars reveal values that were not seen in your data.
-To turn this information into useful questions, look for anything unexpected:
+在条形图和直方图中，高条形显示变量的常见值，较短的条形显示不太常见的值。
+没有条形的位置显示数据中未看到的值。
+要将这些信息转化为有用的问题，请寻找任何意想不到的东西：
 
--   Which values are the most common?
-    Why?
+-   哪些值最常见？
+    为什么？
 
--   Which values are rare?
-    Why?
-    Does that match your expectations?
+-   哪些值是稀有的？
+    为什么？
+    这符合您的期望吗？
 
--   Can you see any unusual patterns?
-    What might explain them?
+-   你能看到任何不寻常的模式吗？
+    什么可以解释它们？
 
-Let's take a look at the distribution of `carat` for smaller diamonds.
+让我们看一下较小钻石的 `carat` 分布。
 
 ```{r}
 #| fig-alt: |
@@ -131,34 +131,34 @@ ggplot(smaller, aes(x = carat)) +
   geom_histogram(binwidth = 0.01)
 ```
 
-This histogram suggests several interesting questions:
+该直方图提出了几个有趣的问题：
 
--   Why are there more diamonds at whole carats and common fractions of carats?
+-   为什么整克拉和常见分数克拉的钻石更多？
 
--   Why are there more diamonds slightly to the right of each peak than there are slightly to the left of each peak?
+-   为什么每个峰稍右侧的菱形数量多于每个峰左侧的菱形数量？
 
-Visualizations can also reveal clusters, which suggest that subgroups exist in your data.
-To understand the subgroups, ask:
+可视化还可以揭示 clusters，这表明数据中存在 subgroups。
+要了解 subgroups，请询问：
 
--   How are the observations within each subgroup similar to each other?
+-   每个 subgroup 内的观察结果有何相似之处？
 
--   How are the observations in separate clusters different from each other?
+-   不同 clusters 中的观察结果有何不同？
 
--   How can you explain or describe the clusters?
+-   您如何解释或描述这些 clusters？
 
--   Why might the appearance of clusters be misleading?
+-   为什么 clusters 的出现可能会产生误导？
 
-Some of these questions can be answered with the data while some will require domain expertise about the data.
-Many of them will prompt you to explore a relationship *between* variables, for example, to see if the values of one variable can explain the behavior of another variable.
-We'll get to that shortly.
+其中一些问题可以通过数据来回答，而另一些则需要有关数据的领域专业知识。
+其中许多会提示您探索变量之间的关系，例如，看看一个变量的值是否可以解释另一个变量的行为。
+我们很快就会谈到这一点。
 
 ### Unusual values
 
-Outliers are observations that are unusual; data points that don't seem to fit the pattern.
-Sometimes outliers are data entry errors, sometimes they are simply values at the extremes that happened to be observed in this data collection, and other times they suggest important new discoveries.
-When you have a lot of data, outliers are sometimes difficult to see in a histogram.
-For example, take the distribution of the `y` variable from the diamonds dataset.
-The only evidence of outliers is the unusually wide limits on the x-axis.
+异常值（Outliers）是指不寻常的观察结果；数据点似乎不符合模式。
+有时异常值是数据输入错误，有时它们只是在此数据收集中碰巧观察到的极端值，有时它们表明了重要的新发现。
+当您有大量数据时，有时很难在直方图中看到异常值。
+例如，从 diamonds 数据集中获取 `y` 变量的分布。
+异常值的唯一证据是 x-axis 上异常宽的限制。
 
 ```{r}
 #| fig-alt: |
@@ -170,8 +170,8 @@ ggplot(diamonds, aes(x = y)) +
   geom_histogram(binwidth = 0.5)
 ```
 
-There are so many observations in the common bins that the rare bins are very short, making it very difficult to see them (although maybe if you stare intently at 0 you'll spot something).
-To make it easy to see the unusual values, we need to zoom to small values of the y-axis with `coord_cartesian()`:
+常见的 bin 中有太多的观察结果，而稀有的 bin 则非常短，因此很难看到它们（尽管如果你专心地盯着 0，也许你会发现一些东西）。
+为了更容易看到不寻常的值，我们需要使用 `coord_cartesian()` 缩放到 y-axis 的小值：
 
 ```{r}
 #| fig-alt: |
@@ -186,11 +186,11 @@ ggplot(diamonds, aes(x = y)) +
   coord_cartesian(ylim = c(0, 50))
 ```
 
-`coord_cartesian()` also has an `xlim()` argument for when you need to zoom into the x-axis.
-ggplot2 also has `xlim()` and `ylim()` functions that work slightly differently: they throw away the data outside the limits.
+`coord_cartesian()` 还有一个 `xlim()` 参数，用于当您需要放大 x 轴时。
+ggplot2 还具有 `xlim()` 和 `ylim()` 函数，它们的工作方式略有不同：它们丢弃超出限制的数据。
 
-This allows us to see that there are three unusual values: 0, \~30, and \~60.
-We pluck them out with dplyr:
+这让我们可以看到存在三个不寻常的值：0, \~30, and \~60。
+我们用 dplyr 将它们取出：
 
 ```{r}
 #| include: false
@@ -212,40 +212,40 @@ unusual
 options(old)
 ```
 
-The `y` variable measures one of the three dimensions of these diamonds, in mm.
-We know that diamonds can't have a width of 0mm, so these values must be incorrect.
-By doing EDA, we have discovered missing data that was coded as 0, which we never would have found by simply searching for `NA`s.
-Going forward we might choose to re-code these values as `NA`s in order to prevent misleading calculations.
-We might also suspect that measurements of 32mm and 59mm are implausible: those diamonds are over an inch long, but don't cost hundreds of thousands of dollars!
+`y` 变量测量这些钻石的三个尺寸之一，以 mm 为单位。
+我们知道钻石的宽度不可能是 0mm，所以这些值一定是不正确的。
+通过 EDA，我们发现了编码为 0 的缺失数据，这是我们通过简单搜索 `NA`s 永远无法找到的。
+展望未来，我们可能会选择将这些值重新编码为 `NA`s，以防止误导计算。
+我们可能还会怀疑 32mm 和 59mm 的测量结果令人难以置信：这些钻石超过一英寸长，但价格却不用花费数十万美元！
 
-It's good practice to repeat your analysis with and without the outliers.
-If they have minimal effect on the results, and you can't figure out why they're there, it's reasonable to omit them, and move on.
-However, if they have a substantial effect on your results, you shouldn't drop them without justification.
-You'll need to figure out what caused them (e.g., a data entry error) and disclose that you removed them in your write-up.
+在有或没有异常值的情况下重复分析是一个很好的做法。
+如果它们对结果的影响很小，并且您无法弄清楚它们为什么在那里，那么忽略它们并继续前进是合理的。
+然而，如果它们对你的结果有重大影响，你不应该无缘无故地放弃它们。
+您需要找出导致它们的原因（例如数据输入错误），并披露您在文章中删除了它们。
 
 ### Exercises
 
-1.  Explore the distribution of each of the `x`, `y`, and `z` variables in `diamonds`.
-    What do you learn?
-    Think about a diamond and how you might decide which dimension is the length, width, and depth.
+1.  探索钻石中每个 `x`、`y` 和 `z` 变量的分布。
+    你学到了什么？
+    想象一下钻石，以及如何确定长度、宽度和深度的尺寸。
 
-2.  Explore the distribution of `price`.
-    Do you discover anything unusual or surprising?
-    (Hint: Carefully think about the `binwidth` and make sure you try a wide range of values.)
+2.  探索 `price` 分布。
+    您是否发现任何不寻常或令人惊讶的事情？
+    （提示：仔细考虑 `binwidth` 并确保尝试广泛的值。）
 
-3.  How many diamonds are 0.99 carat?
-    How many are 1 carat?
-    What do you think is the cause of the difference?
+3.  0.99 克拉有多少颗钻石？
+    1 克拉是多少？
+    您认为造成这种差异的原因是什么？
 
-4.  Compare and contrast `coord_cartesian()` vs. `xlim()` or `ylim()` when zooming in on a histogram.
-    What happens if you leave `binwidth` unset?
-    What happens if you try and zoom so only half a bar shows?
+4.  放大直方图时，比较和对比 `coord_cartesian()` 与 `xlim()` 或 `ylim()`。
+    如果未设置 `binwidth` 会发生什么？
+    如果您尝试缩放，只显示半条，会发生什么情况？
 
 ## Unusual values {#sec-unusual-values-eda}
 
-If you've encountered unusual values in your dataset, and simply want to move on to the rest of your analysis, you have two options.
+如果您在数据集中遇到了异常值，并且只想继续进行其余的分析，您有两种选择。
 
-1.  Drop the entire row with the strange values:
+1.  删除具有奇怪值的整行：
 
     ```{r}
     #| eval: false
@@ -254,19 +254,19 @@ If you've encountered unusual values in your dataset, and simply want to move on
       filter(between(y, 3, 20))
     ```
 
-    We don't recommend this option because one invalid value doesn't imply that all the other values for that observation are also invalid.
-    Additionally, if you have low quality data, by the time that you've applied this approach to every variable you might find that you don't have any data left!
+    我们不推荐此选项，因为一个无效值并不意味着该观察的所有其他值也无效。
+    此外，如果您的数据质量较低，当您将此方法应用于每个变量时，您可能会发现您没有任何数据了！
 
-2.  Instead, we recommend replacing the unusual values with missing values.
-    The easiest way to do this is to use `mutate()` to replace the variable with a modified copy.
-    You can use the `if_else()` function to replace unusual values with `NA`:
+2.  相反，我们建议用缺失值替换异常值。
+    最简单的方法是使用 `mutate()` 用修改后的副本替换变量。
+    您可以使用 `if_else()` 函数将异常值替换为 `NA`：
 
     ```{r}
     diamonds2 <- diamonds |> 
       mutate(y = if_else(y < 3 | y > 20, NA, y))
     ```
 
-It's not obvious where you should plot missing values, so ggplot2 doesn't include them in the plot, but it does warn that they've been removed:
+应该在哪里绘制缺失值并不明显，因此 ggplot2 不会将它们包含在图中，但它确实警告它们已被删除：
 
 ```{r}
 #| dev: "png"
@@ -280,7 +280,7 @@ ggplot(diamonds2, aes(x = x, y = y)) +
   geom_point()
 ```
 
-To suppress that warning, set `na.rm = TRUE`:
+要抑制该警告，请设置 `na.rm = TRUE`：
 
 ```{r}
 #| eval: false
@@ -289,12 +289,12 @@ ggplot(diamonds2, aes(x = x, y = y)) +
   geom_point(na.rm = TRUE)
 ```
 
-Other times you want to understand what makes observations with missing values different to observations with recorded values.
-For example, in `nycflights13::flights`[^eda-1], missing values in the `dep_time` variable indicate that the flight was cancelled.
-So you might want to compare the scheduled departure times for cancelled and non-cancelled times.
-You can do this by making a new variable, using `is.na()` to check if `dep_time` is missing.
+其他时候，您想要了解是什么使具有缺失值的观测值与具有记录值的观测值不同。
+例如，在 `nycflights13::flights`[^eda-1] 中，`dep_time` 变量中缺失值表示航班已取消。
+因此，您可能需要比较已取消和未取消的预定出发时间。
+您可以通过创建一个新变量，使用 `is.na()` 检查 `dep_time` 是否丢失来做到这一点。
 
-[^eda-1]: Remember that when we need to be explicit about where a function (or dataset) comes from, we'll use the special form `package::function()` or `package::dataset`.
+[^eda-1]: 请记住，当我们需要明确函数（或数据集）来自何处时，我们将使用特殊形式 `package::function()` 或 `package::dataset`。
 
 ```{r}
 #| fig-alt: |
@@ -314,20 +314,20 @@ nycflights13::flights |>
   geom_freqpoly(aes(color = cancelled), binwidth = 1/4)
 ```
 
-However this plot isn't great because there are many more non-cancelled flights than cancelled flights.
-In the next section we'll explore some techniques for improving this comparison.
+然而，这个图并不好，因为未取消的航班比取消的航班多得多。
+在下一节中，我们将探讨一些改进这种比较的技术。
 
 ### Exercises
 
-1.  What happens to missing values in a histogram?
-    What happens to missing values in a bar chart?
-    Why is there a difference in how missing values are handled in histograms and bar charts?
+1.  直方图中缺失值会怎样？
+    条形图中缺失值会发生什么情况？
+    为什么直方图和条形图中缺失值的处理方式存在差异？
 
-2.  What does `na.rm = TRUE` do in `mean()` and `sum()`?
+2.  `na.rm = TRUE` 在 `mean()` 和 `sum()` 中做了什么？
 
-3.  Recreate the frequency plot of `scheduled_dep_time` colored by whether the flight was cancelled or not.
-    Also facet by the `cancelled` variable.
-    Experiment with different values of the `scales` variable in the faceting function to mitigate the effect of more non-cancelled flights than cancelled flights.
+3.  重新创建 `scheduled_dep_time` 的频率图，根据航班是否取消进行着色。
+    并通过 `cancelled` 变量进行分面（facet）。
+    在分面函数中尝试不同的 `scales` 变量值，以减轻未取消航班多于已取消航班的影响。
 
 ## Covariation
 
